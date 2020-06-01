@@ -1,5 +1,48 @@
+<?php
+session_start();
+if (isset($_POST['btn_login'])) {
+    login();
+}
+
+function login() {
+    $user_id = $_POST['user_id'];
+    $passwd = $_POST['passwd'];
+
+    if ($user_id == "" || $passwd == "") {
+        alert("아이디/비밀번호를 입력하세요.");
+        return;
+    }
+
+    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+    $sql = "SELECT * FROM user_info WHERE user_id='$user_id'";
+
+    $res = mysqli_query($conn, $sql);
+    if ($res->num_rows != 1) {
+        alert("존재하지 않는 계정입니다.");
+        return;
+    }
+
+    $row = mysqli_fetch_array( $res );
+    if ($row['passwd'] != $passwd) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return;
+    }
+
+    $_SESSION['user_id'] = $user_id;
+    if (!isset($_SESSION['user_id'])) {
+        alert("세션 생성에 실패하였습니다.");
+        return;
+    }
+    header("location: ./main.php");
+    exit;
+}
+
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <title>Outlook Bone China</title>
@@ -81,9 +124,6 @@
             to {opacity:1 ;}
         }
     </style>
-
-
-
 </head>
 
 <body>
@@ -91,8 +131,6 @@
     <div class="container">
         <div id="logo" class="pull-left">
             <h1><a>Outlook<br>Bone<br>China</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="#intro"><img src="img/logo.png" alt="" title=""></a> -->
         </div>
     </div>
 </header>
@@ -111,10 +149,6 @@
                         <label>
                             <input type="text" name="user_id" placeholder="ID:" size="30" autocomplete="off" />
                         </label>
-                        <span class="popuptext" id="login_popup_1">정보를 입력하세요</span>
-                        <span class="popuptext" id="login_popup_2">아이디가 없습니다</span>
-                        <span class="popuptext" id="login_popup_3">비밀번호가 다릅니다</span>
-                        <span class="popuptext" id="login_popup_4">세션 생성 실패</span>
                     </div>
 
                     <label>
@@ -122,9 +156,6 @@
                     </label>
 
                     <div class="section-divider">
-                        <a href="signup.html"class="btn-get-started btn-dark">Sign-up</a>
-<!--                        <a href="#" onclick="document.getElementById('login_form').submit();" name="btn_login" class="btn-get-started" >Login</a>-->
-<!--                        <button name="btn_signup" class="btn-get-started btn-dark" style="outline: none">Sign-up</button>-->
                         <input type="submit" name="btn_login" class="btn-get-started" style="background: none; outline: none" value="Login">
                     </div>
                 </form>
@@ -150,80 +181,3 @@
 <script src="js/main.js"></script>
 </body>
 </html>
-
-<script type="text/javascript">
-    function popupMsg(key) {
-        if (key === 1) {
-            var popup = document.getElementById('login_popup_1');
-        }
-        if (key === 2) {
-            var popup = document.getElementById('login_popup_2');
-        }
-        if (key === 3) {
-            var popup = document.getElementById('login_popup_3');
-        }
-        if (key === 4) {
-            var popup = document.getElementById('login_popup_4');
-        }
-        popup.classList.toggle("show");
-        // if (key === 'uid') {
-        //     var popup = document.getElementById('uid_popup');
-        //     popup.classList.toggle("show");
-        // }
-        // if (key === 'pwd') {
-        //     var popup = document.getElementById('pwd_popup');
-        //     popup.classList.toggle("show");
-        // }
-    }
-    function enterMain() {
-        location.href = 'main.php';
-    }
-</script>
-
-
-<?php
-session_start();
-//if (!isset($_SESSION['user_id']))
-//{
-//    echo "<script>enterMain();</script>";
-//}
-
-if (isset($_POST['btn_login'])) {
-    login();
-}
-
-function login() {
-    $user_id = $_POST['user_id'];
-    $passwd = $_POST['passwd'];
-
-    if ($user_id == "" || $passwd == "") {
-        echo "<script>popupMsg(1);</script>";
-        return;
-    }
-
-    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $sql = "SELECT * FROM user_info WHERE user_id='$user_id'";
-
-    $res = mysqli_query($conn, $sql);
-    if ($res->num_rows != 1) {
-        echo "<script>popupMsg(2);</script>";
-        return;
-    }
-
-    $row = mysqli_fetch_array( $res );
-    if ($row['passwd'] != $passwd) {
-        echo "<script>popupMsg(3);</script>";
-        return;
-    }
-
-    $_SESSION['user_id'] = $user_id;
-    if (!isset($_SESSION['user_id'])) {
-        echo "<script>popupMsg(4);</script>";
-        return;
-    }
-//    echo "<script>location.replace(./main.php);</script>";
-//    echo "<script>enterMain();</script>";
-//    header('location:./main.php', true);
-//    header('Refresh:2; URL=main.php', true, 301);
-}
-?>

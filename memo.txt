@@ -1,0 +1,63 @@
+# mysql 공백제거
+
+update material set date=REPLACE(date, ' ', ''), supplier=REPLACE(supplier, ' ', ''), item=REPLACE(item, ' ', ''), design=REPLACE(design, ' ',''), qty=REPLACE(qty, ' ', ''), month=REPLACE(month, ' ', ''), class=REPLACE(class, ' ', '')
+
+# mysql 중복없이 넣기
+insert into supplier_info (supplier) select DISTINCT supplier from material
+
+# php 테이블 생성 코드
+<?php
+if (isset($_POST['btn_show'])) {
+
+}
+
+if (isset($_POST['btn_test'])) {
+    $class = $_POST['ibox_class'];
+    echo '
+        <section id="test" class="section-bg">
+        <div class="container-fluid">
+        <div class="section-header">
+        <h3 class="section-title">원자재재고</h3>
+        <span class="section-divider"></span>
+        <table id="mat_table" class="container" style="overflow-x: auto; font-size: 10pt; text-align: center">
+        <thead>
+        <tr style="border-bottom: 1px dotted silver;">
+        <th>No</th>
+        <th>Date</th>
+        <th>Supp</th>
+        <th>Item</th>
+        <th>Design</th>
+        <th>Qty</th>
+        <th>Month</th>
+        <th>Class</th>
+        <th>Worker</th>
+        </tr>
+        </thead>
+        <tbody id="mat_tbody" class="dynamics">
+';
+
+    $sql = "SELECT * FROM material WHERE class='{$class}'";
+    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+    $res = mysqli_query($conn, $sql);
+    $num = 0;
+    while ($row = mysqli_fetch_array($res)) {
+        $num += 1;
+        echo '<tr style="border-bottom: 1px dotted silver;"><td>' .
+            $num . '</td><td>' .
+            $row['date'] . '</td><td>' .
+            $row['supplier'] . '</td><td>' .
+            $row['item'] . '</td><td>' .
+            $row['design'] . '</td><td>' .
+            $row['qty'] . '</td><td>' .
+            $row['month'] . '</td><td>' .
+            $row['class'] . '</td><td>' .
+            $row['worker'] . '</td></tr>';
+    }
+    echo
+    '</tbody>
+    </table>
+    </div>
+    </div>
+    </section>';
+}
+?>

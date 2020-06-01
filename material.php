@@ -1,3 +1,204 @@
+<?php
+session_start();
+if(!isset($_SESSION['user_id'])) {
+    echo "<script>alert('허용되지 않은 접근입니다.'); history.back();</script>";
+}
+#region POST
+if (array_key_exists('save_material', $_POST)) {
+    save_material();
+}
+if (array_key_exists('show_all', $_POST)) {
+    showMaterial('all');
+    alert("전체 검색 완료.");
+}
+if (array_key_exists('show_cond', $_POST)) {
+    $arr = array();
+
+    $date       = ($_POST['ibox_date']);
+    $supplier   = ($_POST['ibox_supplier']);
+    $item       = ($_POST['ibox_item']);
+    $design     = ($_POST['ibox_design']);
+    $month      = ($_POST['ibox_month']);
+    $class      = ($_POST['ibox_class']);
+
+    if (!empty($date)) {
+        $arr['date'] = $date;
+    }
+    if (!empty($supplier)) {
+        $arr['supplier'] = $supplier;
+    }
+    if (!empty($item)) {
+        $arr['item'] = $item;
+    }
+    if (!empty($design)) {
+        $arr['design'] = $design;
+    }
+    if (!empty($month)) {
+        $arr['month'] = $month."月份";
+    }
+    if (!empty($class)) {
+        $arr['class'] = $class;
+    }
+
+    showMaterial($arr);
+
+    $cond = "";
+    foreach ($arr as $k => $v) {
+        $cond = $cond.$k."=$v,";
+    }
+    $cond = substr($cond, 0, -1);
+    alert($cond." 조건부 검색 완료.");
+}
+
+if (array_key_exists('row-1', $_POST)) {
+    alert('row-1 선택');
+}
+#endregion POST
+
+function showMaterial($condition) {
+    if ($condition == 'all') {
+        $sql = "SELECT * FROM material";
+    }
+    else {
+        $sql = "SELECT * FROM material WHERE ";
+        $cnt = 0;
+        foreach ($condition as $k => $v) {
+            $sql = $sql.$k."='{$v}'";
+            if (($cnt + 1) != count($condition)) {
+                $sql = $sql." AND ";
+            }
+            $cnt += 1;
+        }
+    }
+    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+    $res = mysqli_query($conn, $sql);
+
+    echo '
+        <section id="material_view" class="section-bg" style="display: none; margin-bottom: 10%">
+        <div class="container-fluid">
+        <div class="section-header">
+        <h3 class="section-title">원자재목록</h3>
+        <span class="section-divider"></span>
+        <table id="mat_table" class="container" style="overflow-x: auto; font-size: 10pt; text-align: center">
+        <thead>
+        <tr style="border-bottom: 1px dotted silver;">
+        <th>No</th>
+        <th>Date</th>
+        <th>Supp</th>
+        <th>Item</th>
+        <th>Design</th>
+        <th>Qty</th>
+        <th>Month</th>
+        <th>Class</th>
+        <th>Worker</th>
+        </tr>
+        </thead>
+        <tbody id="mat_tbody" class="dynamics">
+';
+
+    $num = 0;
+    while ($row = mysqli_fetch_array($res)) {
+        $num += 1;
+        echo '<tr style="border-bottom: 1px dotted silver"><td>' .
+            $num . '</td><td>' .
+            $row['date'] . '</td><td>' .
+            $row['supplier'] . '</td><td>' .
+            $row['item'] . '</td><td>' .
+            $row['design'] . '</td><td>' .
+            $row['qty'] . '</td><td>' .
+            $row['month'] . '</td><td>' .
+            $row['class'] . '</td><td>' .
+            $row['worker'] . '</td></tr>';
+    }
+    echo
+    '</tbody>
+    </table>
+    </div>
+    </div>
+    </section>';
+}
+
+function update($name) {
+    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+    $sql = "SELECT * FROM name_info WHERE kind='{$name}'";
+    $res = mysqli_query( $conn, $sql );
+    while( $row = mysqli_fetch_array( $res ) ) {
+        $var = htmlentities($row['name']);
+        echo "<option value='$var'>";
+    }
+}
+
+function save_material() {
+
+    $date       = ($_POST['ibox_date']);
+    $supplier   = ($_POST['ibox_supplier']);
+    $item       = ($_POST['ibox_item']);
+    $design     = ($_POST['ibox_design']);
+    $qty        = ($_POST['ibox_qty']);
+    $month      = ($_POST['ibox_month'])."月份";
+    $class      = ($_POST['ibox_class']);
+    $worker     = ($_SESSION['user_id']);
+
+    if (empty($supplier)) {
+        alert("supplier 값을 입력하세요.");
+        return;
+    }
+    if (empty($item)) {
+        alert("item 값을 입력하세요.");
+        return;
+    }
+    if (empty($design)) {
+        alert("design 값을 입력하세요.");
+        return;
+    }
+    if (empty($qty)) {
+        alert("quantity 값을 입력하세요.");
+        return;
+    }
+    if (empty($class)) {
+        alert("class 값을 입력하세요.");
+        return;
+    }
+
+    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+
+    $sql = "INSERT INTO material (date, supplier, item, design, qty, month, class, worker) 
+            VALUES ('{$date}', '{$supplier}', '{$item}', '{$design}', {$qty}, '{$month}', '{$class}', '{$worker}')";
+
+    if (mysqli_query($conn, $sql)) {
+        alert("정상적으로 저장되었습니다.");
+    }
+}
+
+function add_list($value, $name) {
+    if (empty($value)) {
+        alert("{$name} 값을 입력하세요.");
+        return;
+    }
+    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+    $sql = "SELECT EXISTS (SELECT * FROM {$name} where {$name}={$value}) as Chk";
+
+    $res = mysqli_fetch_array(mysqli_query($conn, $sql));
+
+    if (intval($res['Chk'])) {
+        alert("{$name} : {$value} 항목은 이미 존재합니다.");
+        return;
+    }
+
+    $sql = "INSERT INTO {$name} VALUES ({$value})";
+    if (mysqli_query($conn, $sql)) {
+        alert("{$name} : {$value} 항목 추가 완료");
+    }
+}
+
+function pop_list($value, $name) {
+
+}
+
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+?>
 <!DOCTYPE html>
 <html lang="ca">
 <head>
@@ -233,81 +434,12 @@
             </div>
         </form>
     </section>
-    <!--==========================
-      material
-    ============================-->
-<?php
-if (isset($_POST['btn_show'])) {
-
-}
-
-if (isset($_POST['btn_test'])) {
-    $class = $_POST['ibox_class'];
-    echo '
-        <section id="test" class="section-bg">
-        <div class="container-fluid">
-        <div class="section-header">
-        <h3 class="section-title">원자재재고</h3>
-        <span class="section-divider"></span>
-        <table id="mat_table" class="container" style="overflow-x: auto; font-size: 10pt; text-align: center">
-        <thead>
-        <tr style="border-bottom: 1px dotted silver;">
-        <th>No</th>
-        <th>Date</th>
-        <th>Supp</th>
-        <th>Item</th>
-        <th>Design</th>
-        <th>Qty</th>
-        <th>Month</th>
-        <th>Class</th>
-        <th>Worker</th>
-        </tr>
-        </thead>
-        <tbody id="mat_tbody" class="dynamics">
-';
-//    update material set date=REPLACE(date, ' ', ''), supplier=REPLACE(supplier, ' ', ''), item=REPLACE(item, ' ', ''), design=REPLACE(design, ' ',''), qty=REPLACE(qty, ' ', ''), month=REPLACE(month, ' ', ''), class=REPLACE(class, ' ', '')
-    $sql = "SELECT * FROM material WHERE class='{$class}'";
-    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $res = mysqli_query($conn, $sql);
-    $num = 0;
-    while ($row = mysqli_fetch_array($res)) {
-        $num += 1;
-        echo '<tr style="border-bottom: 1px dotted silver;"><td>' .
-            $num . '</td><td>' .
-            $row['date'] . '</td><td>' .
-            $row['supplier'] . '</td><td>' .
-            $row['item'] . '</td><td>' .
-            $row['design'] . '</td><td>' .
-            $row['qty'] . '</td><td>' .
-            $row['month'] . '</td><td>' .
-            $row['class'] . '</td><td>' .
-            $row['worker'] . '</td></tr>';
-    }
-    echo
-    '</tbody>
-    </table>
-    </div>
-    </div>
-    </section>';
-}
-?>
 </main>
 
 <!--==========================
-  Show materials
+  Showing table
 ============================-->
 <script>
-    function test() {
-        $("btn_test").change(function () {
-            window.scroll(0, 0);
-            window.location.hash = '#test';
-        })
-
-    }
-    function clearTable() {
-        $("#mat_tbody").empty();
-    }
-
     function showMaterial(position) {
         var x = document.getElementById(position);
         x.style.display = "block";
@@ -342,222 +474,3 @@ if (isset($_POST['btn_test'])) {
 
 </body>
 </html>
-
-<?php
-
-#region POST
-if (array_key_exists('save_material', $_POST)) {
-    save_material();
-}
-if (array_key_exists('add_supplier', $_POST)) {
-    add_list($_POST['ibox_supplier'], 'supplier');
-}
-if (array_key_exists('add_item', $_POST)) {
-    add_list($_POST['ibox_item'], 'item');
-}
-if (array_key_exists('add_design', $_POST)) {
-    add_list($_POST['ibox_design'], 'design');
-}
-if (array_key_exists('add_class', $_POST)) {
-    add_list($_POST['ibox_class'], 'class');
-}
-if (array_key_exists('pop_supplier', $_POST)) {
-    pop_list($_POST['ibox_supplier'], 'supplier');
-}
-if (array_key_exists('pop_item', $_POST)) {
-    pop_list($_POST['ibox_item'], 'item');
-}
-if (array_key_exists('pop_design', $_POST)) {
-    pop_list($_POST['ibox_design'], 'design');
-}
-if (array_key_exists('pop_class', $_POST)) {
-    pop_list($_POST['ibox_class'], 'class');
-}
-if (array_key_exists('show_all', $_POST)) {
-    showMaterial('all');
-    alert("전체 검색 완료.");
-}
-if (array_key_exists('show_cond', $_POST)) {
-    $arr = array();
-
-    $date       = ($_POST['ibox_date']);
-    $supplier   = ($_POST['ibox_supplier']);
-    $item       = ($_POST['ibox_item']);
-    $design     = ($_POST['ibox_design']);
-    $month      = ($_POST['ibox_month']);
-    $class      = ($_POST['ibox_class']);
-
-    if (!empty($date)) {
-        $arr['date'] = $date;
-    }
-    if (!empty($supplier)) {
-        $arr['supplier'] = $supplier;
-    }
-    if (!empty($item)) {
-        $arr['item'] = $item;
-    }
-    if (!empty($design)) {
-        $arr['design'] = $design;
-    }
-    if (!empty($month)) {
-        $arr['month'] = $month."月份";
-    }
-    if (!empty($class)) {
-        $arr['class'] = $class;
-    }
-
-    showMaterial($arr);
-
-    $cond = "";
-    foreach ($arr as $k => $v) {
-        $cond = $cond.$k."=$v,";
-    }
-    $cond = substr($cond, 0, -1);
-    alert($cond." 조건부 검색 완료.");
-}
-
-if (array_key_exists('row-1', $_POST)) {
-    alert('row-1 선택');
-}
-#endregion POST
-
-function showMaterial($condition) {
-    if ($condition == 'all') {
-        $sql = "SELECT * FROM material";
-    }
-    else {
-        $sql = "SELECT * FROM material WHERE ";
-        foreach ($condition as $k => $v) {
-            $sql = $sql.$k."='{$v}',";
-        }
-        $sql = substr($sql, 0, -1);
-    }
-    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $res = mysqli_query($conn, $sql);
-
-    echo '
-        <section id="material_view" class="section-bg" style="display: none; margin-bottom: 10%">
-        <div class="container-fluid">
-        <div class="section-header">
-        <h3 class="section-title">원자재목록</h3>
-        <span class="section-divider"></span>
-        <table id="mat_table" class="container" style="overflow-x: auto; font-size: 10pt; text-align: center">
-        <thead>
-        <tr style="border-bottom: 1px dotted silver;">
-        <th>No</th>
-        <th>Date</th>
-        <th>Supp</th>
-        <th>Item</th>
-        <th>Design</th>
-        <th>Qty</th>
-        <th>Month</th>
-        <th>Class</th>
-        <th>Worker</th>
-        </tr>
-        </thead>
-        <tbody id="mat_tbody" class="dynamics">
-';
-
-    $num = 0;
-    while ($row = mysqli_fetch_array($res)) {
-        $num += 1;
-        echo '<tr style="border-bottom: 1px dotted silver"><td>' .
-            $num . '</td><td>' .
-            $row['date'] . '</td><td>' .
-            $row['supplier'] . '</td><td>' .
-            $row['item'] . '</td><td>' .
-            $row['design'] . '</td><td>' .
-            $row['qty'] . '</td><td>' .
-            $row['month'] . '</td><td>' .
-            $row['class'] . '</td><td>' .
-            $row['worker'] . '</td></tr>';
-    }
-    echo
-    '</tbody>
-    </table>
-    </div>
-    </div>
-    </section>';
-}
-
-function update($name) {
-    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $sql = "SELECT * FROM name_info WHERE kind='{$name}'";
-    $res = mysqli_query( $conn, $sql );
-    while( $row = mysqli_fetch_array( $res ) ) {
-        $var = htmlentities($row['name']);
-        echo "<option value='$var'>";
-    }
-}
-
-function save_material() {
-
-    $date       = ($_POST['ibox_date']);
-    $supplier   = ($_POST['ibox_supplier']);
-    $item       = ($_POST['ibox_item']);
-    $design     = ($_POST['ibox_design']);
-    $qty        = ($_POST['ibox_qty']);
-    $month      = ($_POST['ibox_month'])."月份";
-    $class      = ($_POST['ibox_class']);
-    $worker     = ($_SESSION['user_id']);
-
-    if (empty($supplier)) {
-        alert("supplier 값을 입력하세요.");
-        return;
-    }
-    if (empty($item)) {
-        alert("item 값을 입력하세요.");
-        return;
-    }
-    if (empty($design)) {
-        alert("design 값을 입력하세요.");
-        return;
-    }
-    if (empty($qty)) {
-        alert("quantity 값을 입력하세요.");
-        return;
-    }
-    if (empty($class)) {
-        alert("class 값을 입력하세요.");
-        return;
-    }
-    
-    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-
-    $sql = "INSERT INTO material (date, supplier, item, design, qty, month, class, worker) 
-            VALUES ('{$date}', '{$supplier}', '{$item}', '{$design}', {$qty}, '{$month}', '{$class}', '{$worker}')";
-
-    if (mysqli_query($conn, $sql)) {
-        alert("정상적으로 저장되었습니다.");
-    }
-}
-
-function add_list($value, $name) {
-    if (empty($value)) {
-        alert("{$name} 값을 입력하세요.");
-        return;
-    }
-    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $sql = "SELECT EXISTS (SELECT * FROM {$name} where {$name}={$value}) as Chk";
-
-    $res = mysqli_fetch_array(mysqli_query($conn, $sql));
-
-    if (intval($res['Chk'])) {
-        alert("{$name} : {$value} 항목은 이미 존재합니다.");
-        return;
-    }
-
-    $sql = "INSERT INTO {$name} VALUES ({$value})";
-    if (mysqli_query($conn, $sql)) {
-        alert("{$name} : {$value} 항목 추가 완료");
-    }
-}
-
-function pop_list($value, $name) {
-
-}
-
-function alert($msg) {
-    echo "<script type='text/javascript'>alert('$msg');</script>";
-}
-?>
