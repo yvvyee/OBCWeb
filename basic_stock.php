@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>원자재입력</title>
+    <title>기본재고입력</title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -67,7 +67,7 @@
 <header id="header">
     <div class="container">
         <div id="logo" class="pull-left">
-            <h1><a>원자재입력</a></h1>
+            <h1><a>기본재고입력</a></h1>
         </div>
         <nav id="nav-menu-container">
             <ul class="nav-menu">
@@ -87,41 +87,24 @@
             <div class="intro-text">
                 <div class="container column" style="margin-top: 30%; width: 72%">
                     <!--==========================
-                      Date
+                      Class
                     ============================-->
                     <div>
-                        <label for="ibox_date">
-                            <input type="date"
-                                   id="ibox_date"
-                                   name="ibox_date"
-                                   placeholder="Date"
-                                   style="width: 162px"
-                                   value="<?php
-                                   if (isset($_POST['ibox_date'])) {
-                                       echo htmlentities($_POST['ibox_date']);
-                                   }
-                                   ?>">
-                        </label>
-                    </div>
-                    <!--==========================
-                      Supplier
-                    ============================-->
-                    <div>
-                        <label for="ibox_supplier">
+                        <label for="ibox_class">
                             <input type="text"
-                                   name="ibox_supplier"
-                                   id="ibox_supplier"
-                                   list="supplier_list"
-                                   placeholder="Supplier"
+                                   name="ibox_class"
+                                   id="ibox_class"
+                                   list="class_list"
+                                   placeholder="Class"
                                    autocomplete="off"
                                    style="width: 162px"
                                    value="<?php
-                                   if (isset($_POST['ibox_supplier'])) {
-                                       echo htmlentities($_POST['ibox_supplier']);
+                                   if (isset($_POST['ibox_class'])) {
+                                       echo htmlentities($_POST['ibox_class']);
                                    } ?>">
                         </label>
-                        <datalist id="supplier_list">
-                            <?php echo update('supplier'); ?>
+                        <datalist id="class_list">
+                            <?php echo update('class'); ?>
                         </datalist>
                     </div>
                     <!--==========================
@@ -164,6 +147,7 @@
                         </label>
                         <datalist id="design_list">
                             <?php echo update('design'); ?>
+                        </datalist>
                     </div>
                     <!--==========================
                       Quantity
@@ -182,52 +166,19 @@
                         </label>
                     </div>
                     <!--==========================
-                      Month
-                    ============================-->
-                    <div>
-                        <label for="ibox_month">
-                            <input type="number"
-                                   name="ibox_month"
-                                   id="ibox_month"
-                                   placeholder="Month"
-                                   min="0"
-                                   style="width: 162px"
-                                   value="<?php
-                                   if (isset($_POST['ibox_month'])) {
-                                       echo htmlentities($_POST['ibox_month']);
-                                   } ?>">
-                        </label>
-                    </div>
-                    <!--==========================
-                      Class
-                    ============================-->
-                    <div>
-                        <label for="ibox_class">
-                            <input type="text"
-                                   name="ibox_class"
-                                   id="ibox_class"
-                                   list="class_list"
-                                   placeholder="Class"
-                                   autocomplete="off"
-                                   style="width: 162px"
-                                   value="<?php
-                                   if (isset($_POST['ibox_class'])) {
-                                       echo htmlentities($_POST['ibox_class']);
-                                   } ?>">
-                        </label>
-                        <datalist id="class_list">
-                            <?php echo update('class'); ?>
-                        </datalist>
-                    </div>
-                    <!--==========================
                       Buttons onclick="showMaterial('material')"
                     ============================-->
                     <div>
-                        <a href="#material_view" class="btn-get-started btn-info scrollto" style="outline: none" onclick="showMaterial('material_view')">보기
+                        <a href="#basic_stock_view" class="btn-get-started btn-info scrollto" style="outline: none" onclick="showMaterial('basic_stock_view')">보기
                         </a>
-                        <input type="submit" name="show_all" class="btn-get-started scrollto" value="전체검색" style="background: none; outline: none">
-                        <input type="submit" name="show_cond" class="btn-get-started scrollto" value="조건부검색" style="background: none; outline: none">
                         <input type="submit" name="save_material" class="btn-get-started" style="background: none; outline: none" value="저장">
+                    </div>
+                    <div>
+                        <input type="submit" name="show_all" class="btn-get-started scrollto" value="전체검색" style="background: none; outline: none">
+                        <input type="submit" name="show_cond" class="btn-get-started scrollto" value="조건검색" style="background: none; outline: none">
+                    </div>
+                    <div>
+                        <input type="submit" name="create" class="btn-get-started" style="background: none; outline: none" value="create">
                     </div>
                 </div>
             </div>
@@ -237,60 +188,56 @@
       material
     ============================-->
 <?php
-if (isset($_POST['btn_show'])) {
-
-}
-
-if (isset($_POST['btn_test'])) {
-    $class = $_POST['ibox_class'];
-    echo '
-        <section id="test" class="section-bg">
-        <div class="container-fluid">
-        <div class="section-header">
-        <h3 class="section-title">원자재재고</h3>
-        <span class="section-divider"></span>
-        <table id="mat_table" class="container" style="overflow-x: auto; font-size: 10pt; text-align: center">
-        <thead>
-        <tr style="border-bottom: 1px dotted silver;">
-        <th>No</th>
-        <th>Date</th>
-        <th>Supp</th>
-        <th>Item</th>
-        <th>Design</th>
-        <th>Qty</th>
-        <th>Month</th>
-        <th>Class</th>
-        <th>Worker</th>
-        </tr>
-        </thead>
-        <tbody id="mat_tbody" class="dynamics">
-';
-//    update material set date=REPLACE(date, ' ', ''), supplier=REPLACE(supplier, ' ', ''), item=REPLACE(item, ' ', ''), design=REPLACE(design, ' ',''), qty=REPLACE(qty, ' ', ''), month=REPLACE(month, ' ', ''), class=REPLACE(class, ' ', '')
-    $sql = "SELECT * FROM material WHERE class='{$class}'";
-    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $res = mysqli_query($conn, $sql);
-    $num = 0;
-    while ($row = mysqli_fetch_array($res)) {
-        $num += 1;
-        echo '<tr style="border-bottom: 1px dotted silver;"><td>' .
-            $num . '</td><td>' .
-            $row['date'] . '</td><td>' .
-            $row['supplier'] . '</td><td>' .
-            $row['item'] . '</td><td>' .
-            $row['design'] . '</td><td>' .
-            $row['qty'] . '</td><td>' .
-            $row['month'] . '</td><td>' .
-            $row['class'] . '</td><td>' .
-            $row['worker'] . '</td></tr>';
-    }
-    echo
-    '</tbody>
-    </table>
-    </div>
-    </div>
-    </section>';
-}
-?>
+//if (isset($_POST['btn_show'])) {
+//
+//}
+//
+//if (isset($_POST['btn_test'])) {
+//    $class = $_POST['ibox_class'];
+//    echo '
+//        <section id="test" class="section-bg">
+//        <div class="container-fluid">
+//        <div class="section-header">
+//        <h3 class="section-title">기본재고</h3>
+//        <span class="section-divider"></span>
+//        <table id="mat_table" class="container" style="overflow-x: auto; font-size: 10pt; text-align: center">
+//        <thead>
+//        <tr style="border-bottom: 1px dotted silver;">
+//        <th>Class</th>
+//        <th>Item</th>
+//        <th>Design</th>
+//        <th>Qty</th>
+//        <th>Worker</th>
+//        </tr>
+//        </thead>
+//        <tbody id="mat_tbody" class="dynamics">
+//';
+////    update material set date=REPLACE(date, ' ', ''), supplier=REPLACE(supplier, ' ', ''), item=REPLACE(item, ' ', ''), design=REPLACE(design, ' ',''), qty=REPLACE(qty, ' ', ''), month=REPLACE(month, ' ', ''), class=REPLACE(class, ' ', '')
+//    $sql = "SELECT * FROM material WHERE class='{$class}'";
+//    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+//    $res = mysqli_query($conn, $sql);
+//    $num = 0;
+//    while ($row = mysqli_fetch_array($res)) {
+//        $num += 1;
+//        echo '<tr style="border-bottom: 1px dotted silver;"><td>' .
+//            $num . '</td><td>' .
+//            $row['date'] . '</td><td>' .
+//            $row['supplier'] . '</td><td>' .
+//            $row['item'] . '</td><td>' .
+//            $row['design'] . '</td><td>' .
+//            $row['qty'] . '</td><td>' .
+//            $row['month'] . '</td><td>' .
+//            $row['class'] . '</td><td>' .
+//            $row['worker'] . '</td></tr>';
+//    }
+//    echo
+//    '</tbody>
+//    </table>
+//    </div>
+//    </div>
+//    </section>';
+//}
+//?>
 </main>
 
 <!--==========================
@@ -322,7 +269,7 @@ if (isset($_POST['btn_test'])) {
 
 </footer>
 
-<a href="#" class="back-to-top" onclick="hideMaterial('material_view')"><i class="fa fa-chevron-up"></i></a>
+<a href="#" class="back-to-top" onclick="hideMaterial('basic_stock_view')"><i class="fa fa-chevron-up"></i></a>
 
 <!-- JavaScript Libraries -->
 <script src="lib/jquery/jquery.min.js"></script>
@@ -380,30 +327,18 @@ if (array_key_exists('show_all', $_POST)) {
 if (array_key_exists('show_cond', $_POST)) {
     $arr = array();
 
-    $date       = ($_POST['ibox_date']);
-    $supplier   = ($_POST['ibox_supplier']);
+    $class      = ($_POST['ibox_class']);
     $item       = ($_POST['ibox_item']);
     $design     = ($_POST['ibox_design']);
-    $month      = ($_POST['ibox_month']);
-    $class      = ($_POST['ibox_class']);
 
-    if (!empty($date)) {
-        $arr['date'] = $date;
-    }
-    if (!empty($supplier)) {
-        $arr['supplier'] = $supplier;
+    if (!empty($class)) {
+        $arr['class'] = $class;
     }
     if (!empty($item)) {
         $arr['item'] = $item;
     }
     if (!empty($design)) {
         $arr['design'] = $design;
-    }
-    if (!empty($month)) {
-        $arr['month'] = $month."月份";
-    }
-    if (!empty($class)) {
-        $arr['class'] = $class;
     }
 
     showMaterial($arr);
@@ -423,10 +358,10 @@ if (array_key_exists('row-1', $_POST)) {
 
 function showMaterial($condition) {
     if ($condition == 'all') {
-        $sql = "SELECT * FROM material";
+        $sql = "SELECT * FROM basic_stock";
     }
     else {
-        $sql = "SELECT * FROM material WHERE ";
+        $sql = "SELECT * FROM basic_stock WHERE ";
         foreach ($condition as $k => $v) {
             $sql = $sql.$k."='{$v}',";
         }
@@ -436,7 +371,7 @@ function showMaterial($condition) {
     $res = mysqli_query($conn, $sql);
 
     echo '
-        <section id="material_view" class="section-bg" style="display: none; margin-bottom: 10%">
+        <section id="basic_stock_view" class="section-bg" style="display: none; margin-bottom: 10%">
         <div class="container-fluid">
         <div class="section-header">
         <h3 class="section-title">원자재목록</h3>
@@ -445,13 +380,10 @@ function showMaterial($condition) {
         <thead>
         <tr style="border-bottom: 1px dotted silver;">
         <th>No</th>
-        <th>Date</th>
-        <th>Supp</th>
+        <th>Class</th>
         <th>Item</th>
         <th>Design</th>
         <th>Qty</th>
-        <th>Month</th>
-        <th>Class</th>
         <th>Worker</th>
         </tr>
         </thead>
@@ -463,13 +395,10 @@ function showMaterial($condition) {
         $num += 1;
         echo '<tr style="border-bottom: 1px dotted silver"><td>' .
             $num . '</td><td>' .
-            $row['date'] . '</td><td>' .
-            $row['supplier'] . '</td><td>' .
+            $row['class'] . '</td><td>' .
             $row['item'] . '</td><td>' .
             $row['design'] . '</td><td>' .
             $row['qty'] . '</td><td>' .
-            $row['month'] . '</td><td>' .
-            $row['class'] . '</td><td>' .
             $row['worker'] . '</td></tr>';
     }
     echo
