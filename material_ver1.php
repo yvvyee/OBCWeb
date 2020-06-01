@@ -52,26 +52,17 @@
         if ( window.history.replaceState ) {
             window.history.replaceState( null, null, window.location.href );
         }
+        // $("#mat_table tr").click(function(){
+        //     $(this).addClass('selected').siblings().removeClass('selected');
+        //     var value=$(this).find('td:first').html();
+        //     alert(value);
+        // });
+        //
+        // $('.ok').on('click', function(e){
+        //     alert($("#mat_table tr.selected td:first").html());
+        // });
     </script>
 </head>
-
-<script>
-    function myFunction(section_name) {
-        // var x = document.getElementById('intro');
-        // var y = document.getElementById('material');
-        //
-        // x.style.display = 'none';
-        // y.style.display = 'block';
-
-        var x = document.getElementById(section_name);
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
-</script>
-
 <body>
 <header id="header">
     <div class="container">
@@ -80,8 +71,7 @@
         </div>
         <nav id="nav-menu-container">
             <ul class="nav-menu">
-<!--                <li class="menu-active"><a href="#intro">资料输入</a></li>-->
-                <li class="menu-active"><button class="btn-info" onclick="myFunction('intro')">test</button></li>
+                <li class="menu-active"><a href="#intro">资料输入</a></li>
                 <li><a href="#plan">贴花生产计划</a></li>
                 <li><a href="#trace">订单查询</a></li>
                 <li><a href="#order">材料订货</a></li>
@@ -93,12 +83,13 @@
 <main>
     <section id="intro">
         <form method="post">
-            <div class="intro-text">
+            <div class="intro-text row">
+
+                <!--==========================
+                  좌측 입력 영역
+                ============================-->
                 <div class="container column" style="margin-top: 30%; width: 72%">
-                    <!--==========================
-                      Date
-                    ============================-->
-                    <div>
+                    <div style="text-align: left; margin-left: 2%">
                         <label for="ibox_date">
                             <input type="date"
                                    id="ibox_date"
@@ -114,16 +105,14 @@
                                    ?>">
                         </label>
                     </div>
-                    <!--==========================
-                      Supplier
-                    ============================-->
-                    <div>
+
+                    <div style="text-align: left; margin-left: 2%">
                         <label for="ibox_supplier">
                             <input type="text"
                                    name="ibox_supplier"
                                    id="ibox_supplier"
                                    list="supplier_list"
-                                   placeholder="Supplier"
+                                   placeholder="supplier"
                                    autocomplete="off"
                                    style="width: 162px"
                                    value="<?php
@@ -134,19 +123,20 @@
                         <datalist id="supplier_list">
                             <?php echo update('supplier'); ?>
                         </datalist>
+
+                        <input type="submit" name="add_supplier" class="btn-info"   value="添加">
+                        <input type="submit" name="pop_supplier" class="btn-danger" value="刪除">
                     </div>
-                    <!--==========================
-                      Item
-                    ============================-->
-                    <div>
+
+                    <div style="text-align: left; margin-left: 2%">
                         <label for="ibox_item">
                             <input type="text"
                                    name="ibox_item"
                                    id="ibox_item"
                                    list="item_list"
-                                   placeholder="Item"
+                                   placeholder="item"
                                    autocomplete="off"
-                                   style="width: 162px"
+                                   style="width: 162px; background: #b8daff; border-width: thin"
                                    value="<?php
                                    if (isset($_POST['ibox_item'])) {
                                        echo htmlentities($_POST['ibox_item']);
@@ -155,19 +145,20 @@
                         <datalist id="item_list">
                             <?php echo update('item'); ?>
                         </datalist>
+
+                        <input type="submit" name="add_item" id="add_item" class="btn-info"   value="添加" />
+                        <input type="submit" name="pop_item" id="add_item" class="btn-danger" value="刪除" />
                     </div>
-                    <!--==========================
-                      Design
-                    ============================-->
-                    <div>
+
+                    <div style="text-align: left; margin-left: 2%">
                         <label for="ibox_design">
                             <input type="text"
                                    name="ibox_design"
                                    id="ibox_design"
                                    list="design_list"
-                                   placeholder="Design"
+                                   placeholder="design"
                                    autocomplete="off"
-                                   style="width: 162px"
+                                   style="width: 162px; background: #b8daff; border-width: thin"
                                    value="<?php
                                    if (isset($_POST['ibox_design'])) {
                                        echo htmlentities($_POST['ibox_design']);
@@ -175,32 +166,33 @@
                         </label>
                         <datalist id="design_list">
                             <?php echo update('design'); ?>
+                        </datalist>
+
+                        <input type="submit" name="add_design" class="btn-info"   value="添加" />
+                        <input type="submit" name="pop_design" class="btn-danger" value="刪除" />
                     </div>
-                    <!--==========================
-                      Quantity
-                    ============================-->
-                    <div>
-                        <label for="ibox_qty">
+
+                    <div style="text-align: left; margin-left: 2%">
+                        <label for="ibox_quantity">
                             <input type="number"
-                                   name="ibox_qty"
-                                   id="ibox_qty"
-                                   placeholder="Qty"
-                                   style="width: 162px"
+                                   name="ibox_quantity"
+                                   id="ibox_quantity"
+                                   placeholder="quantity"
+                                   style="width: 162px; background: #b8daff; border-width: thin"
                                    value="<?php
-                                   if (isset($_POST['ibox_qty'])) {
-                                       echo htmlentities($_POST['ibox_qty']);
+                                   if (isset($_POST['ibox_quantity'])) {
+                                       echo htmlentities($_POST['ibox_quantity']);
                                    } ?>">
                         </label>
+
                     </div>
-                    <!--==========================
-                      Month
-                    ============================-->
-                    <div>
+
+                    <div style="text-align: left; margin-left: 2%">
                         <label for="ibox_month">
                             <input type="number"
                                    name="ibox_month"
                                    id="ibox_month"
-                                   placeholder="Month"
+                                   placeholder="month"
                                    min="0"
                                    style="width: 162px"
                                    value="<?php
@@ -209,16 +201,14 @@
                                    } ?>">
                         </label>
                     </div>
-                    <!--==========================
-                      Class
-                    ============================-->
-                    <div>
+
+                    <div style="text-align: left; margin-left: 2%">
                         <label for="ibox_class">
                             <input type="text"
                                    name="ibox_class"
                                    id="ibox_class"
                                    list="class_list"
-                                   placeholder="Class"
+                                   placeholder="class"
                                    autocomplete="off"
                                    style="width: 162px"
                                    value="<?php
@@ -229,19 +219,26 @@
                         <datalist id="class_list">
                             <?php echo update('class'); ?>
                         </datalist>
+
+                        <input type="submit" name="add_class" class="btn-info" value="添加" />
+                        <input type="submit" name="pop_class" class="btn-danger" value="刪除" />
                     </div>
-                    <!--==========================
-                      Buttons
-                    ============================-->
+
                     <div>
-                        <div class="btn-get-started btn-info scrollto" onclick="<?php echo '<script>myFunction(\'material\')'?>">Show
-<!--                            <a href="#material"></a>-->
-                        </div>
-<!--                        <a href="#material">-->
-<!--                            <button class="btn-get-started btn-info scrollto">Show</button>-->
-<!--                        </a>-->
+                        <a href="#material" class="btn-get-started btn-info scrollto">
+                            Show
+<!--                        <input type="submit" class="btn-get-started btn-info" style="outline: none" value="Show">-->
+                        </a>
                         <input type="submit" name="save_material" class="btn-get-started" style="background: none; outline: none" value="Save">
                     </div>
+                </div>
+
+
+                <!--==========================
+                  우측 버튼 영역
+                ============================-->
+                <div class="container column" style="margin-top: 30%; width: 20%; background: black; text-align: left">
+                    <input type="submit" class="btn-success" value="백자재고">
                 </div>
             </div>
         </form>
@@ -249,22 +246,22 @@
     <!--==========================
       Show materials
     ============================-->
-    <section id="material" class="section-bg" style="display: none">
+    <section id="material" class="section-bg" style="display: block">
       <div class="container-fluid">
         <div class="section-header">
           <h3 class="section-title">原材料库存</h3>
             <span class="section-divider"></span>
                 <table id="mat_table" class="container" style="font-size: 10pt; text-align: center">
                     <thead>
-                    <tr style="border-bottom: 1px dotted silver;">
-                        <th>Date</th>
-                        <th>Supp</th>
-                        <th>Item</th>
-                        <th>Design</th>
-                        <th>Qty</th>
-                        <th>Month</th>
-                        <th>Class</th>
-                        <th>Worker</th>
+                    <tr class="table_header" style="border-bottom: 1px dotted silver;">
+                        <th>time</th>
+                        <th>date</th>
+                        <th>supplier</th>
+                        <th>item</th>
+                        <th>design</th>
+                        <th>quantity</th>
+                        <th>month</th>
+                        <th>class</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -274,22 +271,22 @@
                     $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
                     $res = mysqli_query( $conn, $sql );
                     while( $row = mysqli_fetch_array( $res ) ) {
-                        echo '<tr style="border-bottom: 1px dotted silver;"><td>'.
-                            $row[ 'date' ]      .'</td><td>'.
-                            $row[ 'supplier' ]  .'</td><td>'.
-                            $row[ 'item' ]      .'</td><td>'.
-                            $row[ 'design' ]    .'</td><td>'.
-                            $row[ 'qty' ]       .'</td><td>'.
-                            $row[ 'month' ]     .'</td><td>'.
-                            $row[ 'class' ]     .'</td><td>'.
-                            $row[ 'worker' ]    .'</td></tr>';
+                        echo '<tr style="border-bottom: 1px dotted silver;"><td>' .
+                            $row[ 'time' ]      . '</td><td>'.
+                            $row[ 'date' ]      . '</td><td>' .
+                            $row[ 'supplier' ]  . '</td><td>' .
+                            $row[ 'item' ]      . '</td><td>' .
+                            $row[ 'design' ]    . '</td><td>' .
+                            $row[ 'quantity' ]  . '</td><td>' .
+                            $row[ 'month' ]     . '</td><td>' .
+                            $row[ 'class' ]     . '</td></tr>';
                     }
                     ?>
                     </tbody>
                 </table>
         </div>
       </div>
-    </section>
+    </section><!-- #about -->
 </main>
 
 <footer class="footer-links">
@@ -320,8 +317,6 @@
 //if (array_key_exists('show_material', $_POST)) {
 //    echo "<script>displayMaterial()</script>";
 //}
-
-#region POST
 if (array_key_exists('save_material', $_POST)) {
     save_material();
 }
@@ -349,14 +344,13 @@ if (array_key_exists('pop_design', $_POST)) {
 if (array_key_exists('pop_class', $_POST)) {
     pop_list($_POST['ibox_class'], 'class');
 }
-#endregion POST
 
 function update($name) {
     $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $sql = "SELECT * FROM name_info WHERE kind='{$name}'";
+    $sql = "SELECT * FROM list_{$name}";
     $res = mysqli_query( $conn, $sql );
     while( $row = mysqli_fetch_array( $res ) ) {
-        $var = htmlentities($row['name']);
+        $var = htmlentities($row[$name]);
         echo "<option value='$var'>";
     }
 }
@@ -367,7 +361,7 @@ function save_material() {
     $supplier   = ($_POST['ibox_supplier']);
     $item       = ($_POST['ibox_item']);
     $design     = ($_POST['ibox_design']);
-    $qty   = ($_POST['ibox_qty']);
+    $quantity   = ($_POST['ibox_quantity']);
     $month      = ($_POST['ibox_month'])."月份";
     $class      = ($_POST['ibox_class']);
 
@@ -383,7 +377,7 @@ function save_material() {
         alert("design 값을 입력하세요.");
         return;
     }
-    if (empty($qty)) {
+    if (empty($quantity)) {
         alert("quantity 값을 입력하세요.");
         return;
     }
@@ -394,8 +388,8 @@ function save_material() {
     
     $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
 
-    $sql = "INSERT INTO material (date, supplier, item, design, qty, month, class) 
-            VALUES ('{$date}', '{$supplier}', '{$item}', '{$design}', {$qty}, '{$month}', '{$class}')";
+    $sql = "INSERT INTO material (date, supplier, item, design, quantity, month, class) 
+            VALUES ('{$date}', '{$supplier}', '{$item}', '{$design}', {$quantity}, '{$month}', '{$class}')";
 //    $res = mysqli_query($conn, $sql);
 //    echo $res;
     if (mysqli_query($conn, $sql)) {
