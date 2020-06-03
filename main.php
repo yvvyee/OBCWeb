@@ -34,6 +34,13 @@
     <link href="css/style.css" rel="stylesheet">
 
     <style>
+        @media (min-width: 126px)
+        .custom_container {
+            background: none;
+            max-width: 100px;
+            margin-right: 3%;
+            margin-left: 3%;
+        }
         /* Button used to open the contact form - fixed at the bottom of the page */
         .open-button {
             background-color: #555;
@@ -47,85 +54,111 @@
             bottom: 23px;
             right: 28px;
         }
-
-        /* The popup form - hidden by default */
-        .form-popup {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            right: 15px;
-            border: 3px solid #f1f1f1;
-            z-index: 9;
+        .custom-scrollbar-js,
+        .custom-scrollbar-css {
+            height: 200px;
         }
 
-        /* Add styles to the form container */
-        .form-container {
-            max-width: 300px;
-            padding: 10px;
-            background-color: white;
+
+        /* Custom Scrollbar using CSS */
+        .custom-scrollbar-css {
+            overflow-y: scroll;
         }
 
-        /* Full-width input fields */
-        .form-container input[type=text], .form-container input[type=password] {
-            width: 100%;
-            padding: 15px;
-            margin: 5px 0 22px 0;
-            border: none;
-            background: #f1f1f1;
+        /* scrollbar width */
+        .custom-scrollbar-css::-webkit-scrollbar {
+            width: 5px;
         }
 
-        /* When the inputs get focus, do something */
-        .form-container input[type=text]:focus, .form-container input[type=password]:focus {
-            background-color: #ddd;
-            outline: none;
+        /* scrollbar track */
+        .custom-scrollbar-css::-webkit-scrollbar-track {
+            background: #eee;
         }
 
-        /* Set a style for the submit/login button */
-        .form-container .btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 16px 20px;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom:10px;
-            opacity: 0.8;
+        /* scrollbar handle */
+        .custom-scrollbar-css::-webkit-scrollbar-thumb {
+            border-radius: 1rem;
+            background-color: #00d2ff;
+            background-image: linear-gradient(to top, #00d2ff 0%, #3a7bd5 100%);
         }
+        /*!* The popup form - hidden by default *!*/
+        /*.form-popup {*/
+        /*    display: none;*/
+        /*    position: fixed;*/
+        /*    bottom: 0;*/
+        /*    right: 15px;*/
+        /*    border: 3px solid #f1f1f1;*/
+        /*    z-index: 9;*/
+        /*}*/
 
-        /* Add a red background color to the cancel button */
-        .form-container .cancel {
-            background-color: red;
-        }
+        /*!* Add styles to the form container *!*/
+        /*.form-container {*/
+        /*    max-width: 300px;*/
+        /*    padding: 10px;*/
+        /*    background-color: white;*/
+        /*}*/
 
-        /* Add some hover effects to buttons */
-        .form-container .btn:hover, .open-button:hover {
-            opacity: 1;
-        }
-        /*td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}*/
+        /*!* Full-width input fields *!*/
+        /*.form-container input[type=text], .form-container input[type=password] {*/
+        /*    width: 100%;*/
+        /*    padding: 15px;*/
+        /*    margin: 5px 0 22px 0;*/
+        /*    border: none;*/
+        /*    background: #f1f1f1;*/
+        /*}*/
 
-        .selected {
-            background-color: brown;
-            color: #FFF;
-        }
+        /*!* When the inputs get focus, do something *!*/
+        /*.form-container input[type=text]:focus, .form-container input[type=password]:focus {*/
+        /*    background-color: #ddd;*/
+        /*    outline: none;*/
+        /*}*/
 
-        * {
-            box-sizing: border-box;
-        }
+        /*!* Set a style for the submit/login button *!*/
+        /*.form-container .btn {*/
+        /*    background-color: #4CAF50;*/
+        /*    color: white;*/
+        /*    padding: 16px 20px;*/
+        /*    border: none;*/
+        /*    cursor: pointer;*/
+        /*    width: 100%;*/
+        /*    margin-bottom:10px;*/
+        /*    opacity: 0.8;*/
+        /*}*/
 
-        /* Create two equal columns that floats next to each other */
-        .column {
-            float: left;
-            width: 50%;
-            padding: 10px;
-            height: 300px; /* Should be removed. Only for demonstration */
-        }
+        /*!* Add a red background color to the cancel button *!*/
+        /*.form-container .cancel {*/
+        /*    background-color: red;*/
+        /*}*/
 
-        /* Clear floats after the columns */
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
+        /*!* Add some hover effects to buttons *!*/
+        /*.form-container .btn:hover, .open-button:hover {*/
+        /*    opacity: 1;*/
+        /*}*/
+        /*!*td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}*!*/
+
+        /*.selected {*/
+        /*    background-color: brown;*/
+        /*    color: #FFF;*/
+        /*}*/
+
+        /** {*/
+        /*    box-sizing: border-box;*/
+        /*}*/
+
+        /*!* Create two equal columns that floats next to each other *!*/
+        /*.column {*/
+        /*    float: left;*/
+        /*    width: 50%;*/
+        /*    padding: 10px;*/
+        /*    height: 300px; !* Should be removed. Only for demonstration *!*/
+        /*}*/
+
+        /*!* Clear floats after the columns *!*/
+        /*.row:after {*/
+        /*    content: "";*/
+        /*    display: table;*/
+        /*    clear: both;*/
+        /*}*/
     </style>
 
     <script type="text/javascript">
@@ -156,183 +189,226 @@
         </nav><!-- #nav-menu-container -->
     </div>
 </header>
-<main>
-    <section id="intro">
-        <form method="post">
-            <div class="intro-text">
-                <div class="container column" style="margin-top: 30%; width: 72%">
-                    <!--==========================
-                      Date
-                    ============================-->
-                    <div>
-                        <label for="ibox_date">
-                            <input type="date"
-                                   id="ibox_date"
-                                   name="ibox_date"
-                                   placeholder="Date"
-                                   style="width: 162px"
-                                   value="<?php
-                                   if (isset($_POST['ibox_date'])) {
-                                       echo htmlentities($_POST['ibox_date']);
-                                   }
-                                   ?>">
-                        </label>
-                    </div>
-                    <!--==========================
-                      Supplier
-                    ============================-->
-                    <div>
-                        <label for="ibox_supplier">
-                            <input type="text"
-                                   name="ibox_supplier"
-                                   id="ibox_supplier"
-                                   list="supplier_list"
-                                   placeholder="Supplier"
-                                   autocomplete="off"
-                                   style="width: 162px"
-                                   value="<?php
-                                   if (isset($_POST['ibox_supplier'])) {
-                                       echo htmlentities($_POST['ibox_supplier']);
-                                   } ?>">
-                        </label>
-                        <datalist id="supplier_list">
-                            <?php echo update('supplier'); ?>
-                        </datalist>
-                    </div>
-                    <!--==========================
-                      Item
-                    ============================-->
-                    <div>
-                        <label for="ibox_item">
-                            <input type="text"
-                                   name="ibox_item"
-                                   id="ibox_item"
-                                   list="item_list"
-                                   placeholder="Item"
-                                   autocomplete="off"
-                                   style="width: 162px"
-                                   value="<?php
-                                   if (isset($_POST['ibox_item'])) {
-                                       echo htmlentities($_POST['ibox_item']);
-                                   } ?>">
-                        </label>
-                        <datalist id="item_list">
-                            <?php echo update('item'); ?>
-                        </datalist>
-                    </div>
-                    <!--==========================
-                      Design
-                    ============================-->
-                    <div>
-                        <label for="ibox_design">
-                            <input type="text"
-                                   name="ibox_design"
-                                   id="ibox_design"
-                                   list="design_list"
-                                   placeholder="Design"
-                                   autocomplete="off"
-                                   style="width: 162px"
-                                   value="<?php
-                                   if (isset($_POST['ibox_design'])) {
-                                       echo htmlentities($_POST['ibox_design']);
-                                   } ?>">
-                        </label>
-                        <datalist id="design_list">
-                            <?php echo update('design'); ?>
-                    </div>
-                    <!--==========================
-                      Quantity
-                    ============================-->
-                    <div>
-                        <label for="ibox_qty">
-                            <input type="number"
-                                   name="ibox_qty"
-                                   id="ibox_qty"
-                                   placeholder="Qty"
-                                   style="width: 162px"
-                                   value="<?php
-                                   if (isset($_POST['ibox_qty'])) {
-                                       echo htmlentities($_POST['ibox_qty']);
-                                   } ?>">
-                        </label>
-                    </div>
-                    <!--==========================
-                      Month
-                    ============================-->
-                    <div>
-                        <label for="ibox_month">
-                            <input type="number"
-                                   name="ibox_month"
-                                   id="ibox_month"
-                                   placeholder="Month"
-                                   min="0"
-                                   style="width: 162px"
-                                   value="<?php
-                                   if (isset($_POST['ibox_month'])) {
-                                       echo htmlentities($_POST['ibox_month']);
-                                   } ?>">
-                        </label>
-                    </div>
-                    <!--==========================
-                      Class
-                    ============================-->
-                    <div>
-                        <label for="ibox_class">
-                            <input type="text"
-                                   name="ibox_class"
-                                   id="ibox_class"
-                                   list="class_list"
-                                   placeholder="Class"
-                                   autocomplete="off"
-                                   style="width: 162px"
-                                   value="<?php
-                                   if (isset($_POST['ibox_class'])) {
-                                       echo htmlentities($_POST['ibox_class']);
-                                   } ?>">
-                        </label>
-                        <datalist id="class_list">
-                            <?php echo update('class'); ?>
-                        </datalist>
-                    </div>
-                    <!--==========================
-                      Buttons onclick="showMaterial('material')"
-                    ============================-->
-                    <div>
-                        <a href="#material_view" class="btn-get-started btn-info scrollto" style="outline: none" onclick="showMaterial('material_view')"><i class="fa fa-link"></i>보기
-                        </a>
-                        <input type="submit" name="show_all" class="btn-get-started scrollto" value="전체검색" style="background: none; outline: none">
-                        <input type="submit" name="show_cond" class="btn-get-started scrollto" value="조건부검색" style="background: none; outline: none">
-                        <input type="submit" name="save_material" class="btn-get-started" style="background: none; outline: none" value="저장">
-                    </div>
 
-<!--                    <button class="btn-get-started open-button" onclick="openForm()">　</button>-->
-<!--                    <div class="form-popup" id="myForm">-->
-<!--                        <form action="/action_page.php" class="form-container">-->
-<!--                            <h1>Login</h1>-->
-<!---->
-<!--                            <label for="email"><b>Email</b></label>-->
-<!--                            <input type="text" placeholder="Enter Email" name="email" required>-->
-<!---->
-<!--                            <label for="psw"><b>Password</b></label>-->
-<!--                            <input type="password" placeholder="Enter Password" name="psw" required>-->
-<!---->
-<!--                            <button type="submit" class="btn">Login</button>-->
-<!--                            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>-->
-<!--                        </form>-->
-<!--                    </div>-->
-                </div>
+<section id="intro">
+        <div class="intro-text custom_container" style="overflow-x: scroll; height: auto; margin-top: 10%">
+            <table id="mat_table" style="background: white; text-align: center">
+                <thead>
+                <tr style="border-bottom: 1px dotted silver; display: block">
+                    <th>No</th>
+                    <th>Date</th>
+                    <th>Supp</th>
+                    <th>Item</th>
+                    <th>Design</th>
+                    <th>Qty</th>
+                    <th>Month</th>
+                    <th>Class</th>
+                    <th>Worker</th>
+                    <th>Erase</th>
+                </tr>
+                </thead>
+                <tbody id="mat_tbody" class="dynamics" style="display: block; overflow: auto;">
+                <tr style="border-bottom: 1px dotted silver"><td>
+                        test1test1test1test1test1test1test1test1test1test1test1test1</td><td>
+                        test2 </td><td>
+                        test3 </td><td>
+                        test4 </td><td>
+                        test5 </td><td>
+                        test6 </td><td>
+                        test7 </td><td>
+                        test8 </td><td>
+                        test9 </td><td>
+                        <input type="submit" class="btn-success" value="삭제"></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+
+            <div id="input_form" class="modal fade" style="display: none">
+                <form method="post" >
+                    <div class="modal-dialog">
+                        <div  class="intro-text modal-content" style="background: none; width: 180px; height: auto; border-width: 0px; margin-top: 30%; margin-left: auto; margin-right: auto" >
+                            <!--==========================
+                              Date
+                            ============================-->
+                            <div>
+                                <label for="ibox_date">
+                                    <input type="date"
+                                           id="ibox_date"
+                                           name="ibox_date"
+                                           placeholder="Date"
+                                           style="width: 162px; height: 33px"
+                                           value="<?php
+                                           if (isset($_POST['ibox_date'])) {
+                                               echo htmlentities($_POST['ibox_date']);
+                                           }
+                                           ?>">
+                                </label>
+                            </div>
+                            <!--==========================
+                              Supplier
+                            ============================-->
+                            <div>
+                                <label for="ibox_supplier">
+                                    <input type="text"
+                                           name="ibox_supplier"
+                                           id="ibox_supplier"
+                                           list="supplier_list"
+                                           placeholder="Supplier"
+                                           autocomplete="off"
+                                           style="width: 162px"
+                                           value="<?php
+                                           if (isset($_POST['ibox_supplier'])) {
+                                               echo htmlentities($_POST['ibox_supplier']);
+                                           } ?>">
+                                </label>
+                                <datalist id="supplier_list">
+                                    <?php echo update('supplier'); ?>
+                                </datalist>
+                            </div>
+                            <!--==========================
+                              Item
+                            ============================-->
+                            <div>
+                                <label for="ibox_item">
+                                    <input type="text"
+                                           name="ibox_item"
+                                           id="ibox_item"
+                                           list="item_list"
+                                           placeholder="Item"
+                                           autocomplete="off"
+                                           style="width: 162px"
+                                           value="<?php
+                                           if (isset($_POST['ibox_item'])) {
+                                               echo htmlentities($_POST['ibox_item']);
+                                           } ?>">
+                                </label>
+                                <datalist id="item_list">
+                                    <?php echo update('item'); ?>
+                                </datalist>
+                            </div>
+                            <!--==========================
+                              Design
+                            ============================-->
+                            <div>
+                                <label for="ibox_design">
+                                    <input type="text"
+                                           name="ibox_design"
+                                           id="ibox_design"
+                                           list="design_list"
+                                           placeholder="Design"
+                                           autocomplete="off"
+                                           style="width: 162px"
+                                           value="<?php
+                                           if (isset($_POST['ibox_design'])) {
+                                               echo htmlentities($_POST['ibox_design']);
+                                           } ?>">
+                                </label>
+                                <datalist id="design_list">
+                                    <?php echo update('design'); ?>
+                            </div>
+                            <!--==========================
+                              Quantity
+                            ============================-->
+                            <div>
+                                <label for="ibox_qty">
+                                    <input type="number"
+                                           name="ibox_qty"
+                                           id="ibox_qty"
+                                           placeholder="Qty"
+                                           style="width: 162px"
+                                           value="<?php
+                                           if (isset($_POST['ibox_qty'])) {
+                                               echo htmlentities($_POST['ibox_qty']);
+                                           } ?>">
+                                </label>
+                            </div>
+                            <!--==========================
+                              Month
+                            ============================-->
+                            <div>
+                                <label for="ibox_month">
+                                    <input type="number"
+                                           name="ibox_month"
+                                           id="ibox_month"
+                                           placeholder="Month"
+                                           min="0"
+                                           style="width: 162px"
+                                           value="<?php
+                                           if (isset($_POST['ibox_month'])) {
+                                               echo htmlentities($_POST['ibox_month']);
+                                           } ?>">
+                                </label>
+                            </div>
+                            <!--==========================
+                              Class
+                            ============================-->
+                            <div>
+                                <label for="ibox_class">
+                                    <input type="text"
+                                           name="ibox_class"
+                                           id="ibox_class"
+                                           list="class_list"
+                                           placeholder="Class"
+                                           autocomplete="off"
+                                           style="width: 162px"
+                                           value="<?php
+                                           if (isset($_POST['ibox_class'])) {
+                                               echo htmlentities($_POST['ibox_class']);
+                                           } ?>">
+                                </label>
+                                <datalist id="class_list">
+                                    <?php echo update('class'); ?>
+                                </datalist>
+                            </div>
+                            <a href="#material_view" class="btn-get-started btn-info scrollto" style="outline: none" onclick="showMaterial('material_view')"><i class="fa fa-link"></i>보기
+                            </a>
+                            <input type="submit" name="show_all" class="btn-get-started scrollto" value="전체검색" style="background: none; outline: none">
+                            <input type="submit" name="save_material" class="btn-get-started" style="background: none; outline: none" value="저장">
+
+
+                            <!--==========================
+                              Buttons onclick="showMaterial('material')"
+                            ============================-->
+                            <!--                    <div>-->
+                            <!--                        <a href="#material_view" class="btn-get-started btn-info scrollto" style="outline: none" onclick="showMaterial('material_view')"><i class="fa fa-link"></i>보기-->
+                            <!--                        </a>-->
+                            <!--                        <input type="submit" name="show_all" class="btn-get-started scrollto" value="전체검색" style="background: none; outline: none">-->
+                            <!--                        <input type="submit" name="show_cond" class="btn-get-started scrollto" value="조건부검색" style="background: none; outline: none">-->
+                            <!--                        <input type="submit" name="save_material" class="btn-get-started" style="background: none; outline: none" value="저장">-->
+                            <!--                    </div>-->
+
+                            <!--                    <button class="btn-get-started open-button" onclick="openForm()">　</button>-->
+                            <!--                    <div class="form-popup" id="myForm">-->
+                            <!--                        <form action="/action_page.php" class="form-container">-->
+                            <!--                            <h1>Login</h1>-->
+                            <!---->
+                            <!--                            <label for="email"><b>Email</b></label>-->
+                            <!--                            <input type="text" placeholder="Enter Email" name="email" required>-->
+                            <!---->
+                            <!--                            <label for="psw"><b>Password</b></label>-->
+                            <!--                            <input type="password" placeholder="Enter Password" name="psw" required>-->
+                            <!---->
+                            <!--                            <button type="submit" class="btn">Login</button>-->
+                            <!--                            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>-->
+                            <!--                        </form>-->
+                            <!--                    </div>-->
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
+
+            <button class="btn-get-started open-button" style="outline: none" data-toggle="modal" data-target="#input_form" onclick="openForm()">열기</button>
+
     </section>
-</main>
 
 <script>
     function openForm() {
-        document.getElementById("myForm").style.display = "block";
+        document.getElementById("input_form").style.display = "block";
     }
 
     function closeForm() {
-        document.getElementById("myForm").style.display = "none";
+        document.getElementById("input_form").style.display = "none";
     }
 </script>
 
@@ -350,9 +426,12 @@
     }
 </script>
 
-<footer class="footer-links">
+<!--==========================
+  Table script
+============================-->
+<script>
 
-</footer>
+</script>
 
 <?php
 //-------------------------
