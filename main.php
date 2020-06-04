@@ -40,6 +40,7 @@
             max-width: 100px;
             margin-right: 3%;
             margin-left: 3%;
+            top: 10%;
         }
         /* Button used to open the contact form - fixed at the bottom of the page */
         .open-button {
@@ -54,111 +55,161 @@
             bottom: 23px;
             right: 28px;
         }
-        .custom-scrollbar-js,
-        .custom-scrollbar-css {
-            height: 200px;
-        }
 
 
-        /* Custom Scrollbar using CSS */
-        .custom-scrollbar-css {
-            overflow-y: scroll;
-        }
 
-        /* scrollbar width */
-        .custom-scrollbar-css::-webkit-scrollbar {
-            width: 5px;
-        }
 
-        /* scrollbar track */
-        .custom-scrollbar-css::-webkit-scrollbar-track {
-            background: #eee;
-        }
+            /* Standard Tables */
 
-        /* scrollbar handle */
-        .custom-scrollbar-css::-webkit-scrollbar-thumb {
-            border-radius: 1rem;
-            background-color: #00d2ff;
-            background-image: linear-gradient(to top, #00d2ff 0%, #3a7bd5 100%);
-        }
-        /*!* The popup form - hidden by default *!*/
-        /*.form-popup {*/
-        /*    display: none;*/
-        /*    position: fixed;*/
-        /*    bottom: 0;*/
-        /*    right: 15px;*/
-        /*    border: 3px solid #f1f1f1;*/
-        /*    z-index: 9;*/
-        /*}*/
+            table {
+                margin: 1em 0;
+                border-collapse: collapse;
+                /*border: 0.1em solid #d6d6d6;*/
+                border: none;
+            }
 
-        /*!* Add styles to the form container *!*/
-        /*.form-container {*/
-        /*    max-width: 300px;*/
-        /*    padding: 10px;*/
-        /*    background-color: white;*/
-        /*}*/
+            caption {
+                text-align: left;
+                font-style: italic;
+                padding: 0.25em 0.5em 0.5em 0.5em;
+            }
 
-        /*!* Full-width input fields *!*/
-        /*.form-container input[type=text], .form-container input[type=password] {*/
-        /*    width: 100%;*/
-        /*    padding: 15px;*/
-        /*    margin: 5px 0 22px 0;*/
-        /*    border: none;*/
-        /*    background: #f1f1f1;*/
-        /*}*/
+            th,
+            td {
+                padding: 0.25em 0.5em 0.25em 1em;
+                vertical-align: text-top;
+                text-align: left;
+                text-indent: -0.5em;
+            }
 
-        /*!* When the inputs get focus, do something *!*/
-        /*.form-container input[type=text]:focus, .form-container input[type=password]:focus {*/
-        /*    background-color: #ddd;*/
-        /*    outline: none;*/
-        /*}*/
+            th {
+                vertical-align: bottom;
+                /*background-color: #666;*/
+                color: #fff;
+            }
 
-        /*!* Set a style for the submit/login button *!*/
-        /*.form-container .btn {*/
-        /*    background-color: #4CAF50;*/
-        /*    color: white;*/
-        /*    padding: 16px 20px;*/
-        /*    border: none;*/
-        /*    cursor: pointer;*/
-        /*    width: 100%;*/
-        /*    margin-bottom:10px;*/
-        /*    opacity: 0.8;*/
-        /*}*/
+            tr:nth-child(even) th[scope=row] {
+                /*background-color: #f2f2f2;*/
+                background-color: rgba(0, 0, 0, 0.05);
+            }
 
-        /*!* Add a red background color to the cancel button *!*/
-        /*.form-container .cancel {*/
-        /*    background-color: red;*/
-        /*}*/
+            tr:nth-child(odd) th[scope=row] {
+                /*background-color: #fff;*/
+                background-color: rgba(255, 255, 255, 0.05);
+            }
 
-        /*!* Add some hover effects to buttons *!*/
-        /*.form-container .btn:hover, .open-button:hover {*/
-        /*    opacity: 1;*/
-        /*}*/
-        /*!*td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}*!*/
+            tr:nth-child(even) {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
 
-        /*.selected {*/
-        /*    background-color: brown;*/
-        /*    color: #FFF;*/
-        /*}*/
+            tr:nth-child(odd) {
+                background-color: rgba(255, 255, 255, 0.05);
+                /*background-color: transparent;*/
+            }
 
-        /** {*/
-        /*    box-sizing: border-box;*/
-        /*}*/
+            td:nth-of-type(2) {
+                font-style: italic;
+            }
 
-        /*!* Create two equal columns that floats next to each other *!*/
-        /*.column {*/
-        /*    float: left;*/
-        /*    width: 50%;*/
-        /*    padding: 10px;*/
-        /*    height: 300px; !* Should be removed. Only for demonstration *!*/
-        /*}*/
+            th:nth-of-type(3),
+            td:nth-of-type(3) {
+                text-align: right;
+            }
 
-        /*!* Clear floats after the columns *!*/
-        /*.row:after {*/
-        /*    content: "";*/
-        /*    display: table;*/
-        /*    clear: both;*/
-        /*}*/
+            /* Fixed Headers */
+
+            th {
+                position: -webkit-sticky;
+                position: sticky;
+                top: 0;
+                z-index: 2;
+            }
+
+            th[scope=row] {
+                position: -webkit-sticky;
+                position: sticky;
+                left: 0;
+                z-index: 1;
+            }
+
+            th[scope=row] {
+                vertical-align: top;
+                color: inherit;
+                background-color: transparent;
+                /*background: linear-gradient(90deg, transparent 0%, transparent calc(100% - .05em), #d6d6d6 calc(100% - .05em), #d6d6d6 100%);*/
+            }
+
+            th:not([scope=row]):first-child {
+                left: 0;
+                z-index: 3;
+                /*background: linear-gradient(90deg, #666 0%, #666 calc(100% - .05em), #ccc calc(100% - .05em), #ccc 100%);*/
+                background-color: transparent;
+            }
+
+            /* Scrolling wrapper */
+
+            div[tabindex="0"][aria-labelledby][role="region"] {
+                overflow: auto;
+            }
+
+            div[tabindex="0"][aria-labelledby][role="region"]:focus {
+                box-shadow: 0 0 .5em rgba(0,0,0,.5);
+                outline: .1em solid rgba(0,0,0,.1);
+            }
+
+            div[tabindex="0"][aria-labelledby][role="region"] table {
+                margin: 0;
+            }
+
+            div[tabindex="0"][aria-labelledby][role="region"].rowheaders {
+                /*background:*/
+                /*    linear-gradient(to right, transparent 30%, rgba(255,255,255,0)),*/
+                /*    linear-gradient(to right, rgba(255,255,255,0), white 70%) 0 100%,*/
+                /*    radial-gradient(farthest-side at 0% 50%, rgba(0,0,0,0.2), rgba(0,0,0,0)),*/
+                /*    radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,0.2), rgba(0,0,0,0)) 0 100%;*/
+                background-repeat: no-repeat;
+                background-color: transparent;
+                background-size: 4em 100%, 4em 100%, 1.4em 100%, 1.4em 100%;
+                background-position: 0 0, 100%, 0 0, 100%;
+                background-attachment: local, local, scroll, scroll;
+            }
+
+            div[tabindex="0"][aria-labelledby][role="region"].colheaders {
+                /*background:*/
+                /*        linear-gradient(white 30%, rgba(255,255,255,0)),*/
+                /*        linear-gradient(rgba(255,255,255,0), white 70%) 0 100%,*/
+                /*        radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.2), rgba(0,0,0,0)),*/
+                /*        radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;*/
+                background-repeat: no-repeat;
+                background-color: transparent;
+                /*background-size: 100% 4em, 100% 4em, 100% 1.4em, 100% 1.4em;*/
+                background-attachment: local, local, scroll, scroll;
+            }
+
+            /* Strictly for making the scrolling happen. */
+
+            th[scope=row] {
+                min-width: 40vw;
+            }
+
+            @media all and (min-width: 30px) {
+                th[scope=row] {
+                    min-width: 20px;
+                }
+            }
+
+            th[scope=row] + td {
+                min-width: 24px;
+            }
+
+            div[tabindex="0"][aria-labelledby][role="region"]:nth-child(3) {
+                max-height: 18px;
+            }
+
+            div[tabindex="0"][aria-labelledby][role="region"]:nth-child(7) {
+                max-height: 15px;
+                margin: 0 1px;
+            }
     </style>
 
     <script type="text/javascript">
@@ -191,43 +242,318 @@
 </header>
 
 <section id="intro">
-        <div class="intro-text custom_container" style="overflow-x: scroll; height: auto; margin-top: 10%">
-            <table id="mat_table" style="background: white; text-align: center">
-                <thead>
-                <tr style="border-bottom: 1px dotted silver; display: block">
-                    <th>No</th>
-                    <th>Date</th>
-                    <th>Supp</th>
-                    <th>Item</th>
-                    <th>Design</th>
-                    <th>Qty</th>
-                    <th>Month</th>
-                    <th>Class</th>
-                    <th>Worker</th>
-                    <th>Erase</th>
-                </tr>
-                </thead>
-                <tbody id="mat_tbody" class="dynamics" style="display: block; overflow: auto;">
-                <tr style="border-bottom: 1px dotted silver"><td>
-                        test1test1test1test1test1test1test1test1test1test1test1test1</td><td>
-                        test2 </td><td>
-                        test3 </td><td>
-                        test4 </td><td>
-                        test5 </td><td>
-                        test6 </td><td>
-                        test7 </td><td>
-                        test8 </td><td>
-                        test9 </td><td>
-                        <input type="submit" class="btn-success" value="삭제"></td></tr>
-                </tbody>
-            </table>
+    <section id=""
+        <div class="custom_container">
+            <div role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders">
+                <table>
+                    <caption id="HeadersCol">Books with a Fixed Row Header Column</caption>
+                    <thead>
+
+<!--                    <tr>-->
+<!--                        <th>No</th>-->
+<!--                        <th>Date</th>-->
+<!--                        <th>Supplier</th>-->
+<!--                        <th>Item</th>-->
+<!--                        <th>Design</th>-->
+<!--                        <th>Qty</th>-->
+<!--                        <th>Month</th>-->
+<!--                        <th>Class</th>-->
+<!--                        <th>Worker</th>-->
+<!--                        <th></th>-->
+<!--                    </tr>-->
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">No</th>
+                        <td>The Ingenious Gentleman Don Quixote of La Mancha</td>
+                        <td>1605</td>
+                        <td>9783125798502</td>
+                        <td>3125798507</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Date</th>
+                        <td>La Belle et la Bête</td>
+                        <td>1740</td>
+                        <td>9781910880067</td>
+                        <td>191088006X</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Supplier</th>
+                        <td>The Method of Fluxions and Infinite Series: With Its Application to the Geometry of Curve-lines</td>
+                        <td>1763</td>
+                        <td>9781330454862</td>
+                        <td>1330454863</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Item</th>
+                        <td>Frankenstein; or, The Modern Prometheus</td>
+                        <td>1818</td>
+                        <td>9781530278442</td>
+                        <td>1530278449</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Design</th>
+                        <td>Moby-Dick; or, The Whale</td>
+                        <td>1851</td>
+                        <td>9781530697908</td>
+                        <td>1530697905</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Qty</th>
+                        <td>The Hidden Hand</td>
+                        <td>1888</td>
+                        <td>9780813512969</td>
+                        <td>0813512964</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Month</th>
+                        <td>The Great Gatsby</td>
+                        <td>1925</td>
+                        <td>9780743273565</td>
+                        <td>0743273567</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Class</th>
+                        <td>Nineteen Eighty-Four</td>
+                        <td>1948</td>
+                        <td>9780451524935</td>
+                        <td>0451524934</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Worker</th>
+                        <td>Who Fears Death</td>
+                        <td>2010</td>
+                        <td>9780756406691</td>
+                        <td>0756406692</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Button</th>
+                        <td>Who Fears Death</td>
+                        <td>2010</td>
+                        <td>9780756406691</td>
+                        <td>0756406692</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+
+
+<!--    <div class="tb_wrap">-->
+<!--        <div class="tb_box">-->
+<!--            <table class="tb">-->
+<!--                <caption>교육센터 강좌 목록</caption>-->
+<!--                <tr class="fixed_top">-->
+<!--                    <th class="cell1 cross" scope="col">강좌 명</th>-->
+<!--                    <th class="cell2" scope="col">강사</th>-->
+<!--                    <th class="cell3" scope="col">진행기간</th>-->
+<!--                    <th class="cell4" scope="col">신청현황</th>-->
+<!--                    <th class="cell5" scope="col">비고</th>-->
+<!--                    <th class="cell6" scope="col">상태</th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th class="cell1 fixed_col" scope="row">농구</th>-->
+<!--                    <td class="cell2">마이클 조던</td>-->
+<!--                    <td class="cell3">2020.04~2020.06 (3개월)</td>-->
+<!--                    <td class="cell4">27/40</td>-->
+<!--                    <td class="cell5">우천 시 실내진행</td>-->
+<!--                    <td class="cell6">신청 가능</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th class="cell1 fixed_col" scope="row">축구</th>-->
+<!--                    <td class="cell2">제라드</td>-->
+<!--                    <td class="cell3">2020.04~2020.06 (3개월)</td>-->
+<!--                    <td class="cell4">33/40</td>-->
+<!--                    <td class="cell5"></td>-->
+<!--                    <td class="cell6">신청 가능</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th class="cell1 fixed_col" scope="row">축구Ⅱ</th>-->
+<!--                    <td class="cell2">메시</td>-->
+<!--                    <td class="cell3">2020.04~2020.06 (3개월)</td>-->
+<!--                    <td class="cell4">7/40</td>-->
+<!--                    <td class="cell5"></td>-->
+<!--                    <td class="cell6">신청 가능</td>-->
+<!--                </tr>-->
+<!--                <tr class="end">-->
+<!--                    <th class="cell1 fixed_col" scope="row">축구Ⅲ</th>-->
+<!--                    <td class="cell2">찰리 아담</td>-->
+<!--                    <td class="cell3">2020.04~2020.06 (3개월)</td>-->
+<!--                    <td class="cell4">40/40</td>-->
+<!--                    <td class="cell5"></td>-->
+<!--                    <td class="cell6">마감</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th class="cell1 fixed_col" scope="row">야구</th>-->
+<!--                    <td class="cell2">데릭 지터</td>-->
+<!--                    <td class="cell3">2020.09~2020.10 (2개월)</td>-->
+<!--                    <td class="cell4">29/40</td>-->
+<!--                    <td class="cell5"></td>-->
+<!--                    <td class="cell6">신청 가능</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th class="cell1 fixed_col" scope="row">바둑</th>-->
+<!--                    <td class="cell2">이세돌</td>-->
+<!--                    <td class="cell3">2020.01~2020.03 (3개월)</td>-->
+<!--                    <td class="cell4">38/40</td>-->
+<!--                    <td class="cell5">알파고 강사님으로 변경될 수 있습니다.</td>-->
+<!--                    <td class="cell6">신청 가능</td>-->
+<!--                </tr>-->
+<!--                <tr class="end">-->
+<!--                    <th class="cell1 fixed_col" scope="row">영화감상</th>-->
+<!--                    <td class="cell2">쿠엔틴 타란티노</td>-->
+<!--                    <td class="cell3">2020.01~2020.02 (2개월)</td>-->
+<!--                    <td class="cell4">40/40</td>-->
+<!--                    <td class="cell5"></td>-->
+<!--                    <td class="cell6">마감</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th class="cell1 fixed_col" scope="row">종합격투기</th>-->
+<!--                    <td class="cell2">크로캅</td>-->
+<!--                    <td class="cell3">2020.03~2020.07 (5개월)</td>-->
+<!--                    <td class="cell4">13/40</td>-->
+<!--                    <td class="cell5"></td>-->
+<!--                    <td class="cell6">신청 가능</td>-->
+<!--                </tr>-->
+<!--                <tr class="end">-->
+<!--                    <th class="cell1 fixed_col" scope="row">서핑</th>-->
+<!--                    <td class="cell2">외부강사</td>-->
+<!--                    <td class="cell3">2020.07~2020.08 (2개월)</td>-->
+<!--                    <td class="cell4">40/40</td>-->
+<!--                    <td class="cell5"></td>-->
+<!--                    <td class="cell6">마감</td>-->
+<!--                </tr>-->
+<!--                <tr class="end">-->
+<!--                    <th class="cell1 fixed_col" scope="row">스키</th>-->
+<!--                    <td class="cell2">외부강사</td>-->
+<!--                    <td class="cell3">2020.12~2021.01 (2개월)</td>-->
+<!--                    <td class="cell4">40/40</td>-->
+<!--                    <td class="cell5"></td>-->
+<!--                    <td class="cell6">마감</td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+    <!--    <div class="tb_wrap">-->
+<!--        <div class="intro-text custom_container tb_box" style="overflow-x: scroll; height: auto; margin-top: 10%">-->
+<!--            <table id="tb" style="color: white; text-align: right; font-size: 25px">-->
+<!--                <thead>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <th class="fixed-col" colspan="10">No : </th></tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <th class="fixed-col" colspan="10">Date : </th></tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <th class="fixed-col" colspan="10">Supp : </th></tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <th class="fixed-col" colspan="10">Item : </th></tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <th class="fixed-col" colspan="10">Design : </th></tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <th class="fixed-col" colspan="10">Qty : </th></tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <th class="fixed-col" colspan="10">Month : </th></tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <th class="fixed-col" colspan="10">Class : </th></tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <th class="fixed-col" colspan="10">Worker : </th></tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <th class="fixed-col" colspan="10">Erase : </th></tr>-->
+<!--                </thead>-->
+<!--                <tbody id="mat_tbody" class="dynamics">-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                </tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                </tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                </tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                </tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                </tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                </tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                </tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                </tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                    <td>test1</td>-->
+<!--                </tr>-->
+<!--                <tr style="border-bottom: 1px dotted silver">-->
+<!--                    <td><input type="submit" class="btn-success" style="font-size: 10px" value="삭제"></td>-->
+<!--                    <td><input type="submit" class="btn-success" style="font-size: 10px" value="삭제"></td>-->
+<!--                    <td><input type="submit" class="btn-success" style="font-size: 10px" value="삭제"></td>-->
+<!--                    <td><input type="submit" class="btn-success" style="font-size: 10px" value="삭제"></td>-->
+<!--                    <td><input type="submit" class="btn-success" style="font-size: 10px" value="삭제"></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--    </div>-->
+
 
 
             <div id="input_form" class="modal fade" style="display: none">
                 <form method="post" >
                     <div class="modal-dialog">
-                        <div  class="intro-text modal-content" style="background: none; width: 180px; height: auto; border-width: 0px; margin-top: 30%; margin-left: auto; margin-right: auto" >
+                        <div  class="intro-text modal-content" style="background: none; width: 180px; height: auto; border-width: 0px; margin-left: auto; margin-right: auto" >
                             <!--==========================
                               Date
                             ============================-->
@@ -410,6 +736,54 @@
     function closeForm() {
         document.getElementById("input_form").style.display = "none";
     }
+
+    $(function(){
+        fixTh();
+
+        $(window).on('resize',function(){
+            fixTh();
+        });
+    });
+
+    function fixTh () {
+        if ($(window).width() < 1000) {
+            $('.tb_box').on('scroll',function(){
+                var tbBox = $('.tb_box');
+                var th1 = $('.tb_box tr:nth-child(1) th:nth-child(1)')
+                var th2 = $('.tb_box tr:nth-child(1) th:nth-child(2)');
+                var td1 = $('.tb_box tr:nth-child(n+2) th')
+                var td2 = $('.tb_box td:nth-child(2)')
+                var scrLeft = tbBox.scrollLeft();
+                var fixLeft = tbBox.offset().left;
+
+                tbBox.find('tr:nth-child(1)').css({
+                    'transform' : 'translateX(' + - scrLeft + 'px)'
+                });
+
+                if ($(this).scrollLeft() > 0) {
+                    th1.offset({
+                        'left':fixLeft
+                    });
+                    th2.css({
+                        'margin-left': -scrLeft
+                    });
+                    td1.offset({
+                        'left':fixLeft
+                    });
+                    td2.css({
+                        'margin-left': -scrLeft
+                    });
+                } else {
+                    th1.css({
+                        'left': 0
+                    });
+                    td1.css({
+                        'left':0
+                    });
+                }
+            });
+        }
+    };
 </script>
 
 <!--==========================
