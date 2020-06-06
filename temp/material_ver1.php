@@ -9,23 +9,23 @@
     <meta content="" name="description">
 
     <!-- Favicons -->
-    <link href="img/favicon.png" rel="icon">
-    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="../img/favicon.png" rel="icon">
+    <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
 
     <!-- Bootstrap CSS File -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Libraries CSS Files -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="../lib/magnific-popup/magnific-popup.css" rel="stylesheet">
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
     <style>
         * {
@@ -121,7 +121,7 @@
                                    } ?>">
                         </label>
                         <datalist id="supplier_list">
-                            <?php echo update('supplier'); ?>
+                            <?php echo updateDatalist('supplier'); ?>
                         </datalist>
 
                         <input type="submit" name="add_supplier" class="btn-info"   value="添加">
@@ -143,7 +143,7 @@
                                    } ?>">
                         </label>
                         <datalist id="item_list">
-                            <?php echo update('item'); ?>
+                            <?php echo updateDatalist('item'); ?>
                         </datalist>
 
                         <input type="submit" name="add_item" id="add_item" class="btn-info"   value="添加" />
@@ -165,7 +165,7 @@
                                    } ?>">
                         </label>
                         <datalist id="design_list">
-                            <?php echo update('design'); ?>
+                            <?php echo updateDatalist('design'); ?>
                         </datalist>
 
                         <input type="submit" name="add_design" class="btn-info"   value="添加" />
@@ -217,7 +217,7 @@
                                    } ?>">
                         </label>
                         <datalist id="class_list">
-                            <?php echo update('class'); ?>
+                            <?php echo updateDatalist('class'); ?>
                         </datalist>
 
                         <input type="submit" name="add_class" class="btn-info" value="添加" />
@@ -296,20 +296,20 @@
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 <!-- JavaScript Libraries -->
-<script src="lib/jquery/jquery.min.js"></script>
-<script src="lib/jquery/jquery-migrate.min.js"></script>
-<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/wow/wow.min.js"></script>
-<script src="lib/superfish/hoverIntent.js"></script>
-<script src="lib/superfish/superfish.min.js"></script>
-<script src="lib/magnific-popup/magnific-popup.min.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery/jquery-migrate.min.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../lib/easing/easing.min.js"></script>
+<script src="../lib/wow/wow.min.js"></script>
+<script src="../lib/superfish/hoverIntent.js"></script>
+<script src="../lib/superfish/superfish.min.js"></script>
+<script src="../lib/magnific-popup/magnific-popup.min.js"></script>
 
 <!-- Contact Form JavaScript File -->
-<script src="contactform/contactform.js"></script>
+<script src="../contactform/contactform.js"></script>
 
 <!-- Template Main Javascript File -->
-<script src="js/main.js"></script>
+<script src="../js/main.js"></script>
 </body>
 </html>
 
@@ -318,7 +318,7 @@
 //    echo "<script>displayMaterial()</script>";
 //}
 if (array_key_exists('save_material', $_POST)) {
-    save_material();
+    updateMaterial();
 }
 if (array_key_exists('add_supplier', $_POST)) {
     add_list($_POST['ibox_supplier'], 'supplier');

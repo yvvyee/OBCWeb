@@ -9,23 +9,23 @@
     <meta content="" name="description">
 
     <!-- Favicons -->
-    <link href="img/favicon.png" rel="icon">
-    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="../img/favicon.png" rel="icon">
+    <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
 
     <!-- Bootstrap CSS File -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Libraries CSS Files -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="../lib/magnific-popup/magnific-popup.css" rel="stylesheet">
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
 <!--    <script ></script>-->
 
@@ -72,8 +72,8 @@
         <nav id="nav-menu-container">
             <ul class="nav-menu">
 <!--                <li class="menu-active"><a href="#intro">资料输入</a></li>-->
-                <li><a href="material.php">원자재입력</a></li>
-                <li><a href="basic_stock.php">기본재고입력</a></li>
+                <li><a href="../temp/material.php">원자재입력</a></li>
+                <li><a href="../temp/basic_stock.php">기본재고입력</a></li>
                 <li><a href="stock.php">재고생성</a></li>
                 <li><a href="#order">材料订货</a></li>
                 <li><a href="#check">入库对账</a></li>
@@ -110,7 +110,7 @@
                                    } ?>">
                         </label>
                         <datalist id="花纸_list">
-                            <?php echo update('花纸'); ?>
+                            <?php echo updateDatalist('花纸'); ?>
                         </datalist>
                         <input type="submit" name="花纸" class="btn-get-started" value="花纸" style="background: none; outline: none">
                     </div>
@@ -132,7 +132,7 @@
                                    } ?>">
                         </label>
                         <datalist id="完成品_list">
-                            <?php echo update('完成品'); ?>
+                            <?php echo updateDatalist('完成品'); ?>
                         </datalist>
                         <input type="submit" name="完成品" class="btn-get-started" style="background: none; outline: none" value="完成品">
                     </div>
@@ -154,7 +154,7 @@
                                    } ?>">
                         </label>
                         <datalist id="包装物_list">
-                            <?php echo update('包装物'); ?>
+                            <?php echo updateDatalist('包装物'); ?>
                         </datalist>
                         <input type="submit" name="包装物" class="btn-get-started" style="background: none; outline: none" value="包装物">
                     </div>
@@ -176,7 +176,7 @@
                                    } ?>">
                         </label>
                         <datalist id="彩瓷_list">
-                            <?php echo update('彩瓷'); ?>
+                            <?php echo updateDatalist('彩瓷'); ?>
                         </datalist>
                         <input type="submit" name="彩瓷" class="btn-get-started" style="background: none; outline: none" value="彩瓷">
                     </div>
@@ -220,20 +220,20 @@
 <a href="#" class="back-to-top" onclick="hideMaterial('stock_view')"><i class="fa fa-chevron-up"></i></a>
 
 <!-- JavaScript Libraries -->
-<script src="lib/jquery/jquery.min.js"></script>
-<script src="lib/jquery/jquery-migrate.min.js"></script>
-<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/wow/wow.min.js"></script>
-<script src="lib/superfish/hoverIntent.js"></script>
-<script src="lib/superfish/superfish.min.js"></script>
-<script src="lib/magnific-popup/magnific-popup.min.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery/jquery-migrate.min.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../lib/easing/easing.min.js"></script>
+<script src="../lib/wow/wow.min.js"></script>
+<script src="../lib/superfish/hoverIntent.js"></script>
+<script src="../lib/superfish/superfish.min.js"></script>
+<script src="../lib/magnific-popup/magnific-popup.min.js"></script>
 
 <!-- Contact Form JavaScript File -->
-<script src="contactform/contactform.js"></script>
+<script src="../contactform/contactform.js"></script>
 
 <!-- Template Main Javascript File -->
-<script src="js/main.js"></script>
+<script src="../js/main.js"></script>
 
 </body>
 </html>

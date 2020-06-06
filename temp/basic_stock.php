@@ -9,23 +9,23 @@
     <meta content="" name="description">
 
     <!-- Favicons -->
-    <link href="img/favicon.png" rel="icon">
-    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="../img/favicon.png" rel="icon">
+    <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
 
     <!-- Bootstrap CSS File -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Libraries CSS Files -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="../lib/magnific-popup/magnific-popup.css" rel="stylesheet">
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
 <!--    <script ></script>-->
 
@@ -74,7 +74,7 @@
 <!--                <li class="menu-active"><a href="#intro">资料输入</a></li>-->
                 <li><a href="material.php">원자재입력</a></li>
                 <li><a href="basic_stock.php">기본재고입력</a></li>
-                <li><a href="stock.php">재고생성</a></li>
+                <li><a href="../test/stock.php">재고생성</a></li>
                 <li><a href="#order">材料订货</a></li>
                 <li><a href="#check">入库对账</a></li>
             </ul>
@@ -104,7 +104,7 @@
                                    } ?>">
                         </label>
                         <datalist id="class_list">
-                            <?php echo update('class'); ?>
+                            <?php echo updateDatalist('class'); ?>
                         </datalist>
                     </div>
                     <!--==========================
@@ -125,7 +125,7 @@
                                    } ?>">
                         </label>
                         <datalist id="item_list">
-                            <?php echo update('item'); ?>
+                            <?php echo updateDatalist('item'); ?>
                         </datalist>
                     </div>
                     <!--==========================
@@ -146,7 +146,7 @@
                                    } ?>">
                         </label>
                         <datalist id="design_list">
-                            <?php echo update('design'); ?>
+                            <?php echo updateDatalist('design'); ?>
                         </datalist>
                     </div>
                     <!--==========================
@@ -272,20 +272,20 @@
 <a href="#" class="back-to-top" onclick="hideMaterial('basic_stock_view')"><i class="fa fa-chevron-up"></i></a>
 
 <!-- JavaScript Libraries -->
-<script src="lib/jquery/jquery.min.js"></script>
-<script src="lib/jquery/jquery-migrate.min.js"></script>
-<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/wow/wow.min.js"></script>
-<script src="lib/superfish/hoverIntent.js"></script>
-<script src="lib/superfish/superfish.min.js"></script>
-<script src="lib/magnific-popup/magnific-popup.min.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery/jquery-migrate.min.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../lib/easing/easing.min.js"></script>
+<script src="../lib/wow/wow.min.js"></script>
+<script src="../lib/superfish/hoverIntent.js"></script>
+<script src="../lib/superfish/superfish.min.js"></script>
+<script src="../lib/magnific-popup/magnific-popup.min.js"></script>
 
 <!-- Contact Form JavaScript File -->
-<script src="contactform/contactform.js"></script>
+<script src="../contactform/contactform.js"></script>
 
 <!-- Template Main Javascript File -->
-<script src="js/main.js"></script>
+<script src="../js/main.js"></script>
 
 </body>
 </html>
@@ -294,7 +294,7 @@
 
 #region POST
 if (array_key_exists('save_material', $_POST)) {
-    save_material();
+    updateMaterial();
 }
 if (array_key_exists('add_supplier', $_POST)) {
     add_list($_POST['ibox_supplier'], 'supplier');
@@ -321,7 +321,7 @@ if (array_key_exists('pop_class', $_POST)) {
     pop_list($_POST['ibox_class'], 'class');
 }
 if (array_key_exists('show_all', $_POST)) {
-    showMaterial('all');
+    getMaterial('all');
     alert("전체 검색 완료.");
 }
 if (array_key_exists('show_cond', $_POST)) {
@@ -341,7 +341,7 @@ if (array_key_exists('show_cond', $_POST)) {
         $arr['design'] = $design;
     }
 
-    showMaterial($arr);
+    getMaterial($arr);
 
     $cond = "";
     foreach ($arr as $k => $v) {
