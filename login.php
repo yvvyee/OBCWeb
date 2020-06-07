@@ -125,15 +125,7 @@ function alert($msg) {
         }
     </style>
 </head>
-
 <body>
-<header id="header">
-    <div class="container">
-        <div id="logo" class="pull-left">
-            <h1><a>Outlook<br>Bone<br>China</a></h1>
-        </div>
-    </div>
-</header>
     <section id="intro">
             <div class="intro-text">
                 <p></p>

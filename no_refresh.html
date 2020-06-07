@@ -1,0 +1,111 @@
+Step 1- Make a Html form to submit the data- means that ,
+we will make an html form with post method that creates a form using html, javascript ,
+jquery and ajax (the code is written below) and save it as sendData.html
+that will create a form which takes some data from the user and send it to the database
+with the help of php mentioned in second step.
+
+<html>
+
+<head>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+
+    <script type="text/javascript">
+
+        function submitdata()
+
+        {
+
+            var name=document.getElementById( "name_of_user" );
+
+            var age=document.getElementById( "age_of_user" );
+
+            var course=document.getElementById( "course_of_user" );
+
+            $.ajax({
+
+                type: 'post',
+
+                url: 'insertdata.php',
+
+                data: {
+
+                    user_name:name,
+
+                    user_age:age,
+
+                    user_course:course
+
+                },
+
+                success: function (response) {
+
+                    $('#success__para').html("You data will be saved");
+
+                }
+
+            });
+
+            return false;
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+<form method="POST" onsubmit="return submitdata();">
+
+    <input type="text" name="username" id="name_of_user">
+
+    <input type="text" name="userage" id="age_of_user">
+
+    <input type="text" name="usercourse" id="course_of_user">
+
+    <input type="submit" name="submit_form" value="Submit">
+
+</form>
+
+<p id="success_para" ></p>
+
+</body>
+
+</html>
+
+Step 2- Conneting to the database and storing the data
+
+In this step we will try to store the data in the database through the sendData.html
+
+// insertdata.php
+
+<?php
+
+if( isset( $_POST['user_name'] ) )
+
+{
+
+$name = $_POST['user_name'];
+
+$age = $_POST['user_age'];
+
+$course = $_POST['user_course'];
+
+$host = 'localhost';
+
+$user = 'root';
+
+$pass = ' ';
+
+mysql_connect($host, $user, $pass);
+
+mysql_select_db('demo');
+
+$insertdata=" INSERT INTO user_info VALUES( '$name','$age','$course' ) ";
+
+mysql_query($insertdata);
+
+}
+
+?>
