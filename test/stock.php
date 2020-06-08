@@ -242,19 +242,19 @@
 
 #region POST
 if (isset($_POST['白瓷'])) {
-    show_stock($_POST['白瓷']);
+    makeStock($_POST['白瓷']);
 }
 if (isset($_POST['花纸'])) {
-    show_stock($_POST['花纸']);
+    makeStock($_POST['花纸']);
 }
 if (isset($_POST['完成品'])) {
-    show_stock($_POST['完成品']);
+    makeStock($_POST['完成品']);
 }
 if (isset($_POST['包装物'])) {
-    show_stock($_POST['包装物']);
+    makeStock($_POST['包装物']);
 }
 if (isset($_POST['彩瓷'])) {
-    show_stock($_POST['彩瓷']);
+    makeStock($_POST['彩瓷']);
 }
 if (isset($_POST['add_design'])) {
     add_list($_POST['ibox_design'], 'design');

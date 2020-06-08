@@ -449,19 +449,19 @@
 //      POST
 //--------------------------------------------------------------------------------
 if (array_key_exists('save_material', $_POST)) {
-    updateMaterial();
+    updateBasic();
 }
 if (array_key_exists('show_all', $_POST)) {
-    getMaterial(false);
+    getBasic(false);
 }
 if (array_key_exists('search', $_POST)) {
-    getMaterial(true);
+    getBasic(true);
 }
 if (array_key_exists('update', $_POST)) {
-    updateMaterial();
+    updateBasic();
 }
 if (array_key_exists('save', $_POST)) {
-    saveMaterial();
+    saveBasic();
 }
 $count = 0;
 function getMaterial($cond) {

@@ -1,8 +1,8 @@
 <?php
-//session_start();
-//if(!isset($_SESSION['user_id'])) {
-//    echo "<script>alert('세션이 만료되었습니다.'); window.location = './login.php'; </script>";
-//}
+session_start();
+if(!isset($_SESSION['user_id'])) {
+    echo "<script>alert('세션이 만료되었습니다.'); window.location = './login.php'; </script>";
+}
 ?>
     <!DOCTYPE html>
     <html lang="ca">
@@ -135,52 +135,7 @@
                            } ?>">
                 </label>
                 <datalist id="item_list">
-                    <option value="4绿碗"></option>
-                    <option value="5绿碗"></option>
-                    <option value="7绿碗"></option>
-                    <option value="3.5汤"></option>
-                    <option value="5圆汤"></option>
-                    <option value="6圆汤"></option>
-                    <option value="7圆汤"></option>
-                    <option value="8圆平"></option>
-                    <option value="9圆平"></option>
-                    <option value="11圆平"></option>
-                    <option value="7正平"></option>
-                    <option value="9正平"></option>
-                    <option value="11正平"></option>
-                    <option value="方鱼盘"></option>
-                    <option value="4天龙碗"></option>
-                    <option value="5天龙碗"></option>
-                    <option value="7天龙碗"></option>
-                    <option value="2P 杯碟"></option>
-                    <option value="5P 杯碟"></option>
-                    <option value="2P 皇室杯"></option>
-                    <option value="5P 皇室杯"></option>
-                    <option value="22p"></option>
-                    <option value="6格碟"></option>
-                    <option value="4绿碗外箱"></option>
-                    <option value="5绿碗外箱"></option>
-                    <option value="7绿碗外箱"></option>
-                    <option value="3.5汤外箱"></option>
-                    <option value="5圆汤外箱"></option>
-                    <option value="6圆汤外箱"></option>
-                    <option value="7圆汤外箱"></option>
-                    <option value="8圆平外箱"></option>
-                    <option value="9圆平外箱"></option>
-                    <option value="11圆平外箱"></option>
-                    <option value="7正平外箱"></option>
-                    <option value="9正平外箱"></option>
-                    <option value="11正平外箱"></option>
-                    <option value="方鱼盘外箱"></option>
-                    <option value="4天龙碗外箱"></option>
-                    <option value="5天龙碗外箱"></option>
-                    <option value="7天龙碗外箱"></option>
-                    <option value="2P 杯碟外箱"></option>
-                    <option value="5P 杯碟外箱"></option>
-                    <option value="2P 皇室杯外箱"></option>
-                    <option value="5P 皇室杯外箱"></option>
-                    <option value="22p外箱"></option>
-                    <option value="6格碟外箱"></option>
+                    <?php echo updateDatalist('item'); ?>
                 </datalist>
             </div>
             <!--==========================
@@ -237,18 +192,18 @@
                            } ?>">
                 </label>
                 <datalist id="month_list">
-                    <option value='1月份'></option>
-                    <option value='2月份'></option>
-                    <option value='3月份'></option>
-                    <option value='4月份'></option>
-                    <option value='5月份'></option>
-                    <option value='6月份'></option>
-                    <option value='7月份'></option>
-                    <option value='8月份'></option>
-                    <option value='9月份'></option>
-                    <option value='10月份'></option>
-                    <option value='11月份'></option>
-                    <option value='12月份'></option>
+                    <option value='1月份'>
+                    <option value='2月份'>
+                    <option value='3月份'>
+                    <option value='4月份'>
+                    <option value='5月份'>
+                    <option value='6月份'>
+                    <option value='7月份'>
+                    <option value='8月份'>
+                    <option value='9月份'>
+                    <option value='10月份'>
+                    <option value='11月份'>
+                    <option value='12月份'>
                 </datalist>
             </div>
             <!--==========================
@@ -377,7 +332,7 @@
                     }
                     if (msg === 'update') {
                         updateRow(response);
-                        alert("수정 완료");
+                        alert("삭제 완료");
                     }
                     if (msg === 'del') {
                         deleteRow(ctl);
@@ -437,7 +392,7 @@
 
         function updateRow(src) {
             if ($("#updateButton").val() == "Update") {
-                updateRowInTable();
+                productUpdateInTable();
             } else {
                 addToTable(src);
             }
@@ -498,23 +453,43 @@
             $("#mat_table tbody").prepend(new_row);
         }
 
-        function updateRowInTable() {
-            var cols = _row.children("td");
+        function productUpdateInTable() {
+            $(_row).after(productBuildTableRow(_activeId));
 
-            $(cols[0]).text($("#ibox_no").val());
-            $(cols[1]).text($("#ibox_date").val());
-            $(cols[2]).text($("#ibox_supplier").val());
-            $(cols[3]).text($("#ibox_item").val());
-            $(cols[4]).text($("#ibox_design").val());
-            $(cols[5]).text($("#ibox_qty").val());
-            $(cols[6]).text($("#ibox_month").val());
-            $(cols[7]).text($("#ibox_class").val());
-            $(cols[8]).text($("#ibox_worker").val());
+            $(_row).remove();
 
             formClear();
 
-            $("#updateButton").val("Save");
-            $("#updateButton").attr("name", "save");
+            $("#updateButton").text("Add");
+        }
+
+        var _nextId = 1;
+        var _activeId = 0;
+        function productBuildTableRow(id) {
+            var ret =
+                "<tr>" +
+                "<td>" +
+                "<button type='button' " +
+                "onclick='displayRow(this);' " +
+                "class='btn btn-default' " +
+                "data-id='" + id + "'>" +
+                "<span class='glyphicon glyphicon-edit' />" +
+                "E</button>" +
+                "</td>" +
+                "<td>" + $("#productname").val() + "</td>" +
+                "<td>" + $("#introdate").val() + "</td>" +
+                "<td>" + $("#url").val() + "</td>" +
+                "<td>" +
+                "<button type='button' " +
+                "onclick='deleteRow(this);' " +
+                "class='btn btn-default' " +
+                "data-id='" + id + "'>" +
+                "<span class='glyphicon glyphicon-remove' />" +
+                "X</button>" +
+                "</td>" +
+                "</tr>"
+
+            return ret;
         }
 
         function changeTable(src) {
@@ -595,11 +570,11 @@ function getMaterial() {
         }
         if (!empty($item)) {
             $sql = $sql."item='{$item}' AND ";
-            $table_title = $table_title."item = {$item},";
+            $table_title = $table_title."supplier = {$supplier},";
         }
         if (!empty($design)) {
             $sql = $sql."design='{$design}' AND ";
-            $table_title = $table_title."design '{$design}',";
+            $table_title = $table_title."item = '{$item}',";
         }
         if (!empty($month)) {
             $sql = $sql."month='{$month}' AND ";
@@ -611,7 +586,7 @@ function getMaterial() {
         }
         if (!empty($worker)) {
             $sql = $sql."worker='{$worker}' AND ";
-            $table_title = $table_title."worker = {$worker},";
+            $table_title = $table_title."worker = {$class},";
         }
         $sql = substr($sql, 0, -4);
         $sql = $sql."ORDER BY no DESC";
@@ -731,11 +706,13 @@ function saveMaterial() {
                 <td nowrap><button id=\"$count\" class=\"btn-success\" onclick=\"displayRow(this); return false;\">E</button></td>
                 <td><button id=\"$count\" class=\"btn-danger\" onclick=\"deleteRow(this); return false;\">D</button></td>
             </tr>";
+        echo "<script>addRow('#mat_table', $new_row)</script>";
         $count++;
     }
 
     if (mysqli_query($conn, $sql)) {
         echo "<script type='text/html' id='temp_row'>".$new_row."</script>";
+        alert("정상적으로 '저장'되었습니다.");
     }
 }
 
@@ -790,5 +767,29 @@ function deleteMaterial() {
 
     if (mysqli_query($conn, $sql)) {
     }
+}
+
+function add_list($value, $name) {
+    if (empty($value)) {
+        alert("{$name} 값을 입력하세요.");
+        return;
+    }
+    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+    $sql = "SELECT EXISTS (SELECT * FROM {$name} where {$name}={$value}) as Chk";
+
+    $res = mysqli_fetch_array(mysqli_query($conn, $sql));
+
+    if (intval($res['Chk'])) {
+        alert("{$name} : {$value} 항목은 이미 존재합니다.");
+        return;
+    }
+
+    $sql = "INSERT INTO {$name} VALUES ({$value})";
+    if (mysqli_query($conn, $sql)) {
+    }
+}
+
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
 }
 ?>

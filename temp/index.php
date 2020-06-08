@@ -6,6 +6,6 @@ if (!isset($_SESSION['user_id']))
 }
 else
 {
-    header('Location: obc/main.php');
+    header('Location: obc/material.php');
 }
 ?>

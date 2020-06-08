@@ -282,10 +282,10 @@
 //}
 #region POST
 if (array_key_exists('save_material', $_POST)) {
-    updateMaterial();
+    updateBasic();
 }
 if (array_key_exists('show_all', $_POST)) {
-    getMaterial('all');
+    getBasic('all');
     alert("전체 검색 완료.");
 }
 if (array_key_exists('show_cond', $_POST)) {
@@ -317,7 +317,7 @@ if (array_key_exists('show_cond', $_POST)) {
         $arr['class'] = $class;
     }
 
-    getMaterial($arr);
+    getBasic($arr);
 
     $cond = "";
     foreach ($arr as $k => $v) {

@@ -318,7 +318,7 @@
 //    echo "<script>displayMaterial()</script>";
 //}
 if (array_key_exists('save_material', $_POST)) {
-    updateMaterial();
+    updateBasic();
 }
 if (array_key_exists('add_supplier', $_POST)) {
     add_list($_POST['ibox_supplier'], 'supplier');
