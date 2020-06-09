@@ -71,29 +71,15 @@ if(!isset($_SESSION['user_id'])) {
             ================================================================================-->
         <div id="input_form" style="position: relative">
             <div class="center">
+                <h1>出货资料</h1>
+            </div>
+            <div class="center">
                 <label for="ibox_no">
-                    <input type="no"
+                    <input type="number"
                            id="ibox_no"
                            name="ibox_no"
                            placeholder="No"
                            style="min-width: 200px; min-height: 40px; display: none">
-                </label>
-            </div>
-            <!--==========================
-                          Date
-                        ============================-->
-            <div class="center">
-                <label for="ibox_date">
-                    <input type="date"
-                           id="ibox_date"
-                           name="ibox_date"
-                           placeholder="Date"
-                           style="min-width: 200px; min-height: 40px"
-                           value="<?php
-                           if (isset($_POST['ibox_date'])) {
-                               echo htmlentities($_POST['ibox_date']);
-                           }
-                           ?>">
                 </label>
             </div>
             <!--==========================
@@ -135,7 +121,52 @@ if(!isset($_SESSION['user_id'])) {
                            } ?>">
                 </label>
                 <datalist id="item_list">
-                    <?php echo updateDatalist('item'); ?>
+                    <option value="4绿碗"></option>
+                    <option value="5绿碗"></option>
+                    <option value="7绿碗"></option>
+                    <option value="3.5汤"></option>
+                    <option value="5圆汤"></option>
+                    <option value="6圆汤"></option>
+                    <option value="7圆汤"></option>
+                    <option value="8圆平"></option>
+                    <option value="9圆平"></option>
+                    <option value="11圆平"></option>
+                    <option value="7正平"></option>
+                    <option value="9正平"></option>
+                    <option value="11正平"></option>
+                    <option value="方鱼盘"></option>
+                    <option value="4天龙碗"></option>
+                    <option value="5天龙碗"></option>
+                    <option value="7天龙碗"></option>
+                    <option value="2P 杯碟"></option>
+                    <option value="5P 杯碟"></option>
+                    <option value="2P 皇室杯"></option>
+                    <option value="5P 皇室杯"></option>
+                    <option value="22p"></option>
+                    <option value="6格碟"></option>
+                    <option value="4绿碗外箱"></option>
+                    <option value="5绿碗外箱"></option>
+                    <option value="7绿碗外箱"></option>
+                    <option value="3.5汤外箱"></option>
+                    <option value="5圆汤外箱"></option>
+                    <option value="6圆汤外箱"></option>
+                    <option value="7圆汤外箱"></option>
+                    <option value="8圆平外箱"></option>
+                    <option value="9圆平外箱"></option>
+                    <option value="11圆平外箱"></option>
+                    <option value="7正平外箱"></option>
+                    <option value="9正平外箱"></option>
+                    <option value="11正平外箱"></option>
+                    <option value="方鱼盘外箱"></option>
+                    <option value="4天龙碗外箱"></option>
+                    <option value="5天龙碗外箱"></option>
+                    <option value="7天龙碗外箱"></option>
+                    <option value="2P 杯碟外箱"></option>
+                    <option value="5P 杯碟外箱"></option>
+                    <option value="2P 皇室杯外箱"></option>
+                    <option value="5P 皇室杯外箱"></option>
+                    <option value="22p外箱"></option>
+                    <option value="6格碟外箱"></option>
                 </datalist>
             </div>
             <!--==========================
@@ -160,72 +191,37 @@ if(!isset($_SESSION['user_id'])) {
                 </datalist>
             </div>
             <!--==========================
-                  Quantity
+                  Packing rate
                 ============================-->
             <div class="center">
-                <label for="ibox_qty">
+                <label for="ibox_rate">
                     <input type="number"
-                           name="ibox_qty"
-                           id="ibox_qty"
-                           placeholder="Qty"
+                           name="ibox_rate"
+                           id="ibox_rate"
+                           placeholder="Packing rate"
                            style="min-width: 200px; min-height: 40px"
                            value="<?php
-                           if (isset($_POST['ibox_qty'])) {
-                               echo htmlentities($_POST['ibox_qty']);
+                           if (isset($_POST['ibox_rate'])) {
+                               echo htmlentities($_POST['ibox_rate']);
                            } ?>">
                 </label>
             </div>
             <!--==========================
-                  Month
+                  Unit price
                 ============================-->
             <div class="center">
-                <label for="ibox_month">
-                    <input type="text"
-                           name="ibox_month"
-                           id="ibox_month"
-                           list="month_list"
-                           placeholder="Month"
+                <label for="ibox_price">
+                    <input type="number"
+                           step="any"
+                           name="ibox_price"
+                           id="ibox_price"
+                           placeholder="Unit price"
                            style="min-width: 200px; min-height: 40px"
                            value="<?php
-                           if (isset($_POST['ibox_month'])) {
-                               echo htmlentities($_POST['ibox_month']);
+                           if (isset($_POST['ibox_price'])) {
+                               echo htmlentities($_POST['ibox_price']);
                            } ?>">
                 </label>
-                <datalist id="month_list">
-                    <option value='1月份'>
-                    <option value='2月份'>
-                    <option value='3月份'>
-                    <option value='4月份'>
-                    <option value='5月份'>
-                    <option value='6月份'>
-                    <option value='7月份'>
-                    <option value='8月份'>
-                    <option value='9月份'>
-                    <option value='10月份'>
-                    <option value='11月份'>
-                    <option value='12月份'>
-                </datalist>
-            </div>
-            <!--==========================
-                  Class
-                ============================-->
-            <div class="center">
-                <label for="ibox_class">
-                    <input type="text"
-                           name="ibox_class"
-                           id="ibox_class"
-                           list="class_list"
-                           placeholder="Class"
-                           autocomplete="off"
-                           style="min-width: 200px; min-height: 40px"
-                           value="<?php
-                           if (isset($_POST['ibox_class'])) {
-                               echo htmlentities($_POST['ibox_class']);
-                           } ?>">
-                </label>
-                <datalist id="class_list">
-                    <?php echo updateDatalist('class'); ?>
-                </datalist>
             </div>
             <!--==========================
                   Worker
@@ -297,28 +293,24 @@ if(!isset($_SESSION['user_id'])) {
                 fillIBox(ctl);
             }
             var ib_no = document.getElementById( "ibox_no" );
-            var ib_date = document.getElementById( "ibox_date" );
             var ib_supplier = document.getElementById( "ibox_supplier" );
             var ib_item = document.getElementById( "ibox_item" );
             var ib_design = document.getElementById( "ibox_design" );
-            var ib_qty = document.getElementById( "ibox_qty" );
-            var ib_month = document.getElementById( "ibox_month" );
-            var ib_class = document.getElementById( "ibox_class" );
+            var ib_rate = document.getElementById( "ibox_rate" );
+            var ib_price = document.getElementById( "ibox_price" );
             var ib_worker = document.getElementById( "ibox_worker" );
 
             $.ajax({
                 type: 'post',
-                url: 'material.php',
+                url: 'shipping.php',
                 data: {
                     msg:msg,
                     no:ib_no.value,
-                    date:ib_date.value,
                     supplier:ib_supplier.value,
                     item:ib_item.value,
                     design:ib_design.value,
-                    qty:ib_qty.value,
-                    month:ib_month.value,
-                    class:ib_class.value,
+                    rate:ib_rate.value,
+                    price:ib_price.value,
                     worker:ib_worker.value,
                 },
 
@@ -332,7 +324,7 @@ if(!isset($_SESSION['user_id'])) {
                     }
                     if (msg === 'update') {
                         updateRow(response);
-                        alert("삭제 완료");
+                        alert("수정 완료");
                     }
                     if (msg === 'del') {
                         deleteRow(ctl);
@@ -357,8 +349,8 @@ if(!isset($_SESSION['user_id'])) {
         }
 
         function addRow(content_str) {
-            if ($("#mat_table", "tbody").length === 0) {
-                $("#mat_table").append("<tbody></tbody>");
+            if ($("#ship_table", "tbody").length === 0) {
+                $("#ship_table").append("<tbody></tbody>");
             }
             $("#mat_table").children("tbody").children("tr").prepend(content_str)
         }
@@ -370,14 +362,12 @@ if(!isset($_SESSION['user_id'])) {
             var cols = _row.children("td");
 
             $("#ibox_no").val($(cols[0]).text());
-            $("#ibox_date").val($(cols[1]).text());
-            $("#ibox_supplier").val($(cols[2]).text());
-            $("#ibox_item").val($(cols[3]).text());
-            $("#ibox_design").val($(cols[4]).text());
-            $("#ibox_qty").val($(cols[5]).text());
-            $("#ibox_month").val($(cols[6]).text());
-            $("#ibox_class").val($(cols[7]).text());
-            $("#ibox_worker").val($(cols[8]).text());
+            $("#ibox_supplier").val($(cols[1]).text());
+            $("#ibox_item").val($(cols[2]).text());
+            $("#ibox_design").val($(cols[3]).text());
+            $("#ibox_rate").val($(cols[4]).text());
+            $("#ibox_price").val($(cols[5]).text());
+            $("#ibox_worker").val($(cols[6]).text());
         }
 
         function displayRow(ctl) {
@@ -392,7 +382,7 @@ if(!isset($_SESSION['user_id'])) {
 
         function updateRow(src) {
             if ($("#updateButton").val() == "Update") {
-                productUpdateInTable();
+                updateRowInTable();
             } else {
                 addToTable(src);
             }
@@ -411,13 +401,11 @@ if(!isset($_SESSION['user_id'])) {
                 window.location.href = "#input_form";
             }
             $("#ibox_no").val("");
-            $("#ibox_date").val("");
             $("#ibox_supplier").val("");
             $("#ibox_item").val("");
             $("#ibox_design").val("");
-            $("#ibox_qty").val("");
-            $("#ibox_month").val("");
-            $("#ibox_class").val("");
+            $("#ibox_rate").val("");
+            $("#ibox_price").val("");
             $("#ibox_worker").val("");
         }
 
@@ -426,18 +414,16 @@ if(!isset($_SESSION['user_id'])) {
         }
 
         function addToTable(src) {
-            if ($("#mat_table").length == 0) {
-                $("#table_root").append("<table id='mat_table' class='responsive-table' style='min-font-size: 9pt'>"
+            if ($("#ship_table").length == 0) {
+                $("#table_root").append("<table id='ship_table' class='responsive-table' style='min-font-size: 9pt'>"
                     + "<thead>"
                     + "<tr>"
                     + "<th style='display: none'>No</th>"
-                    + "<th>Date</th>"
-                    + "<th style='display: none'>Supplier</th>"
+                    + "<th>Supplier</th>"
                     + "<th>Item</th>"
                     + "<th>Design</th>"
-                    + "<th>Qty</th>"
-                    + "<th style='display: none'>Month</th>"
-                    + "<th>Class</th>"
+                    + "<th>Rate</th>"
+                    + "<th>Price</th>"
                     + "<th style='display: none'>Worker</th>"
                     + "<th>Edit</th>"
                     + "<th>Del</th>"
@@ -450,46 +436,24 @@ if(!isset($_SESSION['user_id'])) {
             var htmlDoc = parser.parseFromString(src, 'text/html');
             var new_row = $(htmlDoc).find('#temp_row').html();
 
-            $("#mat_table tbody").prepend(new_row);
+            $("#ship_table tbody").prepend(new_row);
         }
 
-        function productUpdateInTable() {
-            $(_row).after(productBuildTableRow(_activeId));
+        function updateRowInTable() {
+            var cols = _row.children("td");
 
-            $(_row).remove();
+            $(cols[0]).text($("#ibox_no").val());
+            $(cols[1]).text($("#ibox_supplier").val());
+            $(cols[2]).text($("#ibox_item").val());
+            $(cols[3]).text($("#ibox_design").val());
+            $(cols[4]).text($("#ibox_rate").val());
+            $(cols[5]).text($("#ibox_price").val());
+            $(cols[6]).text($("#ibox_worker").val());
 
             formClear();
 
-            $("#updateButton").text("Add");
-        }
-
-        var _nextId = 1;
-        var _activeId = 0;
-        function productBuildTableRow(id) {
-            var ret =
-                "<tr>" +
-                "<td>" +
-                "<button type='button' " +
-                "onclick='displayRow(this);' " +
-                "class='btn btn-default' " +
-                "data-id='" + id + "'>" +
-                "<span class='glyphicon glyphicon-edit' />" +
-                "E</button>" +
-                "</td>" +
-                "<td>" + $("#productname").val() + "</td>" +
-                "<td>" + $("#introdate").val() + "</td>" +
-                "<td>" + $("#url").val() + "</td>" +
-                "<td>" +
-                "<button type='button' " +
-                "onclick='deleteRow(this);' " +
-                "class='btn btn-default' " +
-                "data-id='" + id + "'>" +
-                "<span class='glyphicon glyphicon-remove' />" +
-                "X</button>" +
-                "</td>" +
-                "</tr>"
-
-            return ret;
+            $("#updateButton").val("Save");
+            $("#updateButton").attr("name", "save");
         }
 
         function changeTable(src) {
@@ -498,8 +462,8 @@ if(!isset($_SESSION['user_id'])) {
             var parser = new DOMParser();
             var htmlDoc = parser.parseFromString(src, 'text/html');
 
-            if ($("#mat_table").length > 0) {
-                header = document.querySelector("#mat_table");
+            if ($("#ship_table").length > 0) {
+                header = document.querySelector("#ship_table");
                 header.parentElement.removeChild(header);
             }
 
@@ -524,73 +488,76 @@ if(!isset($_SESSION['user_id'])) {
 <?php
 if (array_key_exists('msg', $_POST)) {
     if ($_POST['msg'] == 'search') {
-        getBasic();
+        getShipping();
     }
     if ($_POST['msg'] == 'update') {
-        updateBasic();
+        updateShipping();
     }
     if ($_POST['msg'] == 'save') {
-        saveBasic();
+        saveShipping();
     }
     if ($_POST['msg'] == 'del') {
-        deleteBasic();
+        deleteShipping();
     }
 }
+
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+
 $count = 0;
-function getMaterial() {
-    $date       = ($_POST['date']);
+function getShipping() {
     $supplier   = ($_POST['supplier']);
     $item       = ($_POST['item']);
     $design     = ($_POST['design']);
-    $month      = ($_POST['month']);
-    $class      = ($_POST['class']);
+    $rate       = ($_POST['rate']);
+    $price      = ($_POST['price']);
     $worker     = ($_POST['worker']);
 
-    if (empty($date) and
-        empty($supplier) and
+    if (empty($supplier) and
         empty($item) and
         empty($design) and
-        empty($month) and
-        empty($class) and
+        empty($rate) and
+        empty($price) and
         empty($worker)) {
 
-        $sql = "SELECT * FROM material ORDER BY no DESC";
-        $table_title = "전체검색";
+        $sql = "SELECT * FROM shipping ORDER BY no DESC";
+        $condition = "전체검색";
 
     } else {
-        $sql = "SELECT * FROM material WHERE ";
-        $table_title = "검색조건 = ";
-        if (!empty($date)) {
-            $sql = $sql."date='{$date}' AND ";
-            $table_title = $table_title."date = {$date},";
-        }
+        $sql = "SELECT * FROM shipping WHERE ";
+        $condition = "검색조건 = ";
         if (!empty($supplier)) {
             $sql = $sql."supplier='{$supplier}' AND ";
-            $table_title = $table_title."supplier = {$supplier},";
+            $condition = $condition."supplier = {$supplier},";
         }
         if (!empty($item)) {
             $sql = $sql."item='{$item}' AND ";
-            $table_title = $table_title."supplier = {$supplier},";
+            $condition = $condition."item = {$item},";
         }
         if (!empty($design)) {
             $sql = $sql."design='{$design}' AND ";
-            $table_title = $table_title."item = '{$item}',";
-        }
-        if (!empty($month)) {
-            $sql = $sql."month='{$month}' AND ";
-            $table_title = $table_title."month = {$month},";
+            $condition = $condition."design '{$design}',";
         }
         if (!empty($class)) {
             $sql = $sql."class='{$class}' AND ";
-            $table_title = $table_title."class = {$class},";
+            $condition = $condition."class = {$class},";
+        }
+        if (!empty($rate)) {
+            $sql = $sql."rate='{$rate}' AND ";
+            $condition = $condition."rate = {$rate},";
+        }
+        if (!empty($price)) {
+            $sql = $sql."price='{$price}' AND ";
+            $condition = $condition."price = {$price},";
         }
         if (!empty($worker)) {
             $sql = $sql."worker='{$worker}' AND ";
-            $table_title = $table_title."worker = {$class},";
+            $condition = $condition."worker = {$worker},";
         }
         $sql = substr($sql, 0, -4);
         $sql = $sql."ORDER BY no DESC";
-        $table_title = substr($table_title, 0, -1);
+        $condition = substr($condition, 0, -1);
     }
 
     $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
@@ -598,16 +565,16 @@ function getMaterial() {
 
     global $count;
     $count = 0;
-    $new_page = "<table id=\"mat_table\" class='responsive-table' style='min-font-size: 9pt'>
+    $new_page = "<table id=\"ship_table\" class='responsive-table' style='min-font-size: 9pt'>
+                    <caption style='text-align: center'>{$condition}</caption>
                         <thead>
                         <tr>
                             <th style='display: none'>No</th>
-                            <th>Date</th>
-                            <th style='display: none'>Supplier</th>
+                            <th>Supplier</th>
                             <th>Item</th>
                             <th>Design</th>
-                            <th>Qty</th>
-                            <th style='display: none'>Month</th>
+                            <th>Rate</th>
+                            <th>Price</th>
                             <th>Class</th>
                             <th style='display: none'>Worker</th>
                             <th>Edit</th>
@@ -621,12 +588,11 @@ function getMaterial() {
         $new_page = $new_page.
             "<tr style=\"border-bottom: 1px dotted silver\">
                 <td style=\"display: none\">".$row['no']."</td>
-                <td>".$row['date']."</td>
-                <td style='display: none'>".$row['supplier']."</td>
+                <td>".$row['supplier']."</td>
                 <td>".$row['item']."</td>
                 <td>".$row['design'] . "</td>
-                <td>".$row['qty'] . "</td>
-                <td style='display: none'>".$row['month'] . "</td>
+                <td>".$row['rate'] . "</td>
+                <td>".$row['price'] . "</td>
                 <td>".$row['class'] . "</td>
                 <td style='display: none'>".$row['worker'] . "</td>
                 <td nowrap><button id=\"$count\" class=\"btn-success\" onclick=\"displayRow(this); return false;\">E</button></td>
@@ -650,20 +616,15 @@ function updateDatalist($name) {
     }
 }
 
-function saveMaterial() {
-    $date       = ($_POST['date']);
+function saveShipping() {
     $supplier   = ($_POST['supplier']);
     $item       = ($_POST['item']);
     $design     = ($_POST['design']);
-    $qty        = ($_POST['qty']);
-    $month      = ($_POST['month']);
+    $rate       = ($_POST['rate']);
+    $price      = ($_POST['price']);
     $class      = ($_POST['class']);
     $worker     = ($_POST['worker']);
 
-    if (empty($date)) {
-        alert("date 값을 입력하세요.");
-        return;
-    }
     if (empty($supplier)) {
         alert("supplier 값을 입력하세요.");
         return;
@@ -676,18 +637,14 @@ function saveMaterial() {
         alert("design 값을 입력하세요.");
         return;
     }
-    if (empty($qty)) {
-        alert("quantity 값을 입력하세요.");
-        return;
-    }
     if (empty($class)) {
         alert("class 값을 입력하세요.");
         return;
     }
 
     $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $sql = "INSERT INTO material (date, supplier, item, design, qty, month, class, worker) 
-                VALUES ('{$date}', '{$supplier}', '{$item}', '{$design}', {$qty}, '{$month}', '{$class}', '{$worker}')";
+    $sql = "INSERT INTO shipping (supplier, item, design, rate, price, class, worker) 
+                VALUES ('{$supplier}', '{$item}', '{$design}', {$rate}, '{$price}', '{$class}', '{$worker}')";
 
     if (mysqli_query($conn, $sql)) {
         $sql = "SELECT LAST_INSERT_ID()";
@@ -695,35 +652,31 @@ function saveMaterial() {
         global $count;
         $new_row = "<tr style=\"border-bottom: 1px dotted silver\">
                 <td style=\"display: none\">".$no."</td>
-                <td>".$date."</td>
-                <td style='display: none'>".$supplier."</td>
+                <td>".$supplier."</td>
                 <td>".$item."</td>
                 <td>".$design . "</td>
-                <td>".$qty . "</td>
-                <td style='display: none'>".$month . "</td>
+                <td>".$rate . "</td>
+                <td>".$price . "</td>
                 <td>".$class . "</td>
                 <td style='display: none'>".$worker . "</td>
                 <td nowrap><button id=\"$count\" class=\"btn-success\" onclick=\"displayRow(this); return false;\">E</button></td>
                 <td><button id=\"$count\" class=\"btn-danger\" onclick=\"deleteRow(this); return false;\">D</button></td>
             </tr>";
-        echo "<script>addRow('#mat_table', $new_row)</script>";
         $count++;
     }
 
     if (mysqli_query($conn, $sql)) {
         echo "<script type='text/html' id='temp_row'>".$new_row."</script>";
-        alert("정상적으로 '저장'되었습니다.");
     }
 }
 
-function updateMaterial() {
+function updateShipping() {
     $no         = ($_POST['no']);
-    $date       = ($_POST['date']);
     $supplier   = ($_POST['supplier']);
     $item       = ($_POST['item']);
     $design     = ($_POST['design']);
-    $qty        = ($_POST['qty']);
-    $month      = ($_POST['month']);
+    $rate       = ($_POST['rate']);
+    $price      = ($_POST['price']);
     $class      = ($_POST['class']);
     $worker     = ($_POST['worker']);
 
@@ -753,43 +706,18 @@ function updateMaterial() {
     }
 
     $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $sql = "UPDATE material SET date = '{$date}', supplier = '{$supplier}', item = '{$item}', design = '{$design}', qty = {$qty}, month = '{$month}', class = '{$class}', worker = '{$worker}' WHERE no = {$no}";
+    $sql = "UPDATE shipping SET supplier = '{$supplier}', item = '{$item}', design = '{$design}', rate = {$rate}, price = '{$price}', class = '{$class}', worker = '{$worker}' WHERE no = {$no}";
 
     if (mysqli_query($conn, $sql)) {
     }
 }
 
-function deleteMaterial() {
+function deleteShipping() {
     $no         = ($_POST['no']);
-
     $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $sql = "DELETE FROM material WHERE no = {$no}";
+    $sql = "DELETE FROM shipping WHERE no = {$no}";
 
     if (mysqli_query($conn, $sql)) {
     }
-}
-
-function add_list($value, $name) {
-    if (empty($value)) {
-        alert("{$name} 값을 입력하세요.");
-        return;
-    }
-    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $sql = "SELECT EXISTS (SELECT * FROM {$name} where {$name}={$value}) as Chk";
-
-    $res = mysqli_fetch_array(mysqli_query($conn, $sql));
-
-    if (intval($res['Chk'])) {
-        alert("{$name} : {$value} 항목은 이미 존재합니다.");
-        return;
-    }
-
-    $sql = "INSERT INTO {$name} VALUES ({$value})";
-    if (mysqli_query($conn, $sql)) {
-    }
-}
-
-function alert($msg) {
-    echo "<script type='text/javascript'>alert('$msg');</script>";
 }
 ?>

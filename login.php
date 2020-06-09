@@ -1,45 +1,8 @@
 <?php
-session_start();
-if (isset($_POST['btn_login'])) {
-    login();
+if (!isset($_SESSION)) {
+    session_start();
 }
-
-function login() {
-    $user_id = $_POST['user_id'];
-    $passwd = $_POST['passwd'];
-
-    if ($user_id == "" || $passwd == "") {
-        alert("아이디/비밀번호를 입력하세요.");
-        return;
-    }
-
-    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-    $sql = "SELECT * FROM user_info WHERE user_id='$user_id'";
-
-    $res = mysqli_query($conn, $sql);
-    if ($res->num_rows != 1) {
-        alert("존재하지 않는 계정입니다.");
-        return;
-    }
-
-    $row = mysqli_fetch_array( $res );
-    if ($row['passwd'] != $passwd) {
-        alert("비밀번호가 일치하지 않습니다.");
-        return;
-    }
-
-    $_SESSION['user_id'] = $user_id;
-    if (!isset($_SESSION['user_id'])) {
-        alert("세션 생성에 실패하였습니다.");
-        return;
-    }
-    header("location: ./main.php");
-    exit;
-}
-
-function alert($msg) {
-    echo "<script type='text/javascript'>alert('$msg');</script>";
-}
+include_once "common.php";
 ?>
 <!DOCTYPE html>
 <html lang="ca">
@@ -69,86 +32,56 @@ function alert($msg) {
 
     <!-- Main Stylesheet File -->
     <link href="./css/style.css" rel="stylesheet">
-
-    <style>
-        /* Popup container */
-        .popup {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        /* The actual popup (appears on top) */
-        .popup .popuptext {
-            visibility: hidden;
-            width: 160px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px 0;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -80px;
-        }
-
-        /* Popup arrow */
-        .popup .popuptext::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #555 transparent transparent transparent;
-        }
-
-        /* Toggle this class when clicking on the popup container (hide and show the popup) */
-        .popup .show {
-            visibility: revert;
-            -webkit-animation: fadeIn 1s;
-            animation: fadeIn 1s
-        }
-
-        /* Add animation (fade in the popup) */
-        @-webkit-keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity:1 ;}
-        }
-    </style>
+    <link href="./css/obc_style.css" rel="stylesheet">
 </head>
 <body>
     <section id="intro">
-            <div class="intro-text">
-                <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <h2>欢迎!</h2>
-                <p>世上唯一的快乐就是开始</p>
+            <div class="intro-text" style="position: relative">
 
                 <form method="POST" name="login_form">
-                    <div class="popup">
-                        <label>
-                            <input type="text" name="user_id" placeholder="ID:" size="30" autocomplete="off" />
-                        </label>
-                    </div>
 
-                    <label>
-                        <input type="password" name="passwd" placeholder="PASSWORD:" size="30" autocomplete="off" />
-                    </label>
+                    <div class="container">
+                        <div class="center">
+                            <img src="./img/obc_logo.JPG" alt="Outlook Bone China Logo" title="OBC" style="width: 355px">
+                        </div>
 
-                    <div class="section-divider">
-                        <input type="submit" name="btn_login" class="btn-get-started" style="background: none; outline: none" value="Login">
+                        <div class="center" style="margin-top: 100px">
+                            <label>
+                                <input style="font-size: 16pt;
+                                              text-align: center;
+                                              font-family: 微软雅黑;
+                                              min-width: 247px;
+                                              height: 41px"
+                                       type="text"
+                                       name="user_id"
+                                       size="30"
+                                       autocomplete="off"
+                                       placeholder="账号"/>
+                            </label>
+                        </div>
+
+                        <div class="center">
+
+                            <label>
+                                <input style="font-size: 16pt;
+                                                  text-align: center;
+                                                  font-family: 微软雅黑;
+                                                  min-width: 247px;
+                                                  height: 41px"
+                                       type="password"
+                                       name="passwd" size="30"
+                                       autocomplete="off"
+                                       placeholder="密码"/>
+                            </label>
+                        </div>
+                        <div class="section-divider">
+                            <input type="submit"
+                                   name="btn_login"
+                                   class="btn-get-started"
+                                   style="background: none;
+                                   outline: none"
+                                   value="登录">
+                        </div>
                     </div>
                 </form>
             </div>

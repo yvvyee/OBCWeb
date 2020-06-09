@@ -1,11 +1,13 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 if(!isset($_SESSION['user_id'])) {
     echo "<script>alert('세션이 만료되었습니다.'); window.location = './login.php'; </script>";
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <title>OBC Web</title>
@@ -67,18 +69,18 @@ if(!isset($_SESSION['user_id'])) {
                 <div class="container-fluid">
                     <div class="row" style="text-align: center">
                         <div class="col" style="text-align: center">
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/入库对账.png"></a>
+                            <a href="./stock.php"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/入库对账.png"></a>
                             <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/对账单.png"></a>
                             <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/库存表.png"></a>
                             <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/材料订货.png"></a>
                             <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/海上运动.png"></a>
                             <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/生产计划.png"></a>
                             <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/订单查询.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/订货资料.png"></a>
+                            <a href="./shipping.php"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/订货资料.png"></a>
                             <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/贴花生产计划.png"></a>
                             <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/资料检索.png"></a>
                             <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/资料编辑.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/资料输入.png"></a>
+                            <a href="./material.php"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/资料输入.png"></a>
                         </div>
                     </div>
                 </div>
@@ -101,7 +103,7 @@ if(!isset($_SESSION['user_id'])) {
         <div class="button-container" style="position: absolute; bottom: 20px">
             <a href="#navi" data-toggle="modal"></a>
             <div class="button-image">
-                <img src="./img/icon/HOME.png" alt="">
+                <img src="./img/icon/HOME.png">
             </div>
         </div>
     </div>

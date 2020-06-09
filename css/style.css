@@ -31,7 +31,7 @@ p {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Montserrat", sans-serif;
+  font-family: Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", "Montserrat", sans-serif;
   font-weight: 400;
   margin: 0 0 20px 0;
   padding: 0;
@@ -86,7 +86,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
   line-height: 1;
   display: inline-block;
-  font-family: "Montserrat", sans-serif;
+  font-family: Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", "Montserrat", sans-serif;
   font-weight: 300;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -181,7 +181,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #intro .btn-get-started {
-  font-family: "Montserrat", sans-serif;
+  font-family: Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 16px;
   letter-spacing: 1px;
@@ -325,7 +325,7 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   display: inline-block;
   color: #fff;
-  font-family: "Montserrat", sans-serif;
+  font-family: Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 14px;
   outline: none;
@@ -741,7 +741,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #call-to-action .cta-btn {
-  font-family: "Montserrat", sans-serif;
+  font-family: Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 1px;
@@ -909,7 +909,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: none;
   font-size: 14px;
   font-weight: 400;
-  font-family: "Montserrat", sans-serif;
+  font-family: Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", "Montserrat", sans-serif;
 }
 
 #pricing .featured {
@@ -940,7 +940,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding: 18px 0;
   display: block;
   position: relative;
-  font-family: "Montserrat", sans-serif;
+  font-family: Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", "Montserrat", sans-serif;
   font-size: 22px;
   line-height: 1;
   font-weight: 300;
@@ -1092,7 +1092,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin: 0 0 10px 0;
   padding: 0;
   line-height: 1;
-  font-family: "Montserrat", sans-serif;
+  font-family: Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", "Montserrat", sans-serif;
   font-weight: 300;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -1102,7 +1102,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #contact .contact-about p {
   font-size: 14px;
   line-height: 24px;
-  font-family: "Montserrat", sans-serif;
+  font-family: Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", "Montserrat", sans-serif;
   color: #888;
 }
 
