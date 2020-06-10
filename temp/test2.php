@@ -6,7 +6,7 @@ HELLO();
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="../lib/jquery/jquery.min.js"></script>
 </head>
 <body>
 <h1>Welcome to my home page!</h1>

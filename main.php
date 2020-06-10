@@ -53,60 +53,11 @@ if(!isset($_SESSION['user_id'])) {
     <!-- Template Main Javascript File -->
     <script src="./js/main.js"></script>
 
+    <script src="common.js"></script>
+
 </head>
 <body>
-<!--==============================================================================
-
-                Modal for buttons
-
-    ================================================================================-->
-<div id="navi" class="modal fade" style="display: none; margin-bottom: 10%">
-    <div class="modal-dialog modal-dialog-centered" style="background: none">
-        <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row" style="text-align: center">
-                        <div class="col" style="text-align: center">
-                            <a href="./stock.php"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/入库对账.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/对账单.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/库存表.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/材料订货.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/海上运动.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/生产计划.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/订单查询.png"></a>
-                            <a href="./shipping.php"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/订货资料.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/贴花生产计划.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/资料检索.png"></a>
-                            <a href="#"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/资料编辑.png"></a>
-                            <a href="./material.php"><img style="margin: 5px 5px 5px 5px; width: 90px" alt="" src="./img/icon/资料输入.png"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
-<!--==============================================================================
-
-                Home button for openning modal
-
-    ================================================================================-->
-<div style="position: relative">
-    <div class="center" style="min-height: 100vh; overflow: hidden">
-        <div class="center" style="top: 20%; position: absolute">
-            <img src="./img/obc_logo.JPG" alt="Outlook Bone China Logo" title="OBC" style="width: 85%">
-        </div>
-        <div class="button-container" style="position: absolute; bottom: 20px">
-            <a href="#navi" data-toggle="modal"></a>
-            <div class="button-image">
-                <img src="./img/icon/HOME.png">
-            </div>
-        </div>
-    </div>
-</div>
+<div id="obc_title"></div>
+<div id="common_part"></div>
 </body>
 </html>

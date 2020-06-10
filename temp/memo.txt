@@ -1,0 +1,222 @@
+# mysql 공백제거
+
+update material set date=REPLACE(date, ' ', ''), supplier=REPLACE(supplier, ' ', ''), item=REPLACE(item, ' ', ''), design=REPLACE(design, ' ',''), qty=REPLACE(qty, ' ', ''), month=REPLACE(month, ' ', ''), class=REPLACE(class, ' ', '')
+
+# mysql 중복없이 넣기
+insert into supplier_info (supplier) select DISTINCT supplier from material
+
+# php 테이블 생성 코드
+<?php
+if (isset($_POST['btn_show'])) {
+
+}
+
+if (isset($_POST['btn_test'])) {
+    $class = $_POST['ibox_class'];
+    echo '
+        <section id="test" class="section-bg">
+        <div class="container-fluid">
+        <div class="section-header">
+        <h3 class="section-title">원자재재고</h3>
+        <span class="section-divider"></span>
+        <table id="mat_table" class="container" style="overflow-x: auto; font-size: 10pt; text-align: center">
+        <thead>
+        <tr style="border-bottom: 1px dotted silver;">
+        <th>No</th>
+        <th>Date</th>
+        <th>Supp</th>
+        <th>Item</th>
+        <th>Design</th>
+        <th>Qty</th>
+        <th>Month</th>
+        <th>Class</th>
+        <th>Worker</th>
+        </tr>
+        </thead>
+        <tbody id="mat_tbody" class="dynamics">
+';
+
+    $sql = "SELECT * FROM material WHERE class='{$class}'";
+    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+    $res = mysqli_query($conn, $sql);
+    $num = 0;
+    while ($row = mysqli_fetch_array($res)) {
+        $num += 1;
+        echo '<tr style="border-bottom: 1px dotted silver;"><td>' .
+            $num . '</td><td>' .
+            $row['date'] . '</td><td>' .
+            $row['supplier'] . '</td><td>' .
+            $row['item'] . '</td><td>' .
+            $row['design'] . '</td><td>' .
+            $row['qty'] . '</td><td>' .
+            $row['month'] . '</td><td>' .
+            $row['class'] . '</td><td>' .
+            $row['worker'] . '</td></tr>';
+    }
+    echo
+    '</tbody>
+    </table>
+    </div>
+    </div>
+    </section>';
+}
+?>
+
+
+
+### 테이블 샘플
+<div class="container" style="background-color: white">
+                <table class="table table-fixed table-striped">
+                    <thead>
+                    <tr>
+                        <th>Row</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Age</th>
+                        <th>City</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Amin</td>
+                        <td>Saffarnejad</td>
+                        <td>27</td>
+                        <td>Ahvaz</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Hassan</td>
+                        <td>Faghihi</td>
+                        <td>28</td>
+                        <td>Khur</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Manoucehr</td>
+                        <td>Kouhi</td>
+                        <td>27</td>
+                        <td>Abadan</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Hafez</td>
+                        <td>Mir shafieian</td>
+                        <td>29</td>
+                        <td>Esfahan</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Ehsan</td>
+                        <td>Jahangard</td>
+                        <td>23</td>
+                        <td>Andika</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Diako</td>
+                        <td>Mahmoudi</td>
+                        <td>27</td>
+                        <td>Sanandaj</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Emad</td>
+                        <td>Deris</td>
+                        <td>26</td>
+                        <td>Mahshahr</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Seyed Mohammad</td>
+                        <td>Mousavi</td>
+                        <td>27</td>
+                        <td>Hendijan</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+
+
+
+            <table class="table table-fixed">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col" class="col-3">#</th>
+                                            <th scope="col" class="col-3">First</th>
+                                            <th scope="col" class="col-3">Last</th>
+                                            <th scope="col" class="col-3">Handle</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row" class="col-3">1</th>
+                                            <td class="col-3">Mark</td>
+                                            <td class="col-3">Otto</td>
+                                            <td class="col-3">@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="col-3">2</th>
+                                            <td class="col-3">Jacob</td>
+                                            <td class="col-3">Thornton</td>
+                                            <td class="col-3">@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="col-3">3</th>
+                                            <td colspan="2" class="col-6">Larry the Bird</td>
+                                            <td class="col-3">@twitter</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="col-3">4</th>
+                                            <td class="col-3">Martin</td>
+                                            <td class="col-3">Williams</td>
+                                            <td class="col-3">@Marty</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="col-3">5</th>
+                                            <td colspan="2" class="col-3">Sam</td>
+                                            <td colspan="2" class="col-3">Pascal</td>
+                                            <td class="col-3">@sam</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="col-3">6</th>
+                                            <td class="col-3">John</td>
+                                            <td class="col-3">Green</td>
+                                            <td class="col-3">@john</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="col-3">7</th>
+                                            <td colspan="2" class="col-3">David</td>
+                                            <td colspan="2" class="col-3">Bowie</td>
+                                            <td class="col-3">@david</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="col-3">8</th>
+                                            <td class="col-3">Pedro</td>
+                                            <td class="col-3">Rodriguez</td>
+                                            <td class="col-3">@rod</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="col-3">5</th>
+                                            <td colspan="2" class="col-3">Sam</td>
+                                            <td colspan="2" class="col-3">Pascal</td>
+                                            <td class="col-3">@sam</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="col-3">10</th>
+                                            <td class="col-3">Jacob</td>
+                                            <td class="col-3">Thornton</td>
+                                            <td class="col-3">@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="col-3">11</th>
+                                            <td colspan="2" class="col-6">Larry the Bird</td>
+                                            <td class="col-3">@twitter</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>

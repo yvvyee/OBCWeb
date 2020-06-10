@@ -1,10 +1,8 @@
 <?php
-//if (!isset($_SESSION)) {
-//    session_start();
-//}
-include_once "common.php";
+//session_start();
+include_once 'common.php'
 //if(!isset($_SESSION['user_id'])) {
-//    echo "<script> alert('Session expired.'); window.location = './login.php'; </script>";
+//    echo "<script>alert('세션이 만료되었습니다.'); window.location = './login.php'; </script>";
 //}
 ?>
     <!DOCTYPE html>
@@ -61,66 +59,35 @@ include_once "common.php";
         <!--==============================================================================
                         타이틀 영역
             ================================================================================-->
-        <div id="obc_title"></div>
+        <div id="obc_title">
+            <script>
+                $(function () {
+                    $('#obc_title').load('common/title.php');
+                });
+            </script>
+        </div>
     </header>
+    <!--==============================================================================
+
+                    입력 영역
+
+        ================================================================================-->
     <form id="submit-form" method="POST">
-        <div id="input_form">
-            <!--==========================
-                  Title
-                ============================-->
+        <div id="input_form" style="position: relative">
             <div class="center">
-                <h1>入出库录入</h1>
+                <h1>库存资料</h1>
             </div>
             <!--==========================
                   No
                 ============================-->
             <div class="center">
                 <label for="ibox_no">
-                    <input class="fa fa-remove"
-                           type="no"
+                    <input type="no"
                            id="ibox_no"
                            name="ibox_no"
                            placeholder="No"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; display: none">
+                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px; display: none">
                 </label>
-            </div>
-            <!--==========================
-                  Date
-                ============================-->
-            <div class="center">
-                <label for="ibox_date">
-                    <input type="date"
-                           id="ibox_date"
-                           name="ibox_date"
-                           placeholder="日期"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_date'])) {
-                               echo htmlentities($_POST['ibox_date']);
-                           }
-                           ?>">
-                </label>
-            </div>
-            <!--==========================
-                  Supplier
-                ============================-->
-            <div class="center">
-                <label for="ibox_supplier">
-                    <input type="text"
-                           name="ibox_supplier"
-                           id="ibox_supplier"
-                           list="supplier_list"
-                           placeholder="客户"
-                           autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_supplier'])) {
-                               echo htmlentities($_POST['ibox_supplier']);
-                           } ?>">
-                </label>
-                <datalist id="supplier_list">
-                    <?php echo updateDatalist('supplier'); ?>
-                </datalist>
             </div>
             <!--==========================
                   Item
@@ -210,7 +177,7 @@ include_once "common.php";
                 </datalist>
             </div>
             <!--==========================
-                  Qty
+                  Quantity
                 ============================-->
             <div class="center">
                 <label for="ibox_qty">
@@ -224,37 +191,6 @@ include_once "common.php";
                                echo htmlentities($_POST['ibox_qty']);
                            } ?>">
                 </label>
-            </div>
-            <!--==========================
-                  Month
-                ============================-->
-            <div class="center">
-                <label for="ibox_month">
-                    <input type="text"
-                           name="ibox_month"
-                           id="ibox_month"
-                           list="month_list"
-                           placeholder="月份"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_month'])) {
-                               echo htmlentities($_POST['ibox_month']);
-                           } ?>">
-                </label>
-                <datalist id="month_list">
-                    <option value='1月份'></option>
-                    <option value='2月份'></option>
-                    <option value='3月份'></option>
-                    <option value='4月份'></option>
-                    <option value='5月份'></option>
-                    <option value='6月份'></option>
-                    <option value='7月份'></option>
-                    <option value='8月份'></option>
-                    <option value='9月份'></option>
-                    <option value='10月份'></option>
-                    <option value='11月份'></option>
-                    <option value='12月份'></option>
-                </datalist>
             </div>
             <!--==========================
                   Class
@@ -274,29 +210,11 @@ include_once "common.php";
                            } ?>">
                 </label>
                 <datalist id="class_list">
-                    <?php echo updateDatalist('class'); ?>
-                </datalist>
-            </div>
-            <!--==========================
-                  Worker
-                ============================-->
-            <div class="center">
-                <label for="ibox_worker">
-                    <input type="text"
-                           name="ibox_worker"
-                           id="ibox_worker"
-                           list="worker_list"
-                           placeholder="贴花人"
-                           autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_worker'])) {
-                               echo htmlentities($_POST['ibox_worker']);
-                           } ?>">
-                </label>
-                <datalist id="worker_list">
-                    <option value='付秀丽'>
-                    <option value='何删'>
+                    <option value="白瓷"></option>
+                    <option value="花纸"></option>
+                    <option value="完成品"></option>
+                    <option value="包装物"></option>
+                    <option value="彩瓷"></option>
                 </datalist>
             </div>
             <!--==========================
@@ -317,9 +235,25 @@ include_once "common.php";
                        style="outline: none; font-size: 16pt"
                        onclick="submit_data(this)"
                        value="检索">
+<!--                <input class="btn-get-started btn-dark"-->
+<!--                       id="makeButton"-->
+<!--                       type="button"-->
+<!--                       name="make"-->
+<!--                       style="outline: none; font-size: 16pt"-->
+<!--                       onclick="submit_data(this)"-->
+<!--                       value="库存核算">-->
             </div>
         </div>
     </form>
-    <div id="common_part"></div>
-    </body>
+    <!--==============================================================================
+             home, table, modal
+        ================================================================================-->
+    <div id="common_part">
+        <script>
+            $(function () {
+                $('#common_part').load('common/modal.html');
+            });
+        </script>
+    </div>
+</body>
 </html>
