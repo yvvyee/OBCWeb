@@ -1,10 +1,9 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start();
-}
+session_start();
 if(!isset($_SESSION['user_id'])) {
     echo "<script>alert('세션이 만료되었습니다.'); window.location = './login.php'; </script>";
 }
+include_once "common.php";
 ?>
 <!DOCTYPE html>
 <html lang="ca">

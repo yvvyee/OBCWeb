@@ -1,9 +1,9 @@
 <?php
-//session_start();
+session_start();
+if(!isset($_SESSION['user_id'])) {
+    echo "<script>alert('세션이 만료되었습니다.'); window.location = './login.php'; </script>";
+}
 include_once "common.php";
-//if(!isset($_SESSION['user_id'])) {
-//    echo "<script>alert('세션이 만료되었습니다.'); window.location = './login.php'; </script>";
-//}
 ?>
 <!DOCTYPE html>
 <html lang="ca">
@@ -257,8 +257,8 @@ include_once "common.php";
                            autocomplete="off"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
                            value="<?php
-                           if (isset($_POST['ibox_worker'])) {
-                               echo htmlentities($_POST['ibox_worker']);
+                           if (isset($_POST['worker'])) {
+                               echo htmlentities($_POST['worker']);
                            } ?>">
                 </label>
                 <datalist id="worker_list">

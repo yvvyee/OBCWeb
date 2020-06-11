@@ -31,7 +31,40 @@ $fmt_stock = '<tr style=\'border-bottom: 1px dotted silver\'>
               <%1$s>%4$s</%1$s>
               <%1$s>%5$s</%1$s>
               <%1$s>%6$s</%1$s></tr>';
+if (isset($_POST['btn_login'])) {
+    login();
+}
+function login() {
+    $user_id = $_POST['user_id'];
+    $passwd = $_POST['passwd'];
 
+    if ($user_id == "" || $passwd == "") {
+        alert("请输入账号/密码");
+        return;
+    }
+
+    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+    $sql = "SELECT * FROM user WHERE user_id='$user_id'";
+
+    $res = mysqli_query($conn, $sql);
+    if ($res->num_rows != 1) {
+        alert("不存在的账户");
+        return;
+    }
+
+    $row = mysqli_fetch_array( $res );
+    if ($row['passwd'] != $passwd) {
+        alert("密码不一致");
+        return;
+    }
+
+    $_SESSION['user_id'] = $user_id;
+    if (!isset($_SESSION['user_id'])) {
+        alert("Session 生成失败");
+        return;
+    }
+    header("location: ./main.php");
+}
 if (array_key_exists('msg', $_POST)) {
     switch ($_POST['page']) {
         case 'basic':
@@ -73,54 +106,21 @@ if (array_key_exists('msg', $_POST)) {
     if ($_POST['msg'] == 'stock') {
         makeStock();
     }
-}
-
-if (isset($_POST['btn_login'])) {
-    login();
+    if ($_POST['msg'] == 'logout') {
+        session_destroy();
+    }
 }
 
 function alert($msg) {
     echo "<script>alert('$msg');</script>";
 }
 
-function login() {
-    $user_id = $_POST['user_id'];
-    $passwd = $_POST['passwd'];
-
-    if ($user_id == "" || $passwd == "") {
-        alert("请输入账号/密码");
-        return;
-    }
-
-    global $conn;
-    $sql = "SELECT * FROM user WHERE user_id='$user_id'";
-
-    $res = mysqli_query($conn, $sql);
-    if ($res->num_rows != 1) {
-        alert("不存在的账户");
-        return;
-    }
-
-    $row = mysqli_fetch_array( $res );
-    if ($row['passwd'] != $passwd) {
-        alert("密码不一致");
-        return;
-    }
-
-    $_SESSION['user_id'] = $user_id;
-    if (!isset($_SESSION['user_id'])) {
-        alert("Session 生成失败");
-        return;
-    }
-    header("location: main.php");
-}
-
 function updateDatalist($name) {
     global $conn;
-    $sql = "SELECT * FROM name_info WHERE kind='{$name}'";
+    $sql = "SELECT DISTINCT {$name} FROM material";
     $res = mysqli_query( $conn, $sql );
     while( $row = mysqli_fetch_array( $res ) ) {
-        $var = htmlentities($row['name']);
+        $var = htmlentities($row[$name]);
         echo "<option value='$var'>";
     }
 }

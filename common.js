@@ -7,10 +7,91 @@ $(document).keydown(function(e) {
         formClear();
     }
 });
+
 $(function () {
     $('#obc_title').load('common/title.php');
     $('#common_part').load('common/modal.html');
 });
+
+if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+}
+
+var datalist = {
+    month_list:
+        '<option value="1月份"></option>' +
+        '<option value="2月份"></option>' +
+        '<option value="3月份"></option>' +
+        '<option value="4月份"></option>' +
+        '<option value="5月份"></option>' +
+        '<option value="6月份"></option>' +
+        '<option value="7月份"></option>' +
+        '<option value="8月份"></option>' +
+        '<option value="9月份"></option>' +
+        '<option value="10月份"></option>' +
+        '<option value="11月份"></option>' +
+        '<option value="12月份"></option>',
+    item_list:
+        '<option value="4绿碗"></option>' +
+        '<option value="5绿碗"></option>' +
+        '<option value="7绿碗"></option>' +
+        '<option value="3.5汤"></option>' +
+        '<option value="5圆汤"></option>' +
+        '<option value="6圆汤"></option>' +
+        '<option value="7圆汤"></option>' +
+        '<option value="8圆平"></option>' +
+        '<option value="9圆平"></option>' +
+        '<option value="11圆平"></option>' +
+        '<option value="7正平"></option>' +
+        '<option value="9正平"></option>' +
+        '<option value="11正平"></option>' +
+        '<option value="方鱼盘"></option>' +
+        '<option value="4天龙碗"></option>' +
+        '<option value="5天龙碗"></option>' +
+        '<option value="7天龙碗"></option>' +
+        '<option value="2P 杯碟"></option>' +
+        '<option value="5P 杯碟"></option>' +
+        '<option value="2P 皇室杯"></option>' +
+        '<option value="5P 皇室杯"></option>' +
+        '<option value="22p"></option>' +
+        '<option value="6格碟"></option>' +
+        '<option value="4绿碗外箱"></option>' +
+        '<option value="5绿碗外箱"></option>' +
+        '<option value="7绿碗外箱"></option>' +
+        '<option value="3.5汤外箱"></option>' +
+        '<option value="5圆汤外箱"></option>' +
+        '<option value="6圆汤外箱"></option>' +
+        '<option value="7圆汤外箱"></option>' +
+        '<option value="8圆平外箱"></option>' +
+        '<option value="9圆平外箱"></option>' +
+        '<option value="11圆平外箱"></option>' +
+        '<option value="7正平外箱"></option>' +
+        '<option value="9正平外箱"></option>' +
+        '<option value="11正平外箱"></option>' +
+        '<option value="方鱼盘外箱"></option>' +
+        '<option value="4天龙碗外箱"></option>' +
+        '<option value="5天龙碗外箱"></option>' +
+        '<option value="7天龙碗外箱"></option>' +
+        '<option value="2P 杯碟外箱"></option>' +
+        '<option value="5P 杯碟外箱"></option>' +
+        '<option value="2P 皇室杯外箱"></option>' +
+        '<option value="5P 皇室杯外箱"></option>' +
+        '<option value="22p外箱"></option>' +
+        '<option value="6格碟外箱"></option>',
+    worker_list:
+        '<option value="付秀丽">' +
+        '<option value="何删">',
+    class_list:
+        '<option value="白瓷"></option>' +
+        '<option value="花纸"></option>' +
+        '<option value="完成品"></option>' +
+        '<option value="包装物"></option>' +
+        '<option value="彩瓷"></option>'
+};
+
+for (var key in datalist) {
+    document.getElementById(key).innerHTML = datalist[key];
+}
 
 function getCols(msg, page, ctl) {
     var row = $(ctl).parents("tr");
@@ -105,63 +186,70 @@ function getIbox(msg, page) {
 function getData(msg, page, ctl) {
     if (msg === 'del') {
         return getCols(msg, page, ctl);
+    } else if (msg === 'logout') {
+        return {
+            msg: msg,
+            page: page
+        }
     } else {
         return getIbox(msg, page);
     }
 }
 
 function checkData(msg, page, data) {
+    var error = false;
     if (page === 'material') {
         if (msg === 'save' || msg === 'update') {
             if (isEmpty(data['date'])) {
                 alert("date 값을 입력하세요.");
-                return false;
+                error = true;
             }
             if (isEmpty(data['supplier'])) {
                 alert("supplier 값을 입력하세요.");
-                return false;
+                error = true;
             }
             if (isEmpty(data['item'])) {
                 alert("item 값을 입력하세요.");
-                return false;
+                error = true;
             }
             if (isEmpty(data['design'])) {
                 alert("design 값을 입력하세요.");
-                return false;
+                error = true;
             }
             if (isEmpty(data['qty'])) {
                 alert("quantity 값을 입력하세요.");
-                return false;
+                error = true;
             }
             if (isEmpty(data['class'])) {
                 alert("class 값을 입력하세요.");
-                return false;
+                error = true;
             }
         }
     } else if (page === 'basic') {
         if (msg === 'save' || msg === 'update') {
             if (isEmpty(data['item'])) {
                 alert("item 값을 입력하세요.");
-                return false;
+                error = true;
             }
             if (isEmpty(data['design'])) {
                 alert("design 값을 입력하세요.");
-                return false;
+                error = true;
             }
             if (isEmpty(data['qty'])) {
                 alert("quantity 값을 입력하세요.");
-                return false;
+                error = true;
             }
             if (isEmpty(data['class'])) {
                 alert("class 값을 입력하세요.");
-                return false;
+                error = true;
             }
         }
     } else if (page === 'shipping') {
 
     } else {
-        return true;
+
     }
+    return error;
 }
 
 function submit_data(ctl) {
@@ -197,6 +285,9 @@ function submit_data(ctl) {
             if (msg === 'del') {
                 deleteRow(ctl);
                 alert("삭제 완료");
+            }
+            if (msg === 'logout') {
+                window.location.href = 'login.php';
             }
         }
     });
@@ -252,7 +343,6 @@ function setIBox(ctl, page) {
     } else {
 
     }
-
 }
 
 function displayRow(ctl) {
@@ -362,8 +452,6 @@ function updateRowInTable() {
     } else {
 
     }
-
-    formClear();
 
     $("#updateButton").val("保存");
     $("#updateButton").attr("name", "save");
