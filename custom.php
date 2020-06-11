@@ -74,10 +74,10 @@ include_once "common.php";
                 ============================-->
             <div class="center">
                 <label for="ibox_no">
-                    <input class="fa fa-remove"
-                           type="no"
+                    <input class="input_box"
+                           type="text"
+                           name="no"
                            id="ibox_no"
-                           name="ibox_no"
                            placeholder="No"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; display: none">
                 </label>
@@ -87,16 +87,12 @@ include_once "common.php";
                 ============================-->
             <div class="center">
                 <label for="ibox_date">
-                    <input type="date"
+                    <input class="input_box"
+                           type="date"
+                           name="date"
                            id="ibox_date"
-                           name="ibox_date"
                            placeholder="日期"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_date'])) {
-                               echo htmlentities($_POST['ibox_date']);
-                           }
-                           ?>">
+                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
             </div>
             <!--==========================
@@ -104,17 +100,14 @@ include_once "common.php";
                 ============================-->
             <div class="center">
                 <label for="ibox_customer">
-                    <input type="text"
-                           name="ibox_customer"
+                    <input class="input_box"
+                           type="text"
+                           name="customer"
                            id="ibox_customer"
                            list="customer_list"
-                           placeholder="Customer"
+                           placeholder="客户"
                            autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_customer'])) {
-                               echo htmlentities($_POST['ibox_customer']);
-                           } ?>">
+                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="customer_list">
                     <?php echo updateDatalist('customer'); ?>
@@ -125,65 +118,16 @@ include_once "common.php";
                 ============================-->
             <div class="center">
                 <label for="ibox_item">
-                    <input type="text"
-                           name="ibox_item"
+                    <input class="input_box"
+                           type="text"
+                           name="item"
                            id="ibox_item"
                            list="item_list"
                            placeholder="品名"
                            autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_item'])) {
-                               echo htmlentities($_POST['ibox_item']);
-                           } ?>">
+                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="item_list">
-                    <option value="4绿碗"></option>
-                    <option value="5绿碗"></option>
-                    <option value="7绿碗"></option>
-                    <option value="3.5汤"></option>
-                    <option value="5圆汤"></option>
-                    <option value="6圆汤"></option>
-                    <option value="7圆汤"></option>
-                    <option value="8圆平"></option>
-                    <option value="9圆平"></option>
-                    <option value="11圆平"></option>
-                    <option value="7正平"></option>
-                    <option value="9正平"></option>
-                    <option value="11正平"></option>
-                    <option value="方鱼盘"></option>
-                    <option value="4天龙碗"></option>
-                    <option value="5天龙碗"></option>
-                    <option value="7天龙碗"></option>
-                    <option value="2P 杯碟"></option>
-                    <option value="5P 杯碟"></option>
-                    <option value="2P 皇室杯"></option>
-                    <option value="5P 皇室杯"></option>
-                    <option value="22p"></option>
-                    <option value="6格碟"></option>
-                    <option value="4绿碗外箱"></option>
-                    <option value="5绿碗外箱"></option>
-                    <option value="7绿碗外箱"></option>
-                    <option value="3.5汤外箱"></option>
-                    <option value="5圆汤外箱"></option>
-                    <option value="6圆汤外箱"></option>
-                    <option value="7圆汤外箱"></option>
-                    <option value="8圆平外箱"></option>
-                    <option value="9圆平外箱"></option>
-                    <option value="11圆平外箱"></option>
-                    <option value="7正平外箱"></option>
-                    <option value="9正平外箱"></option>
-                    <option value="11正平外箱"></option>
-                    <option value="方鱼盘外箱"></option>
-                    <option value="4天龙碗外箱"></option>
-                    <option value="5天龙碗外箱"></option>
-                    <option value="7天龙碗外箱"></option>
-                    <option value="2P 杯碟外箱"></option>
-                    <option value="5P 杯碟外箱"></option>
-                    <option value="2P 皇室杯外箱"></option>
-                    <option value="5P 皇室杯外箱"></option>
-                    <option value="22p外箱"></option>
-                    <option value="6格碟外箱"></option>
                 </datalist>
             </div>
             <!--==========================
@@ -191,52 +135,43 @@ include_once "common.php";
                 ============================-->
             <div class="center">
                 <label for="ibox_design">
-                    <input type="text"
-                           name="ibox_design"
+                    <input class="input_box"
+                           type="text"
+                           name="design"
                            id="ibox_design"
                            list="design_list"
                            placeholder="花面"
                            autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_design'])) {
-                               echo htmlentities($_POST['ibox_design']);
-                           } ?>">
+                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="design_list">
                     <?php echo updateDatalist('design'); ?>
                 </datalist>
             </div>
             <!--==========================
-                  Quantity
+                  Qty
                 ============================-->
             <div class="center">
                 <label for="ibox_qty">
-                    <input type="number"
-                           name="ibox_qty"
+                    <input class="input_box"
+                           type="number"
+                           name="qty"
                            id="ibox_qty"
                            placeholder="数量"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_qty'])) {
-                               echo htmlentities($_POST['ibox_qty']);
-                           } ?>">
+                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
             </div>
             <!--==========================
-                  Order number
+                  Orderno
                 ============================-->
             <div class="center">
                 <label for="ibox_orderno">
-                    <input type="number"
-                           name="ibox_orderno"
+                    <input class="input_box"
+                           type="text"
+                           name="orderno"
                            id="ibox_orderno"
-                           placeholder="Order Number"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_orderno'])) {
-                               echo htmlentities($_POST['ibox_orderno']);
-                           } ?>">
+                           placeholder="订单号码"
+                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
             </div>
             <!--==========================

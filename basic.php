@@ -64,105 +64,20 @@ include_once "common.php";
                     입력 영역
 
         ================================================================================-->
-    <form id="submit-form" method="POST">
-        <div id="input_form" style="position: relative">
-            <div class="center">
-                <h1>库存资料</h1>
-            </div>
-            <!--==========================
-                  No
-                ============================-->
-            <div class="center">
-                <label for="ibox_no">
-                    <input type="no"
-                           id="ibox_no"
-                           name="ibox_no"
-                           placeholder="No"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px; display: none">
-                </label>
-            </div>
-            <!--==========================
-                  Item
-                ============================-->
-            <div class="center">
-                <label for="ibox_item">
-                    <input type="text"
-                           name="ibox_item"
-                           id="ibox_item"
-                           list="item_list"
-                           placeholder="品名"
-                           autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-                <datalist id="item_list">
-                </datalist>
-            </div>
-            <!--==========================
-                  Design
-                ============================-->
-            <div class="center">
-                <label for="ibox_design">
-                    <input type="text"
-                           name="ibox_design"
-                           id="ibox_design"
-                           list="design_list"
-                           placeholder="花面"
-                           autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-                <datalist id="design_list">
-                    <?php echo updateDatalist('design'); ?>
-                </datalist>
-            </div>
-            <!--==========================
-                  Quantity
-                ============================-->
-            <div class="center">
-                <label for="ibox_qty">
-                    <input type="number"
-                           name="ibox_qty"
-                           id="ibox_qty"
-                           placeholder="数量"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-            </div>
-            <!--==========================
-                  Class
-                ============================-->
-            <div class="center">
-                <label for="ibox_class">
-                    <input type="text"
-                           name="ibox_class"
-                           id="ibox_class"
-                           list="class_list"
-                           placeholder="分类"
-                           autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-                <datalist id="class_list">
-                </datalist>
-            </div>
-            <!--==========================
-                  Button
-                ============================-->
-            <div class="center">
-                <input class="btn-get-started btn-info scrollto"
-                       id="updateButton"
-                       type="button"
-                       name="save"
-                       style="outline: none; font-size: 16pt"
-                       onclick="submit_data(this)"
-                       value="保存">
-                <input class="btn-get-started btn-success"
-                       id="searchButton"
-                       type="button"
-                       name="search"
-                       style="outline: none; font-size: 16pt"
-                       onclick="submit_data(this)"
-                       value="检索">
-            </div>
+        <div class="center">
+            <h1>基础资料输入</h1>
         </div>
-    </form>
+        <!--==========================
+              Button
+            ============================-->
+        <div class="center">
+            <a href="stock.php"><button class="btn-get-started btn-info scrollto"
+                                        style="outline: none; font-size: 16pt">库存资料</button></a>
+            <a href="price.php"><button class="btn-get-started btn-info scrollto"
+                                          style="outline: none; font-size: 16pt">单价资料</button></a>
+            <a href="shipping.php"><button class="btn-get-started btn-info scrollto"
+                                          style="outline: none; font-size: 16pt">出货资料</button></a>
+        </div>
     <!--==============================================================================
              home, table, modal
         ================================================================================-->

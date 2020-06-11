@@ -49,10 +49,10 @@ var datalist = {
         '<option value="4天龙碗"></option>' +
         '<option value="5天龙碗"></option>' +
         '<option value="7天龙碗"></option>' +
-        '<option value="2P 杯碟"></option>' +
-        '<option value="5P 杯碟"></option>' +
-        '<option value="2P 皇室杯"></option>' +
-        '<option value="5P 皇室杯"></option>' +
+        '<option value="2P杯碟"></option>' +
+        '<option value="5P杯碟"></option>' +
+        '<option value="2P皇室杯"></option>' +
+        '<option value="5P皇室杯"></option>' +
         '<option value="22p"></option>' +
         '<option value="6格碟"></option>' +
         '<option value="4绿碗外箱"></option>' +
@@ -72,10 +72,10 @@ var datalist = {
         '<option value="4天龙碗外箱"></option>' +
         '<option value="5天龙碗外箱"></option>' +
         '<option value="7天龙碗外箱"></option>' +
-        '<option value="2P 杯碟外箱"></option>' +
-        '<option value="5P 杯碟外箱"></option>' +
-        '<option value="2P 皇室杯外箱"></option>' +
-        '<option value="5P 皇室杯外箱"></option>' +
+        '<option value="2P杯碟外箱"></option>' +
+        '<option value="5P杯碟外箱"></option>' +
+        '<option value="2P皇室杯外箱"></option>' +
+        '<option value="5P皇室杯外箱"></option>' +
         '<option value="22p外箱"></option>' +
         '<option value="6格碟外箱"></option>',
     worker_list:
@@ -89,204 +89,173 @@ var datalist = {
         '<option value="彩瓷"></option>'
 };
 
+var showing = {
+    material: {
+        no:         false,
+        date:       true,
+        supplier:   false,
+        item:       true,
+        design:     true,
+        qty:        true,
+        month:      false,
+        class:      true,
+        worker:     false,
+        edit:       true,
+        del:        true
+    },
+    stock: {
+        no:         false,
+        item:       true,
+        design:     true,
+        qty:        true,
+        class:      true,
+        edit:       true,
+        del:        true
+    },
+    custom: {
+        no:         false,
+        date:       true,
+        customer:   true,
+        item:       true,
+        design:     true,
+        qty:        true,
+        orderno:    true,
+        edit:       true,
+        del:        true
+    },
+    ordering: {
+        no:         false,
+        date:       true,
+        supplier:   false,
+        item:       true,
+        design:     true,
+        qty:        true,
+        month:      false,
+        class:      true,
+        worker:     false,
+        edit:       true,
+        del:        true
+    },
+    payment: {
+        no:         false,
+        date:       true,
+        supplier:   false,
+        item:       true,
+        design:     true,
+        qty:        true,
+        month:      false,
+        class:      true,
+        worker:     false,
+        edit:       true,
+        del:        true
+    },
+    price: {
+        no:         false,
+        date:       true,
+        supplier:   false,
+        item:       true,
+        design:     true,
+        qty:        true,
+        month:      false,
+        class:      true,
+        worker:     false,
+        edit:       true,
+        del:        true
+    },
+    shipping: {
+        no:         false,
+        date:       true,
+        supplier:   false,
+        item:       true,
+        design:     true,
+        qty:        true,
+        month:      false,
+        class:      true,
+        worker:     false,
+        edit:       true,
+        del:        true
+    }
+};
+
 for (var key in datalist) {
-    document.getElementById(key).innerHTML = datalist[key];
-}
-
-function getCols(msg, page, ctl) {
-    var row = $(ctl).parents("tr");
-    var cols = row.children("td");
-
-    if (page === 'material') {
-        return {
-            msg:        msg,
-            page:       page,
-            no:         $(cols[0]).text(),
-            date:       $(cols[1]).text(),
-            supplier:   $(cols[2]).text(),
-            item:       $(cols[3]).text(),
-            design:     $(cols[4]).text(),
-            qty:        $(cols[5]).text(),
-            month:      $(cols[6]).text(),
-            class:      $(cols[7]).text(),
-            worker:     $(cols[8]).text()
-        }
-    } else if (page === 'basic') {
-        return {
-            msg:        msg,
-            page:       page,
-            no:         $(cols[0]).text(),
-            item:       $(cols[1]).text(),
-            design:     $(cols[2]).text(),
-            qty:        $(cols[3]).text(),
-            class:      $(cols[4]).text()
-        }
-    } else if (page === 'shipping') {
-        return {
-            msg:        msg,
-            page:       page,
-            no:         $(cols[0]).text(),
-            supplier:   $(cols[1]).text(),
-            item:       $(cols[2]).text(),
-            design:     $(cols[3]).text(),
-            class:      $(cols[4]).text(),
-            rate:       $(cols[5]).text(),
-            price:      $(cols[6]).text(),
-            worker:     $(cols[7]).text()
-        }
-    }
-    else {
-        return null;
+    var elem = document.getElementById(key);
+    if (elem != null) {
+        elem.innerHTML = datalist[key];
     }
 }
 
-function getIbox(msg, page) {
-    if (page === 'material') {
-        return {
-            msg:        msg,
-            page:       page,
-            no:         document.getElementById( "ibox_no" ).value,
-            date:       document.getElementById( "ibox_date" ).value,
-            supplier:   document.getElementById( "ibox_supplier" ).value,
-            item:       document.getElementById( "ibox_item" ).value,
-            design:     document.getElementById( "ibox_design" ).value,
-            qty:        document.getElementById( "ibox_qty" ).value,
-            month:      document.getElementById( "ibox_month" ).value,
-            class:      document.getElementById( "ibox_class" ).value,
-            worker:     document.getElementById( "ibox_worker" ).value
+function getData(ctl) {
+    var data = {};
+    var page = location.href.split("/").slice(-1)[0].split(".")[0];
+    if (ctl.name === 'update') {
+        var row = $(ctl).parents("tr");
+        var cols = row.children("td");
+
+        for (var i = 0; i < cols.length; i++) {
+            if (cols[i].children.length === 0) {
+                data[$(cols[i]).attr('name')] = cols[i].textContent;
+            }
         }
-    } else if (page === 'basic') {
-        return {
-            msg:        msg,
-            page:       page,
-            no:         document.getElementById( "ibox_no" ).value,
-            item:       document.getElementById( "ibox_item" ).value,
-            design:     document.getElementById( "ibox_design" ).value,
-            qty:        document.getElementById( "ibox_qty" ).value,
-            class:      document.getElementById( "ibox_class" ).value,
-        }
-    } else if (page === 'shipping') {
-        return {
-            msg:        msg,
-            page:       page,
-            no:         document.getElementById( "ibox_no" ).value,
-            supplier:   document.getElementById( "ibox_supplier" ).value,
-            item:       document.getElementById( "ibox_item" ).value,
-            design:     document.getElementById( "ibox_design" ).value,
-            class:      document.getElementById( "ibox_class" ).value,
-            rate:       document.getElementById( "ibox_rate" ).value,
-            price:      document.getElementById( "ibox_price" ).value,
-            worker:     document.getElementById( "ibox_worker" ).value
-        }
-    } else {
-        return null;
+        data['showing'] = showing[page];
+        data['page'] = page;
     }
-}
+    if (ctl.name === 'del') {
+        var row = $(ctl).parents("tr");
+        var cols = row.children("td");
 
-function getData(msg, page, ctl) {
-    if (msg === 'del') {
-        return getCols(msg, page, ctl);
-    } else if (msg === 'logout') {
-        return {
-            msg: msg,
-            page: page
+        for (var i = 0; i < cols.length; i++) {
+            if ($(cols[i]).attr('name') === 'no') {
+                data['no'] = cols[i].textContent;
+                break;
+            }
         }
-    } else {
-        return getIbox(msg, page);
     }
-}
-
-function checkData(msg, page, data) {
-    var error = false;
-    if (page === 'material') {
-        if (msg === 'save' || msg === 'update') {
-            if (isEmpty(data['date'])) {
-                alert("date 값을 입력하세요.");
-                error = true;
-            }
-            if (isEmpty(data['supplier'])) {
-                alert("supplier 값을 입력하세요.");
-                error = true;
-            }
-            if (isEmpty(data['item'])) {
-                alert("item 값을 입력하세요.");
-                error = true;
-            }
-            if (isEmpty(data['design'])) {
-                alert("design 값을 입력하세요.");
-                error = true;
-            }
-            if (isEmpty(data['qty'])) {
-                alert("quantity 값을 입력하세요.");
-                error = true;
-            }
-            if (isEmpty(data['class'])) {
-                alert("class 값을 입력하세요.");
-                error = true;
-            }
-        }
-    } else if (page === 'basic') {
-        if (msg === 'save' || msg === 'update') {
-            if (isEmpty(data['item'])) {
-                alert("item 값을 입력하세요.");
-                error = true;
-            }
-            if (isEmpty(data['design'])) {
-                alert("design 값을 입력하세요.");
-                error = true;
-            }
-            if (isEmpty(data['qty'])) {
-                alert("quantity 값을 입력하세요.");
-                error = true;
-            }
-            if (isEmpty(data['class'])) {
-                alert("class 값을 입력하세요.");
-                error = true;
-            }
-        }
-    } else if (page === 'shipping') {
-
-    } else {
-
+    if (ctl.name === 'logout') {
+        data['page'] = page;
     }
-    return error;
+    if (ctl.name === 'search') {
+        var ibox = document.getElementsByClassName('input_box')
+        for (var i = 0; i < ibox.length; i++) {
+            data[ibox[i].name] = ibox[i].value;
+        }
+        data['showing'] = showing[page];
+        data['page'] = page;
+    }
+
+    return data;
 }
 
 function submit_data(ctl) {
-    var page = location.href.split("/").slice(-1)[0].split(".")[0];
-    var msg = ctl.name;
-
-    if (msg === 'del') {
+    if (ctl.name === 'del') {
         if (!confirm('确定要删除吗?')) {
             return;
         }
     }
-
-    var data = getData(msg, page, ctl);
-    if (checkData(msg, page, data)) { return; }
+    var data = getData(ctl);
+    data['msg'] = ctl.name;
 
     $.ajax({
         type: 'post',
-        url: page + '.php',
+        url: data['page'] + '.php',
         data: data,
 
         success: function (response) {
-            if (msg === 'search' || msg === 'stock') {
+            if (ctl.name === 'search' || ctl.name === 'stock') {
                 changeTable(response);
             }
-            if (msg === 'save') {
+            if (ctl.name === 'save') {
                 updateRow(response);
                 alert("저장 완료");
             }
-            if (msg === 'update') {
+            if (ctl.name === 'update') {
                 updateRow(response);
                 alert("수정 완료");
             }
-            if (msg === 'del') {
+            if (ctl.name === 'del') {
                 deleteRow(ctl);
                 alert("삭제 완료");
             }
-            if (msg === 'logout') {
+            if (ctl.name === 'logout') {
                 window.location.href = 'login.php';
             }
         }
@@ -315,33 +284,12 @@ var _row = null;
 function setIBox(ctl, page) {
     _row = $(ctl).parents("tr");
     var cols = _row.children("td");
-    if (page === 'material') {
-        $("#ibox_no"        ).val($(cols[0]).text());
-        $("#ibox_date"      ).val($(cols[1]).text());
-        $("#ibox_supplier"  ).val($(cols[2]).text());
-        $("#ibox_item"      ).val($(cols[3]).text());
-        $("#ibox_design"    ).val($(cols[4]).text());
-        $("#ibox_qty"       ).val($(cols[5]).text());
-        $("#ibox_month"     ).val($(cols[6]).text());
-        $("#ibox_class"     ).val($(cols[7]).text());
-        $("#ibox_worker"    ).val($(cols[8]).text());
-    } else if (page === 'basic') {
-        $("#ibox_no"        ).val($(cols[0]).text());
-        $("#ibox_item"      ).val($(cols[1]).text());
-        $("#ibox_design"    ).val($(cols[2]).text());
-        $("#ibox_qty"       ).val($(cols[3]).text());
-        $("#ibox_class"     ).val($(cols[4]).text());
-    } else if (page === 'shipping') {
-        $("#ibox_no"        ).val($(cols[0]).text());
-        $("#ibox_supplier"  ).val($(cols[1]).text());
-        $("#ibox_item"      ).val($(cols[2]).text());
-        $("#ibox_design"    ).val($(cols[3]).text());
-        $("#ibox_class"     ).val($(cols[4]).text());
-        $("#ibox_rate"      ).val($(cols[5]).text());
-        $("#ibox_price"     ).val($(cols[6]).text());
-        $("#ibox_worker"    ).val($(cols[7]).text());
-    } else {
-
+    var ibox = document.getElementsByClassName('input_box')
+    for (var i = 0; i < cols.length; i++) {
+        var key = $(cols[i]).attr('name');
+        if (key !== 'edit' && key !== 'del') {
+            $(ibox.namedItem(key)).val($(cols[i]).text());
+        }
     }
 }
 
@@ -374,34 +322,9 @@ function formClear() {
         $("#updateButton").attr("name", "save");
         window.location.href = "#input_form";
     }
-    var page = location.href.split("/").slice(-1)[0].split(".")[0];
-    if (page === 'material') {
-        $("#ibox_no"        ).val("");
-        $("#ibox_date"      ).val("");
-        $("#ibox_supplier"  ).val("");
-        $("#ibox_item"      ).val("");
-        $("#ibox_design"    ).val("");
-        $("#ibox_qty"       ).val("");
-        $("#ibox_month"     ).val("");
-        $("#ibox_class"     ).val("");
-        $("#ibox_worker"    ).val("");
-    } else if (page === 'basic') {
-        $("#ibox_no"        ).val("");
-        $("#ibox_item"      ).val("");
-        $("#ibox_design"    ).val("");
-        $("#ibox_qty"       ).val("");
-        $("#ibox_class"     ).val("");
-    } else if (page === 'shipping') {
-        $("#ibox_no"        ).val("");
-        $("#ibox_supplier"  ).val("");
-        $("#ibox_item"      ).val("");
-        $("#ibox_design"    ).val("");
-        $("#ibox_class"     ).val("");
-        $("#ibox_rate"      ).val("");
-        $("#ibox_price"     ).val("");
-        $("#ibox_worker"    ).val("");
-    } else {
-
+    var ibox = document.getElementsByClassName('input_box')
+    for (var i = 0; i < ibox.length; i++) {
+        ibox[i].value = "";
     }
 }
 
@@ -422,34 +345,13 @@ function addToTable(src) {
 
 function updateRowInTable() {
     var cols = _row.children("td");
+    var ibox = document.getElementsByClassName('input_box')
 
-    var page = location.href.split("/").slice(-1)[0].split(".")[0];
-    if (page === 'material') {
-        $(cols[0]).text($("#ibox_no"        ).val());
-        $(cols[1]).text($("#ibox_date"      ).val());
-        $(cols[2]).text($("#ibox_supplier"  ).val());
-        $(cols[3]).text($("#ibox_item"      ).val());
-        $(cols[4]).text($("#ibox_design"    ).val());
-        $(cols[5]).text($("#ibox_qty"       ).val());
-        $(cols[6]).text($("#ibox_month"     ).val());
-        $(cols[7]).text($("#ibox_class"     ).val());
-        $(cols[8]).text($("#ibox_worker"    ).val());
-    } else if (page === 'stock') {
-        $(cols[0]).text($("#ibox_no"        ).val());
-        $(cols[1]).text($("#ibox_item"      ).val());
-        $(cols[2]).text($("#ibox_design"    ).val());
-        $(cols[3]).text($("#ibox_qty"       ).val());
-        $(cols[4]).text($("#ibox_class"     ).val());
-    } else if (page === 'shipping') {
-        $(cols[0]).text($("#ibox_no"        ).val());
-        $(cols[1]).text($("#ibox_supplier"  ).val());
-        $(cols[2]).text($("#ibox_item"      ).val());
-        $(cols[3]).text($("#ibox_design"    ).val());
-        $(cols[4]).text($("#ibox_class"     ).val());
-        $(cols[5]).text($("#ibox_rate"      ).val());
-        $(cols[6]).text($("#ibox_price"     ).val());
-        $(cols[7]).text($("#ibox_worker"    ).val());
-    } else {
+    for (var i = 0; i < cols.length; i++) {
+        var key = $(cols[i]).attr('name');
+        if (key !== 'edit' && key !== 'del') {
+            $(cols[i]).text($(ibox.namedItem(key)).val());
+        }
 
     }
 

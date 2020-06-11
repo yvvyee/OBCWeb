@@ -59,13 +59,15 @@ include_once "common.php";
             ================================================================================-->
         <div id="obc_title"></div>
     </header>
+    <!--==============================================================================
+
+                    입력 영역
+
+        ================================================================================-->
     <form id="submit-form" method="POST">
-        <div id="input_form">
-            <!--==========================
-                  Title
-                ============================-->
+        <div id="input_form" style="position: relative">
             <div class="center">
-                <h1>入出库录入</h1>
+                <h1>库存资料</h1>
             </div>
             <!--==========================
                   No
@@ -79,37 +81,6 @@ include_once "common.php";
                            placeholder="No"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; display: none">
                 </label>
-            </div>
-            <!--==========================
-                  Date
-                ============================-->
-            <div class="center">
-                <label for="ibox_date">
-                    <input class="input_box"
-                           type="date"
-                           name="date"
-                           id="ibox_date"
-                           placeholder="日期"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-            </div>
-            <!--==========================
-                  Supplier
-                ============================-->
-            <div class="center">
-                <label for="ibox_supplier">
-                    <input class="input_box"
-                           type="text"
-                           name="supplier"
-                           id="ibox_supplier"
-                           list="supplier_list"
-                           placeholder="企业"
-                           autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-                <datalist id="supplier_list">
-                    <?php echo updateDatalist('supplier'); ?>
-                </datalist>
             </div>
             <!--==========================
                   Item
@@ -160,22 +131,6 @@ include_once "common.php";
                 </label>
             </div>
             <!--==========================
-                  Month
-                ============================-->
-            <div class="center">
-                <label for="ibox_month">
-                    <input class="input_box"
-                           type="text"
-                           name="month"
-                           id="ibox_month"
-                           list="month_list"
-                           placeholder="月份"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-                <datalist id="month_list">
-                </datalist>
-            </div>
-            <!--==========================
                   Class
                 ============================-->
             <div class="center">
@@ -191,23 +146,6 @@ include_once "common.php";
                 </label>
                 <datalist id="class_list">
                     <?php echo updateDatalist('class'); ?>
-                </datalist>
-            </div>
-            <!--==========================
-                  Worker
-                ============================-->
-            <div class="center">
-                <label for="ibox_worker">
-                    <input class="input_box"
-                           type="text"
-                           name="worker"
-                           id="ibox_worker"
-                           list="worker_list"
-                           placeholder="贴花人"
-                           autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-                <datalist id="worker_list">
                 </datalist>
             </div>
             <!--==========================
@@ -231,6 +169,9 @@ include_once "common.php";
             </div>
         </div>
     </form>
+    <!--==============================================================================
+             home, table, modal
+        ================================================================================-->
     <div id="common_part"></div>
 </body>
 </html>

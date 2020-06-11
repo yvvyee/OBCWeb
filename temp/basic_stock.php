@@ -294,7 +294,7 @@
 
 #region POST
 if (array_key_exists('save_material', $_POST)) {
-    updateBasic();
+    updateStock();
 }
 if (array_key_exists('add_supplier', $_POST)) {
     add_list($_POST['ibox_supplier'], 'supplier');
@@ -321,7 +321,7 @@ if (array_key_exists('pop_class', $_POST)) {
     pop_list($_POST['ibox_class'], 'class');
 }
 if (array_key_exists('show_all', $_POST)) {
-    getBasic('all');
+    getStock('all');
     alert("전체 검색 완료.");
 }
 if (array_key_exists('show_cond', $_POST)) {
@@ -341,7 +341,7 @@ if (array_key_exists('show_cond', $_POST)) {
         $arr['design'] = $design;
     }
 
-    getBasic($arr);
+    getStock($arr);
 
     $cond = "";
     foreach ($arr as $k => $v) {

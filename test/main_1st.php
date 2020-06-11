@@ -437,10 +437,10 @@
     //      POST
     //-------------------------
     if (array_key_exists('save_material', $_POST)) {
-        updateBasic();
+        updateStock();
     }
     if (array_key_exists('show_all', $_POST)) {
-        getBasic('all');
+        getStock('all');
         alert("전체 검색 완료.");
     }
     if (array_key_exists('show_cond', $_POST)) {
@@ -472,7 +472,7 @@
             $arr['class'] = $class;
         }
 
-        getBasic($arr);
+        getStock($arr);
 
         $cond = "";
         foreach ($arr as $k => $v) {
