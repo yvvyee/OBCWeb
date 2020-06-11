@@ -17,6 +17,42 @@ if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
 }
 
+jQuery(function ($) {
+
+    $('#bookmark-this').click(function (e) {
+        var bookmarkTitle = document.title;
+        var bookmarkUrl = window.location.href;
+
+        if ('addToHomescreen' in window && addToHomescreen.isCompatible) {
+            // Mobile browsers
+            addToHomescreen({ autostart: false, startDelay: 0 }).show(true);
+        } else if (/CriOS\//.test(navigator.userAgent)) {
+            // Chrome for iOS
+            alert('To add to Home Screen, launch this website in Safari, then tap the Share button and select "Add to Home Screen".');
+        } else if (window.sidebar && window.sidebar.addPanel) {
+            // Firefox <=22
+            window.sidebar.addPanel(bookmarkTitle, bookmarkUrl, '');
+        } else if ((window.sidebar && /Firefox/i.test(navigator.userAgent) && !Object.fromEntries) || (window.opera && window.print)) {
+            // Firefox 23-62 and Opera <=14
+            $(this).attr({
+                href: bookmarkUrl,
+                title: bookmarkTitle,
+                rel: 'sidebar'
+            }).off(e);
+            return true;
+        } else if (window.external && ('AddFavorite' in window.external)) {
+            // IE Favorites
+            window.external.AddFavorite(bookmarkUrl, bookmarkTitle);
+        } else {
+            // Other browsers (Chrome, Safari, Firefox 63+, Opera 15+)
+            alert('Press ' + (/Mac/i.test(navigator.platform) ? 'Cmd' : 'Ctrl') + '+D to bookmark this page.');
+        }
+
+        return false;
+    });
+
+});
+
 var datalist = {
     month_list:
         '<option value="1月份"></option>' +
@@ -126,51 +162,43 @@ var showing = {
     ordering: {
         no:         false,
         date:       true,
-        supplier:   false,
+        supplier:   true,
         item:       true,
-        design:     true,
         qty:        true,
-        month:      false,
         class:      true,
-        worker:     false,
         edit:       true,
         del:        true
     },
-    payment: {
-        no:         false,
-        date:       true,
-        supplier:   false,
-        item:       true,
-        design:     true,
-        qty:        true,
-        month:      false,
-        class:      true,
-        worker:     false,
-        edit:       true,
-        del:        true
-    },
+    // payment: {
+    //     no:         false,
+    //     date:       true,
+    //     item:       true,
+    //     design:     true,
+    //     class:      true,
+    //     qty:        true,
+    //     price:      true,
+    //     total:      true,
+    //     edit:       true,
+    //     del:        true
+    // },
     price: {
         no:         false,
-        date:       true,
-        supplier:   false,
+        factory:    true,
         item:       true,
         design:     true,
-        qty:        true,
-        month:      false,
+        price:      true,
         class:      true,
-        worker:     false,
         edit:       true,
         del:        true
     },
     shipping: {
         no:         false,
-        date:       true,
         supplier:   false,
         item:       true,
         design:     true,
-        qty:        true,
-        month:      false,
         class:      true,
+        rate:       true,
+        price:      true,
         worker:     false,
         edit:       true,
         del:        true
@@ -263,23 +291,6 @@ function submit_data(ctl) {
     return false;
 }
 
-function openForm(elem, self) {
-    var doc = document.getElementById(elem);
-    if (doc.style.display === "block") {
-        doc.style.display = "none";
-    } else {
-        doc.style.display = "block";
-    }
-}
-
-function closeForm(id) {
-    document.getElementById(id).style.display = "none";
-}
-
-function addRow(content_str) {
-    $("#obc_table").children("tbody").children("tr").prepend(content_str)
-}
-
 var _row = null;
 function setIBox(ctl, page) {
     _row = $(ctl).parents("tr");
@@ -326,10 +337,6 @@ function formClear() {
     for (var i = 0; i < ibox.length; i++) {
         ibox[i].value = "";
     }
-}
-
-function isEmpty(str) {
-    return (!str || 0 === str.length);
 }
 
 function addToTable(src) {

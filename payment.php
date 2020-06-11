@@ -1,8 +1,5 @@
 <?php
 session_start();
-if(!isset($_SESSION['user_id'])) {
-    echo "<script>alert('세션이 만료되었습니다.'); window.location = './login.php'; </script>";
-}
 include_once "common.php";
 ?>
 <!DOCTYPE html>
@@ -16,8 +13,8 @@ include_once "common.php";
     <meta content="" name="description">
 
     <!-- Favicons -->
-    <link href="./img/favicon.png" rel="icon">
-    <link href="./img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="./img/icon/shortcut.JPG" rel="icon">
+    <link href="./img/icon/shortcut.JPG" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -74,30 +71,15 @@ include_once "common.php";
                 ============================-->
             <div class="center">
                 <label for="ibox_month">
-                    <input type="text"
-                           name="ibox_month"
+                    <input class="input_box"
+                           type="text"
+                           name="month"
                            id="ibox_month"
                            list="month_list"
                            placeholder="月份"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_month'])) {
-                               echo htmlentities($_POST['ibox_month']);
-                           } ?>">
+                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="month_list">
-                    <option value='1月份'></option>
-                    <option value='2月份'></option>
-                    <option value='3月份'></option>
-                    <option value='4月份'></option>
-                    <option value='5月份'></option>
-                    <option value='6月份'></option>
-                    <option value='7月份'></option>
-                    <option value='8月份'></option>
-                    <option value='9月份'></option>
-                    <option value='10月份'></option>
-                    <option value='11月份'></option>
-                    <option value='12月份'></option>
                 </datalist>
             </div>
             <!--==========================
@@ -105,20 +87,16 @@ include_once "common.php";
                 ============================-->
             <div class="center">
                 <label for="ibox_supplier">
-                    <input type="text"
-                           name="ibox_supplier"
+                    <input class="input_box"
+                           type="text"
+                           name="supplier"
                            id="ibox_supplier"
                            list="supplier_list"
-                           placeholder="客户"
+                           placeholder="企业"
                            autocomplete="off"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px"
-                           value="<?php
-                           if (isset($_POST['ibox_supplier'])) {
-                               echo htmlentities($_POST['ibox_supplier']);
-                           } ?>">
+                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="supplier_list">
-                    <?php echo updateDatalist('supplier'); ?>
                 </datalist>
             </div>
             <!--==========================
@@ -137,8 +115,9 @@ include_once "common.php";
                        type="button"
                        name="search"
                        style="outline: none; font-size: 16pt"
-                       onclick="submit_data(this)"
-                       value="检索">
+                       value="기능수정중">
+<!--                       onclick="submit_data(this)"-->
+
             </div>
         </div>
     </form>

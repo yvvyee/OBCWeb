@@ -1,8 +1,5 @@
 <?php
 session_start();
-if(!isset($_SESSION['user_id'])) {
-    echo "<script>alert('세션이 만료되었습니다.'); window.location = './login.php'; </script>";
-}
 include_once "common.php";
 ?>
 <!DOCTYPE html>
@@ -16,8 +13,8 @@ include_once "common.php";
     <meta content="" name="description">
 
     <!-- Favicons -->
-    <link href="./img/favicon.png" rel="icon">
-    <link href="./img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="./img/icon/shortcut.JPG" rel="icon">
+    <link href="./img/icon/shortcut.JPG" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -51,12 +48,10 @@ include_once "common.php";
 
     <!-- Template Main Javascript File -->
     <script src="./js/main.js"></script>
-
-    <script src="common.js"></script>
-
 </head>
 <body>
 <div id="obc_title"></div>
 <div id="common_part"></div>
 </body>
 </html>
+<script src="common.js"></script>

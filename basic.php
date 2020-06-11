@@ -16,8 +16,8 @@ include_once "common.php";
     <meta content="" name="description">
 
     <!-- Favicons -->
-    <link href="./img/favicon.png" rel="icon">
-    <link href="./img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="./img/icon/shortcut.JPG" rel="icon">
+    <link href="./img/icon/shortcut.JPG" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">

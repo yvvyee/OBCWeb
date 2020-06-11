@@ -3,7 +3,40 @@ session_start();
 if (isset($_SESSION['user_id'])) {
     header('Location: main.php');
 }
-include_once "common.php";
+if (isset($_POST['btn_login'])) {
+    login();
+}
+function login() {
+    $user_id = $_POST['user_id'];
+    $passwd = $_POST['passwd'];
+
+    if ($user_id == "" || $passwd == "") {
+        alert("请输入账号/密码");
+        return;
+    }
+
+    $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
+    $sql = "SELECT * FROM user WHERE user_id='$user_id'";
+
+    $res = mysqli_query($conn, $sql);
+    if ($res->num_rows != 1) {
+        alert("不存在的账户");
+        return;
+    }
+
+    $row = mysqli_fetch_array( $res );
+    if ($row['passwd'] != $passwd) {
+        alert("密码不一致");
+        return;
+    }
+
+    $_SESSION['user_id'] = $user_id;
+    if (!isset($_SESSION['user_id'])) {
+        alert("Session 生成失败");
+        return;
+    }
+    header("location: ./main.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="ca">
@@ -16,8 +49,8 @@ include_once "common.php";
     <meta content="" name="description">
 
     <!-- Favicons -->
-    <link href="./img/favicon.png" rel="icon">
-    <link href="./img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="./img/icon/shortcut.JPG" rel="icon">
+    <link href="./img/icon/shortcut.JPG" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
