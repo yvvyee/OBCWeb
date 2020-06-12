@@ -37,6 +37,9 @@ function login() {
     }
     header("location: ./main.php");
 }
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="ca">
@@ -67,76 +70,73 @@ function login() {
     <!-- Main Stylesheet File -->
     <link href="./css/style.css" rel="stylesheet">
     <link href="./css/obc_style.css" rel="stylesheet">
+
+    <!-- JavaScript Libraries -->
+    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="./lib/jquery/jquery-migrate.min.js"></script>
+    <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./lib/easing/easing.min.js"></script>
+    <script src="./lib/wow/wow.min.js"></script>
+    <script src="./lib/superfish/hoverIntent.js"></script>
+    <script src="./lib/superfish/superfish.min.js"></script>
+    <script src="./lib/magnific-popup/magnific-popup.min.js"></script>
+
+    <!-- Contact Form JavaScript File -->
+    <script src="./contactform/contactform.js"></script>
+
+    <!-- Template Main Javascript File -->
+    <script src="./js/main.js"></script>
 </head>
 <body>
-    <section id="intro">
-            <div class="intro-text" style="position: relative">
+<div class="intro-text" style="position: relative">
 
-                <form method="POST" name="login_form">
+    <form method="POST" name="login_form">
 
-                    <div class="container">
-                        <div class="center">
-                            <img src="./img/obc_logo.JPG" alt="Outlook Bone China Logo" title="OBC" style="width: 355px">
-                        </div>
+        <div class="container" style="height: 100vh">
+            <div class="center">
+                <img src="./img/obc_logo.JPG" alt="Outlook Bone China Logo" title="OBC" style="width: 355px">
+            </div>
 
-                        <div class="center" style="margin-top: 100px">
-                            <label>
-                                <input style="font-size: 16pt;
+            <div class="center" style="margin-top: 100px">
+                <label>
+                    <input style="font-size: 16pt;
                                               text-align: center;
                                               font-family: 微软雅黑;
                                               min-width: 247px;
                                               height: 41px"
-                                       type="text"
-                                       name="user_id"
-                                       size="30"
-                                       autocomplete="off"
-                                       placeholder="账号"/>
-                            </label>
-                        </div>
+                           type="text"
+                           name="user_id"
+                           size="30"
+                           autocomplete="off"
+                           placeholder="账号"/>
+                </label>
+            </div>
 
-                        <div class="center">
+            <div class="center">
 
-                            <label>
-                                <input style="font-size: 16pt;
+                <label>
+                    <input style="font-size: 16pt;
                                                   text-align: center;
                                                   font-family: 微软雅黑;
                                                   min-width: 247px;
                                                   height: 41px"
-                                       type="password"
-                                       name="passwd" size="30"
-                                       autocomplete="off"
-                                       placeholder="密码"/>
-                            </label>
-                        </div>
-                        <div class="section-divider">
-                            <input type="submit"
-                                   name="btn_login"
-                                   class="btn-get-started"
-                                   style="background: none;
-                                   outline: none"
-                                   value="登录">
-                        </div>
-                    </div>
-                </form>
+                           type="password"
+                           name="passwd" size="30"
+                           autocomplete="off"
+                           placeholder="密码"/>
+                </label>
             </div>
-    </section>
+            <div class="center">
+                <input type="submit"
+                       name="btn_login"
+                       class="btn-get-started btn-success"
+                       style="outline: none; font-size: 16pt"
+                       value="登录">
+            </div>
+        </div>
+    </form>
+</div>
 
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-
-<!-- JavaScript Libraries -->
-<script src="./lib/jquery/jquery.min.js"></script>
-<script src="./lib/jquery/jquery-migrate.min.js"></script>
-<script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="./lib/easing/easing.min.js"></script>
-<script src="./lib/wow/wow.min.js"></script>
-<script src="./lib/superfish/hoverIntent.js"></script>
-<script src="./lib/superfish/superfish.min.js"></script>
-<script src="./lib/magnific-popup/magnific-popup.min.js"></script>
-
-<!-- Contact Form JavaScript File -->
-<script src="./contactform/contactform.js"></script>
-
-<!-- Template Main Javascript File -->
-<script src="./js/main.js"></script>
 </body>
 </html>

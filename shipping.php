@@ -211,6 +211,7 @@ include_once "common.php";
         </div>
     </form>
     <div id="common_part"></div>
+    <div class="footer" id="home_button"></div>
 </body>
 </html>
 <script src="common.js"></script>

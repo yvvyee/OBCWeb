@@ -10,6 +10,7 @@ $(document).keydown(function(e) {
 
 $(function () {
     $('#obc_title').load('common/title.php');
+    $('#home_button').load('common/home.html');
     $('#common_part').load('common/modal.html');
 });
 
@@ -122,7 +123,9 @@ var datalist = {
         '<option value="花纸"></option>' +
         '<option value="完成品"></option>' +
         '<option value="包装物"></option>' +
-        '<option value="彩瓷"></option>'
+        '<option value="彩瓷"></option>' +
+        '<option value="出库"></option>' +
+        '<option value="贴花"></option>'
 };
 
 var showing = {

@@ -57,7 +57,7 @@ include_once "common.php";
         <div id="obc_title"></div>
     </header>
     <form id="submit-form" method="POST">
-        <div id="input_form">
+        <div id="input_form" style="height: 80vh">
             <!--==========================
                   Title
                 ============================-->
@@ -226,6 +226,7 @@ include_once "common.php";
         </div>
     </form>
     <div id="common_part"></div>
+    <div class="footer" id="home_button"></div>
 </body>
 </html>
 <script src="common.js"></script>

@@ -206,7 +206,6 @@ function order() {
 
     $tr = "";
 
-
     foreach ($items as $i => $item) {
         foreach ($designs as $j => $design) {
             $cells = "";

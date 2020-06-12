@@ -32,26 +32,39 @@ include_once "common.php";
     <link href="./css/style.css" rel="stylesheet">
     <link href="./css/obc_style.css" rel="stylesheet">
 
-    <!-- JavaScript Libraries -->
-    <script src="./js/main.js"></script>
-    <script src="./lib/jquery/jquery.min.js"></script>
-    <script src="./lib/jquery/jquery-migrate.min.js"></script>
-    <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="./lib/easing/easing.min.js"></script>
-    <script src="./lib/wow/wow.min.js"></script>
-    <script src="./lib/superfish/hoverIntent.js"></script>
-    <script src="./lib/superfish/superfish.min.js"></script>
-    <script src="./lib/magnific-popup/magnific-popup.min.js"></script>
+<!--    <style>-->
+<!--        .footer {-->
+<!--            position: fixed;-->
+<!--            left: 0;-->
+<!--            bottom: 0;-->
+<!--            width: 100%;-->
+<!--            color: white;-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--    </style>-->
+</head>
 
-    <!-- Contact Form JavaScript File -->
-    <script src="./contactform/contactform.js"></script>
-
-    <!-- Template Main Javascript File -->
-    <script src="./js/main.js"></script>
 </head>
 <body>
 <div id="obc_title"></div>
 <div id="common_part"></div>
+<div class="footer" id="home_button"></div>
 </body>
 </html>
+<!-- JavaScript Libraries -->
+<script src="./js/main.js"></script>
+<script src="./lib/jquery/jquery.min.js"></script>
+<script src="./lib/jquery/jquery-migrate.min.js"></script>
+<script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="./lib/easing/easing.min.js"></script>
+<script src="./lib/wow/wow.min.js"></script>
+<script src="./lib/superfish/hoverIntent.js"></script>
+<script src="./lib/superfish/superfish.min.js"></script>
+<script src="./lib/magnific-popup/magnific-popup.min.js"></script>
+
+<!-- Contact Form JavaScript File -->
+<script src="./contactform/contactform.js"></script>
+
+<!-- Template Main Javascript File -->
+<script src="./js/main.js"></script>
 <script src="common.js"></script>

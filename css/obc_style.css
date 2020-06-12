@@ -1,3 +1,15 @@
+.footer {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    width: 25%;
+    height: 20%;
+    color: white;
+    text-align: center;
+    transform: translate(-50%);
+    border-radius: 50%;
+}
+
 .menu-button {
     border: none;
     background: none;

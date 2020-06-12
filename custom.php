@@ -60,7 +60,7 @@ include_once "common.php";
         <!--==============================================================================
                         입력 영역
             ================================================================================-->
-        <div id="input_form">
+        <div id="input_form" style="height: 70vh">
             <div class="center">
                 <h1>客户订货资料</h1>
             </div>
@@ -351,6 +351,7 @@ include_once "common.php";
                     Common
         ================================================================================-->
     <div id="common_part"></div>
+    <div class="footer" id="home_button"></div>
 </body>
 </html>
 <script src="common.js"></script>
