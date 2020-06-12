@@ -4,7 +4,7 @@ if(!isset($_SESSION['user_id'])) {
 }
 
 $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-$btn_o = '<button name=\'order\' class=\'btn-dark\' onclick=\'return false;\' id="order_modal" data-toggle="modal" data-target="#order_form">O</button></td>';
+$btn_o = '<button name=\'order\' class=\'btn-dark\' onclick=\'submit_order(this); return false;\' data-toggle="modal" data-target="#order_form">O</button></td>';
 $btn_e = '<button name=\'edit\' class=\'btn-success\' onclick=\'displayRow(this); return false;\'>E</button></td>';
 $btn_d = '<button name=\'del\' class=\'btn-danger\' onclick=\'submit_data(this); return false;\'>D</button></td>';
 $fmt_table = '<table id=\'obc_table\' class=\'responsive-table\' style=\'min-font-size: 9pt\'>

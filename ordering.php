@@ -71,7 +71,7 @@ include_once "common.php";
                         ============================-->
                     <div class="center">
                         <label for="ibox_no">
-                            <input class="input_box"
+                            <input class="minput_box"
                                    type="text"
                                    name="no"
                                    id="ibox_no"
@@ -84,7 +84,7 @@ include_once "common.php";
                         ============================-->
                     <div class="center">
                         <label for="ibox_date">
-                            <input class="input_box"
+                            <input class="minput_box"
                                    type="date"
                                    name="date"
                                    id="ibox_date"
@@ -97,7 +97,7 @@ include_once "common.php";
                         ============================-->
                     <div class="center">
                         <label for="ibox_supplier">
-                            <input class="input_box"
+                            <input class="minput_box"
                                    type="text"
                                    name="supplier"
                                    id="ibox_supplier"
@@ -114,7 +114,7 @@ include_once "common.php";
                         ============================-->
                     <div id="div_item" class="center">
                         <label for="ibox_item">
-                            <input class="input_box"
+                            <input class="minput_box"
                                    type="text"
                                    name="item"
                                    id="ibox_item"
@@ -131,7 +131,7 @@ include_once "common.php";
                         ============================-->
                     <div id="div_qty" class="center">
                         <label for="ibox_qty">
-                            <input class="input_box"
+                            <input class="minput_box"
                                    type="number"
                                    name="qty"
                                    id="ibox_qty"
@@ -144,7 +144,7 @@ include_once "common.php";
                         ============================-->
                     <div class="center">
                         <label for="ibox_class">
-                            <input class="input_box"
+                            <input class="minput_box"
                                    type="text"
                                    name="class"
                                    id="ibox_class"
@@ -247,16 +247,18 @@ include_once "common.php";
             <div class="center">
                 <button class="btn-get-started btn-info scrollto"
                         id="order_modal"
-                       style="outline: none; font-size: 16pt"
-                       data-toggle="modal"
-                       data-target="#order_form"
-                onclick="return false;">테스트버튼</button>
+                        name="order"
+                        style="outline: none; font-size: 16pt"
+                        data-toggle="modal"
+                        data-target="#order_form"
+                        onclick="submit_order(this)">테스트버튼</button>
                 <input class="btn-get-started btn-success"
                        id="searchButton"
                        type="button"
                        name="search"
                        style="outline: none; font-size: 16pt"
-                       value="기능수정중">
+                       onclick="submit_order(this)"
+                       value="检索">
             </div>
         </div>
     </form>
@@ -264,6 +266,34 @@ include_once "common.php";
 </body>
 </html>
 <script>
+    function submit_order(ctl) {
+        var s = showing['custom'];
+        var ibox = document.getElementsByClassName('input_box')
+        var data = {};
+        for (var key in s) {
+            if ($(ibox.namedItem(key)).length > 0) {
+                data[key] = $(ibox.namedItem(key)).val();
+            } else {
+                data[key] = "";
+            }
+        }
+        data['showing'] = s;
+        data['msg'] = 'custom';
+
+        $.ajax({
+            type: 'post',
+            url: 'ordering.php',
+            data: data,
+
+            success: function (response) {
+                if (ctl.name === 'search') {
+                    changeTable(response);
+                }
+            }
+        });
+        return false;
+    }
+
     $('#order_form').on('hidden.bs.modal', function () {
         var orderno     = $('#div_orderno');
         var design      = $('#div_design');

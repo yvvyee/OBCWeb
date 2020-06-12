@@ -268,7 +268,7 @@ function submit_data(ctl) {
         data: data,
 
         success: function (response) {
-            if (ctl.name === 'search' || ctl.name === 'stock') {
+            if (ctl.name === 'search') {
                 changeTable(response);
             }
             if (ctl.name === 'save') {
