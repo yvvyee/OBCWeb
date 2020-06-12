@@ -127,81 +127,90 @@ var datalist = {
 
 var showing = {
     material: {
-        no:         false,
-        date:       true,
-        supplier:   false,
-        item:       true,
-        design:     true,
-        qty:        true,
-        month:      false,
-        class:      true,
-        worker:     false,
-        edit:       true,
-        del:        true
+        no:         'none',
+        date:       'show',
+        supplier:   'none',
+        item:       'show',
+        design:     'show',
+        qty:        'show',
+        month:      'none',
+        class:      'show',
+        worker:     'none',
+        edit:       'show',
+        del:        'show'
     },
     stock: {
-        no:         false,
-        item:       true,
-        design:     true,
-        qty:        true,
-        class:      true,
-        edit:       true,
-        del:        true
+        no:         'none',
+        item:       'show',
+        design:     'show',
+        qty:        'show',
+        class:      'show',
+        edit:       'show',
+        del:        'show'
     },
     custom: {
-        no:         false,
-        date:       true,
-        customer:   true,
-        item:       true,
-        design:     true,
-        qty:        true,
-        orderno:    true,
-        edit:       true,
-        del:        true
+        no:         'none',
+        date:       'none',
+        customer:   'show',
+        item:       'show',
+        design:     'show',
+        qty:        'show',
+        orderno:    'show',
+        edit:       'show',
+        del:        'show',
     },
     ordering: {
-        no:         false,
-        date:       true,
-        supplier:   true,
-        item:       true,
-        qty:        true,
-        class:      true,
-        edit:       true,
-        del:        true
+        no:         'none',
+        date:       'show',
+        supplier:   'show',
+        item:       'show',
+        design:     'show',
+        qty:        'show',
+        orderno:    'show',
+        class:      'show',
+        edit:       'show',
+        del:        'show'
     },
-    // payment: {
-    //     no:         false,
-    //     date:       true,
-    //     item:       true,
-    //     design:     true,
-    //     class:      true,
-    //     qty:        true,
-    //     price:      true,
-    //     total:      true,
-    //     edit:       true,
-    //     del:        true
-    // },
+    payment: {
+        no:         'none',
+        date:       'show',
+        item:       'show',
+        design:     'show',
+        class:      'show',
+        qty:        'show',
+        price:      'show',
+        total:      'show',
+    },
     price: {
-        no:         false,
-        factory:    true,
-        item:       true,
-        design:     true,
-        price:      true,
-        class:      true,
-        edit:       true,
-        del:        true
+        no:         'none',
+        factory:    'show',
+        item:       'show',
+        design:     'show',
+        price:      'show',
+        class:      'show',
+        edit:       'show',
+        del:        'show'
     },
     shipping: {
-        no:         false,
-        supplier:   false,
-        item:       true,
-        design:     true,
-        class:      true,
-        rate:       true,
-        price:      true,
-        worker:     false,
-        edit:       true,
-        del:        true
+        no:         'none',
+        supplier:   'none',
+        item:       'show',
+        design:     'show',
+        class:      'show',
+        rate:       'show',
+        price:      'show',
+        worker:     'none',
+        edit:       'show',
+        del:        'show'
+    },
+    order: {
+        item:       'show',
+        design:     'show',
+        qty:        'show',
+        baici:      'show',
+        huazhi:     'show',
+        chengpin:   'show',
+        order:      'show'
     }
 };
 
@@ -215,33 +224,11 @@ for (var key in datalist) {
 function getData(ctl) {
     var data = {};
     var page = location.href.split("/").slice(-1)[0].split(".")[0];
-    if (ctl.name === 'update') {
-        var row = $(ctl).parents("tr");
-        var cols = row.children("td");
 
-        for (var i = 0; i < cols.length; i++) {
-            if (cols[i].children.length === 0) {
-                data[$(cols[i]).attr('name')] = cols[i].textContent;
-            }
-        }
-        data['showing'] = showing[page];
-        data['page'] = page;
-    }
-    if (ctl.name === 'del') {
-        var row = $(ctl).parents("tr");
-        var cols = row.children("td");
+    if (ctl.name === 'search'   ||
+        ctl.name === 'update'   ||
+        ctl.name === 'save') {
 
-        for (var i = 0; i < cols.length; i++) {
-            if ($(cols[i]).attr('name') === 'no') {
-                data['no'] = cols[i].textContent;
-                break;
-            }
-        }
-    }
-    if (ctl.name === 'logout') {
-        data['page'] = page;
-    }
-    if (ctl.name === 'search') {
         var ibox = document.getElementsByClassName('input_box')
         for (var i = 0; i < ibox.length; i++) {
             data[ibox[i].name] = ibox[i].value;
@@ -250,10 +237,93 @@ function getData(ctl) {
         data['page'] = page;
     }
 
+    if (ctl.name === 'payment') {
+        var ibox = document.getElementsByClassName('input_box')
+        for (var i = 0; i < ibox.length; i++) {
+            data[ibox[i].name] = ibox[i].value;
+        }
+        data['showing'] = showing[page];
+        data['page'] = 'material';
+    }
+
+    if (ctl.name === 'ordering') {
+        var ibox = document.getElementsByClassName('minput_box')
+        for (var i = 0; i < ibox.length; i++) {
+            data[ibox[i].name] = ibox[i].value;
+        }
+        data['showing'] = showing['ordering'];
+        data['page'] = 'ordering';
+    }
+
+    if (ctl.name === 'order') {
+        var ibox = document.getElementsByClassName('minput_box')
+        for (var i = 0; i < ibox.length; i++) {
+            data[ibox[i].name] = ibox[i].value;
+        }
+        data['showing'] = showing['order'];
+        data['page'] = page;
+    }
+
+    if (ctl.name === 'payment') {
+        var ibox = document.getElementsByClassName('input_box')
+        for (var i = 0; i < ibox.length; i++) {
+            data[ibox[i].name] = ibox[i].value;
+        }
+        data['showing'] = showing['payment'];
+        data['page'] = 'material';
+    }
+
+    if (ctl.name === 'del') {
+        var row = $(ctl).parents("tr");
+        var cols = row.children("td");
+
+        for (var i = 0; i < cols.length; i++) {
+            if ($(cols[i]).attr('name') === 'no') {
+                data['no'] = cols[i].textContent;
+                data['page'] = page;
+                break;
+            }
+        }
+    }
     return data;
 }
 
-function submit_data(ctl) {
+function submit_to_server(data, ctl) {
+    $.ajax({
+        type: 'post',
+        url: location.href.split("/").slice(-1)[0],
+        data: data,
+
+        success: function (response) {
+            if (ctl.name === 'search' ||
+                ctl.name === 'order' ||
+                ctl.name === 'payment') {
+
+                changeTable(response);
+            }
+            if (ctl.name === 'save') {
+                updateRow(response);
+                alert("储存完毕!");
+            }
+            if (ctl.name === 'update') {
+                updateRow(response);
+                alert("修改完毕!");
+            }
+            if (ctl.name === 'del') {
+                deleteRow(ctl);
+                alert("删除完毕!");
+            }
+            if (ctl.name === 'logout') {
+                window.location.href = 'login.php';
+            }
+            if (ctl.name === 'ordering') {
+                alert("订货储存完毕!");
+            }
+        }
+    });
+}
+
+function submit_basic(ctl) {
     if (ctl.name === 'del') {
         if (!confirm('确定要删除吗?')) {
             return;
@@ -262,32 +332,7 @@ function submit_data(ctl) {
     var data = getData(ctl);
     data['msg'] = ctl.name;
 
-    $.ajax({
-        type: 'post',
-        url: data['page'] + '.php',
-        data: data,
-
-        success: function (response) {
-            if (ctl.name === 'search') {
-                changeTable(response);
-            }
-            if (ctl.name === 'save') {
-                updateRow(response);
-                alert("저장 완료");
-            }
-            if (ctl.name === 'update') {
-                updateRow(response);
-                alert("수정 완료");
-            }
-            if (ctl.name === 'del') {
-                deleteRow(ctl);
-                alert("삭제 완료");
-            }
-            if (ctl.name === 'logout') {
-                window.location.href = 'login.php';
-            }
-        }
-    });
+    submit_to_server(data, ctl);
     return false;
 }
 
@@ -310,7 +355,10 @@ function displayRow(ctl) {
 
     $("#updateButton").val("修整");
     $("#updateButton").attr("name", "update");
-    window.location.href = "#input_form";
+
+    var pos = $("#input_form").position();
+    window.scrollTo(pos);
+    // window.location.href = "#input_form";
 }
 
 function updateRow(src) {

@@ -198,14 +198,14 @@ include_once "common.php";
                        type="button"
                        name="save"
                        style="outline: none; font-size: 16pt"
-                       onclick="submit_data(this)"
+                       onclick="submit_basic(this)"
                        value="保存">
                 <input class="btn-get-started btn-success"
                        id="searchButton"
                        type="button"
                        name="search"
                        style="outline: none; font-size: 16pt"
-                       onclick="submit_data(this)"
+                       onclick="submit_basic(this)"
                        value="检索">
             </div>
         </div>

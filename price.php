@@ -78,20 +78,20 @@ include_once "common.php";
                 </label>
             </div>
             <!--==========================
-                  Factory
+                  Supplier
                 ============================-->
             <div class="center">
-                <label for="ibox_factory">
+                <label for="ibox_supplier">
                     <input class="input_box"
                            type="text"
-                           name="factory"
-                           id="ibox_factory"
-                           list="factory_list"
+                           name="supplier"
+                           id="ibox_supplier"
+                           list="supplier_list"
                            placeholder="企业"
                            autocomplete="off"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
-                <datalist id="factory_list">
+                <datalist id="supplier_list">
                 </datalist>
             </div>
             <!--==========================
@@ -168,14 +168,14 @@ include_once "common.php";
                        type="button"
                        name="save"
                        style="outline: none; font-size: 16pt"
-                       onclick="submit_data(this)"
+                       onclick="submit_basic(this)"
                        value="保存">
                 <input class="btn-get-started btn-success"
                        id="searchButton"
                        type="button"
                        name="search"
                        style="outline: none; font-size: 16pt"
-                       onclick="submit_data(this)"
+                       onclick="submit_basic(this)"
                        value="检索">
             </div>
         </div>

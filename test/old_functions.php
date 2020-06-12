@@ -239,10 +239,10 @@ function deleteStock() {
     if (mysqli_query($conn, $sql)) {}
 }
 
-function makeStock() {
+function makeTotalStock() {
     $class = '白瓷';
     $sub_name = "贴花";
-    $t1 = calcBaici($class, $sub_name);
+    $t1 = calc($class, $sub_name);
 
     $class = '花纸';
     $sub_name = "贴花";
@@ -251,10 +251,6 @@ function makeStock() {
     $class = '完成品';
     $sub_name = "出库";
     $t3 = calcStock($class, $sub_name, 'yellow');
-
-//    $class == '完成品';
-//    $sub_name = "出库";
-//    calcStock($class, $sub_name, 'green');
 
     global $fmt_table;
     $new_table = sprintf($fmt_table, '전체재고', $t1 . $t2 . $t3);
@@ -796,6 +792,53 @@ function deleteProduct() {
         $("#obc_table").children("tbody").children("tr").prepend(content_str)
     }
 </script>
+
+
+
+
+<!--<script>-->
+<!--    function submit_order(ctl) {-->
+<!--        var s = showing['custom'];-->
+<!--        var ibox = document.getElementsByClassName('input_box')-->
+<!--        var data = {};-->
+<!--        for (var key in s) {-->
+<!--            if ($(ibox.namedItem(key)).length > 0) {-->
+<!--                data[key] = $(ibox.namedItem(key)).val();-->
+<!--            } else {-->
+<!--                data[key] = "";-->
+<!--            }-->
+<!--        }-->
+<!--        data['showing'] = s;-->
+<!--        data['msg'] = 'custom';-->
+<!---->
+<!--        $.ajax({-->
+<!--            type: 'post',-->
+<!--            url: 'ordering.php',-->
+<!--            data: data,-->
+<!---->
+<!--            success: function (response) {-->
+<!--                if (ctl.name === 'search') {-->
+<!--                    changeTable(response);-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--        return false;-->
+<!--    }-->
+<!---->
+<!--    $('#order_form').on('hidden.bs.modal', function () {-->
+<!--        var orderno     = $('#div_orderno');-->
+<!--        var design      = $('#div_design');-->
+<!--        $('#order_main').append(orderno);-->
+<!--        $('#order_main').append(design);-->
+<!--    });-->
+<!---->
+<!--    $('#order_modal').click(function () {-->
+<!--        var orderno     = $('#div_orderno');-->
+<!--        var design      = $('#div_design');-->
+<!--        $('#div_item').after(design);-->
+<!--        $('#div_qty').after(orderno);-->
+<!--    });-->
+<!--</script>-->
 
 
 

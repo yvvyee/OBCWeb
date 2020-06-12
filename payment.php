@@ -48,8 +48,6 @@ include_once "common.php";
 
     <!-- Template Main Javascript File -->
     <script src="./js/main.js"></script>
-
-    <script src="common.js"></script>
 </head>
 <body>
     <header>
@@ -103,24 +101,17 @@ include_once "common.php";
                   Button
                 ============================-->
             <div class="center">
-                <input class="btn-get-started btn-info scrollto"
-                       id="updateButton"
-                       type="button"
-                       name="save"
-                       style="outline: none; font-size: 16pt"
-                       onclick="submit_data(this)"
-                       value="保存">
                 <input class="btn-get-started btn-success"
                        id="searchButton"
                        type="button"
-                       name="search"
+                       name="payment"
                        style="outline: none; font-size: 16pt"
-                       value="기능수정중">
-<!--                       onclick="submit_data(this)"-->
-
+                       onclick="submit_basic(this)"
+                       value="检索">
             </div>
         </div>
     </form>
     <div id="common_part"></div>
 </body>
 </html>
+<script src="common.js"></script>
