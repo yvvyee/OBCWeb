@@ -118,14 +118,15 @@ var datalist = {
     worker_list:
         '<option value="付秀丽">' +
         '<option value="何删">',
-    class_list:
-        '<option value="白瓷"></option>' +
-        '<option value="花纸"></option>' +
-        '<option value="完成品"></option>' +
-        '<option value="包装物"></option>' +
-        '<option value="彩瓷"></option>' +
-        '<option value="出库"></option>' +
-        '<option value="贴花"></option>'
+    // class_list:
+    //     '<option value="白瓷"></option>' +
+    //     '<option value="花纸"></option>' +
+    //     '<option value="完成品"></option>' +
+    //     '<option value="包装物"></option>' +
+    //     '<option value="彩瓷"></option>' +
+    //     '<option value="出库"></option>' +
+    //     '<option value="贴花"></option>' +
+    //     '<option value="彩盒"></option>'
 };
 
 var showing = {
@@ -186,7 +187,7 @@ var showing = {
     },
     price: {
         no:         'none',
-        factory:    'show',
+        supplier:   'show',
         item:       'show',
         design:     'show',
         price:      'show',
@@ -224,6 +225,36 @@ for (var key in datalist) {
     }
 }
 
+var elem = document.getElementById("customer_list");
+if (elem != null) {
+    var ctl = elem.parentElement.children.item(0).children.namedItem('customer');
+    submit_basic(ctl);
+}
+
+var elem = document.getElementById("supplier_list");
+if (elem != null) {
+    var ctl = elem.parentElement.children.item(0).children.namedItem('supplier');
+    submit_basic(ctl);
+}
+
+var elem = document.getElementById("design_list");
+if (elem != null) {
+    var ctl = elem.parentElement.children.item(0).children.namedItem('design');
+    submit_basic(ctl);
+}
+
+var elem = document.getElementById("orderno_list");
+if (elem != null) {
+    var ctl = elem.parentElement.children.item(0).children.namedItem('orderno');
+    submit_basic(ctl);
+}
+
+var elem = document.getElementById("class_list");
+if (elem != null) {
+    var ctl = elem.parentElement.children.item(0).children.namedItem('class');
+    submit_basic(ctl);
+}
+
 function getData(ctl) {
     var data = {};
     var page = location.href.split("/").slice(-1)[0].split(".")[0];
@@ -234,7 +265,7 @@ function getData(ctl) {
 
         var ibox = document.getElementsByClassName('input_box')
         for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].name] = ibox[i].value;
+            data[ibox[i].id] = ibox[i].value;
         }
         data['showing'] = showing[page];
         data['page'] = page;
@@ -243,7 +274,7 @@ function getData(ctl) {
     if (ctl.name === 'payment') {
         var ibox = document.getElementsByClassName('input_box')
         for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].name] = ibox[i].value;
+            data[ibox[i].id] = ibox[i].value;
         }
         data['showing'] = showing[page];
         data['page'] = 'material';
@@ -252,7 +283,7 @@ function getData(ctl) {
     if (ctl.name === 'ordering') {
         var ibox = document.getElementsByClassName('minput_box')
         for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].name] = ibox[i].value;
+            data[ibox[i].id] = ibox[i].value;
         }
         data['showing'] = showing['ordering'];
         data['page'] = 'ordering';
@@ -261,7 +292,7 @@ function getData(ctl) {
     if (ctl.name === 'order') {
         var ibox = document.getElementsByClassName('minput_box')
         for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].name] = ibox[i].value;
+            data[ibox[i].id] = ibox[i].value;
         }
         data['showing'] = showing['order'];
         data['page'] = page;
@@ -270,7 +301,7 @@ function getData(ctl) {
     if (ctl.name === 'payment') {
         var ibox = document.getElementsByClassName('input_box')
         for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].name] = ibox[i].value;
+            data[ibox[i].id] = ibox[i].value;
         }
         data['showing'] = showing['payment'];
         data['page'] = 'material';
@@ -292,6 +323,16 @@ function getData(ctl) {
     if (ctl.name === 'stock') {
         data['title'] = ctl.value;
     }
+
+    if (ctl.name === 'ibox') {
+        data['kind'] = ctl.id;
+        if (page == 'payment') {
+            data['where'] = 'material';
+        } else {
+            data['where'] = page;
+        }
+    }
+
     return data;
 }
 
@@ -300,6 +341,7 @@ function submit_to_server(data, ctl) {
         type: 'post',
         url: location.href.split("/").slice(-1)[0],
         data: data,
+
 
         success: function (response) {
             if (ctl.name === 'search'   ||
@@ -321,6 +363,9 @@ function submit_to_server(data, ctl) {
                 deleteRow(ctl);
                 alert("删除完毕!");
             }
+            if (ctl.name === 'ibox') {
+                updateDatalist(response, ctl);
+            }
             if (ctl.name === 'logout') {
                 window.location.href = 'login.php';
             }
@@ -329,6 +374,13 @@ function submit_to_server(data, ctl) {
             }
         }
     });
+}
+
+function updateDatalist(src, ctl) {
+    var parser = new DOMParser();
+    var htmlDoc = parser.parseFromString(src, 'text/html');
+    var new_page = $(htmlDoc).find('#temp_option').html();
+    $("#" + ctl.id +"_list").append(new_page);
 }
 
 function submit_basic(ctl) {

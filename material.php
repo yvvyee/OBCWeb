@@ -71,8 +71,8 @@ include_once "common.php";
                 <label for="ibox_no">
                     <input class="input_box"
                            type="text"
-                           name="no"
-                           id="ibox_no"
+                           name="ibox"
+                           id="no"
                            placeholder="No"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; display: none">
                 </label>
@@ -84,8 +84,8 @@ include_once "common.php";
                 <label for="ibox_date">
                     <input class="input_box"
                            type="date"
-                           name="date"
-                           id="ibox_date"
+                           name="ibox"
+                           id="date"
                            placeholder="日期"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
@@ -97,8 +97,8 @@ include_once "common.php";
                 <label for="ibox_supplier">
                     <input class="input_box"
                            type="text"
-                           name="supplier"
-                           id="ibox_supplier"
+                           name="ibox"
+                           id="supplier"
                            list="supplier_list"
                            placeholder="企业"
                            autocomplete="off"
@@ -114,8 +114,8 @@ include_once "common.php";
                 <label for="ibox_item">
                     <input class="input_box"
                            type="text"
-                           name="item"
-                           id="ibox_item"
+                           name="ibox"
+                           id="item"
                            list="item_list"
                            placeholder="品名"
                            autocomplete="off"
@@ -131,8 +131,8 @@ include_once "common.php";
                 <label for="ibox_design">
                     <input class="input_box"
                            type="text"
-                           name="design"
-                           id="ibox_design"
+                           name="ibox"
+                           id="design"
                            list="design_list"
                            placeholder="花面"
                            autocomplete="off"
@@ -148,8 +148,8 @@ include_once "common.php";
                 <label for="ibox_qty">
                     <input class="input_box"
                            type="number"
-                           name="qty"
-                           id="ibox_qty"
+                           name="ibox"
+                           id="qty"
                            placeholder="数量"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
@@ -161,8 +161,8 @@ include_once "common.php";
                 <label for="ibox_month">
                     <input class="input_box"
                            type="text"
-                           name="month"
-                           id="ibox_month"
+                           name="ibox"
+                           id="month"
                            list="month_list"
                            placeholder="月份"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
@@ -177,8 +177,8 @@ include_once "common.php";
                 <label for="ibox_class">
                     <input class="input_box"
                            type="text"
-                           name="class"
-                           id="ibox_class"
+                           name="ibox"
+                           id="class"
                            list="class_list"
                            placeholder="分类"
                            autocomplete="off"
@@ -194,8 +194,8 @@ include_once "common.php";
                 <label for="ibox_worker">
                     <input class="input_box"
                            type="text"
-                           name="worker"
-                           id="ibox_worker"
+                           name="ibox"
+                           id="worker"
                            list="worker_list"
                            placeholder="贴花人"
                            autocomplete="off"

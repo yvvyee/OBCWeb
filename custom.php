@@ -56,7 +56,7 @@ include_once "common.php";
             ================================================================================-->
         <div id="obc_title"></div>
     </header>
-    <form id="submit-form" method="POST">
+<!--    <form id="submit-form" method="POST">-->
         <!--==============================================================================
                         입력 영역
             ================================================================================-->
@@ -71,8 +71,8 @@ include_once "common.php";
                 <label for="ibox_no">
                     <input class="input_box"
                            type="text"
-                           name="no"
-                           id="ibox_no"
+                           name="ibox"
+                           id="no"
                            placeholder="No"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; display: none">
                 </label>
@@ -84,8 +84,8 @@ include_once "common.php";
                 <label for="ibox_date">
                     <input class="input_box"
                            type="date"
-                           name="date"
-                           id="ibox_date"
+                           name="ibox"
+                           id="date"
                            placeholder="日期"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
@@ -97,8 +97,8 @@ include_once "common.php";
                 <label for="ibox_customer">
                     <input class="input_box"
                            type="text"
-                           name="customer"
-                           id="ibox_customer"
+                           name="ibox"
+                           id="customer"
                            list="customer_list"
                            placeholder="客户"
                            autocomplete="off"
@@ -114,8 +114,8 @@ include_once "common.php";
                 <label for="ibox_item">
                     <input class="input_box"
                            type="text"
-                           name="item"
-                           id="ibox_item"
+                           name="ibox"
+                           id="item"
                            list="item_list"
                            placeholder="品名"
                            autocomplete="off"
@@ -131,8 +131,8 @@ include_once "common.php";
                 <label for="ibox_design">
                     <input class="input_box"
                            type="text"
-                           name="design"
-                           id="ibox_design"
+                           name="ibox"
+                           id="design"
                            list="design_list"
                            placeholder="花面"
                            autocomplete="off"
@@ -148,8 +148,8 @@ include_once "common.php";
                 <label for="ibox_qty">
                     <input class="input_box"
                            type="number"
-                           name="qty"
-                           id="ibox_qty"
+                           name="ibox"
+                           id="qty"
                            placeholder="数量"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
@@ -161,11 +161,14 @@ include_once "common.php";
                 <label for="ibox_orderno">
                     <input class="input_box"
                            type="text"
-                           name="orderno"
-                           id="ibox_orderno"
+                           name="ibox"
+                           id="orderno"
+                           list="orderno_list"
                            placeholder="订单号码"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
+                <datalist id="orderno_list">
+                </datalist>
             </div>
             <!--==========================
                   Button
@@ -199,7 +202,7 @@ include_once "common.php";
             <div id="table_root" class="table-area center" style="margin-bottom: 10%">
             </div>
         </div>
-    </form>
+<!--    </form>-->
     <!--==============================================================================
                     Modal for order
         ================================================================================-->
@@ -217,8 +220,8 @@ include_once "common.php";
                         <label for="ibox_no">
                             <input class="minput_box"
                                    type="text"
-                                   name="no"
-                                   id="ibox_no"
+                                   name="m_ibox"
+                                   id="m_no"
                                    placeholder="No"
                                    style="font-size: 16pt; text-align: center; font-family: 微软雅黑; display: none">
                         </label>
@@ -230,8 +233,8 @@ include_once "common.php";
                         <label for="ibox_date">
                             <input class="minput_box"
                                    type="date"
-                                   name="date"
-                                   id="ibox_date"
+                                   name="m_ibox"
+                                   id="m_date"
                                    placeholder="日期"
                                    style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                         </label>
@@ -243,14 +246,15 @@ include_once "common.php";
                         <label for="ibox_supplier">
                             <input class="minput_box"
                                    type="text"
-                                   name="supplier"
-                                   id="ibox_supplier"
-                                   list="supplier_list"
+                                   name="m_ibox"
+                                   id="m_supplier"
+                                   list="m_supplier_list"
                                    placeholder="企业"
                                    autocomplete="off"
+                                   onload="submit_basic(this)"
                                    style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                         </label>
-                        <datalist id="supplier_list">
+                        <datalist id="m_supplier_list">
                         </datalist>
                     </div>
                     <!--==========================
@@ -260,14 +264,14 @@ include_once "common.php";
                         <label for="ibox_item">
                             <input class="minput_box"
                                    type="text"
-                                   name="item"
-                                   id="ibox_item"
-                                   list="item_list"
+                                   name="m_ibox"
+                                   id="m_item"
+                                   list="m_item_list"
                                    placeholder="品名"
                                    autocomplete="off"
                                    style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                         </label>
-                        <datalist id="item_list">
+                        <datalist id="m_item_list">
                         </datalist>
                     </div>
                     <!--==========================
@@ -277,14 +281,14 @@ include_once "common.php";
                         <label for="ibox_design">
                             <input class="minput_box"
                                    type="text"
-                                   name="design"
-                                   id="ibox_design"
-                                   list="design_list"
+                                   name="m_ibox"
+                                   id="m_design"
+                                   list="m_design_list"
                                    placeholder="花面"
                                    autocomplete="off"
                                    style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                         </label>
-                        <datalist id="design_list">
+                        <datalist id="m_design_list">
                         </datalist>
                     </div>
                     <!--==========================
@@ -294,8 +298,8 @@ include_once "common.php";
                         <label for="ibox_qty">
                             <input class="minput_box"
                                    type="number"
-                                   name="qty"
-                                   id="ibox_qty"
+                                   name="m_ibox"
+                                   id="m_qty"
                                    placeholder="数量"
                                    style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                         </label>
@@ -307,14 +311,14 @@ include_once "common.php";
                         <label for="ibox_orderno">
                             <input class="minput_box"
                                    type="text"
-                                   name="orderno"
-                                   id="ibox_orderno"
-                                   list="customer_list"
+                                   name="m_ibox"
+                                   id="m_orderno"
+                                   list="m_orderno_list"
                                    placeholder="订单号码"
                                    autocomplete="off"
                                    style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                         </label>
-                        <datalist id="customer_list">
+                        <datalist id="m_orderno_list">
                         </datalist>
                     </div>
                     <!--==========================
@@ -324,14 +328,14 @@ include_once "common.php";
                         <label for="ibox_class">
                             <input class="minput_box"
                                    type="text"
-                                   name="class"
-                                   id="ibox_class"
-                                   list="class_list"
+                                   name="m_ibox"
+                                   id="m_class"
+                                   list="m_class_list"
                                    placeholder="分类"
                                    autocomplete="off"
                                    style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                         </label>
-                        <datalist id="class_list">
+                        <datalist id="m_class_list">
                         </datalist>
                     </div>
                     <!--==========================

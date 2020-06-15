@@ -97,7 +97,7 @@ include_once "common.php";
                name="stock"
                style="outline: none; font-size: 16pt"
                onclick="submit_basic(this)"
-               value="包装期">
+               value="包装物">
     </div>
 </div>
 <!--==========================

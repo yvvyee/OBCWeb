@@ -71,8 +71,8 @@ include_once "common.php";
                 <label for="ibox_month">
                     <input class="input_box"
                            type="text"
-                           name="month"
-                           id="ibox_month"
+                           name="ibox"
+                           id="month"
                            list="month_list"
                            placeholder="月份"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
@@ -87,8 +87,8 @@ include_once "common.php";
                 <label for="ibox_supplier">
                     <input class="input_box"
                            type="text"
-                           name="supplier"
-                           id="ibox_supplier"
+                           name="ibox"
+                           id="supplier"
                            list="supplier_list"
                            placeholder="企业"
                            autocomplete="off"

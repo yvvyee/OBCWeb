@@ -71,8 +71,8 @@ include_once "common.php";
                 <label for="ibox_no">
                     <input class="input_box"
                            type="text"
-                           name="no"
-                           id="ibox_no"
+                           name="ibox"
+                           id="no"
                            placeholder="No"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; display: none">
                 </label>
@@ -84,8 +84,8 @@ include_once "common.php";
                 <label for="ibox_supplier">
                     <input class="input_box"
                            type="text"
-                           name="supplier"
-                           id="ibox_supplier"
+                           name="ibox"
+                           id="supplier"
                            list="supplier_list"
                            placeholder="企业"
                            autocomplete="off"
@@ -101,8 +101,8 @@ include_once "common.php";
                 <label for="ibox_item">
                     <input class="input_box"
                            type="text"
-                           name="item"
-                           id="ibox_item"
+                           name="ibox"
+                           id="item"
                            list="item_list"
                            placeholder="品名"
                            autocomplete="off"
@@ -118,8 +118,8 @@ include_once "common.php";
                 <label for="ibox_design">
                     <input class="input_box"
                            type="text"
-                           name="design"
-                           id="ibox_design"
+                           name="ibox"
+                           id="design"
                            list="design_list"
                            placeholder="花面"
                            autocomplete="off"
@@ -136,8 +136,8 @@ include_once "common.php";
                     <input class="input_box"
                            type="number"
                            step="any"
-                           name="price"
-                           id="ibox_price"
+                           name="ibox"
+                           id="price"
                            placeholder="单价"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
@@ -149,8 +149,8 @@ include_once "common.php";
                 <label for="ibox_class">
                     <input class="input_box"
                            type="text"
-                           name="class"
-                           id="ibox_class"
+                           name="ibox"
+                           id="class"
                            list="class_list"
                            placeholder="分类"
                            autocomplete="off"
