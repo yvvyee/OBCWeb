@@ -60,7 +60,7 @@ include_once "common.php";
         <!--==============================================================================
                         입력 영역
             ================================================================================-->
-        <div id="input_form" style="height: 70vh">
+        <div id="input_form" style="height: 120vh">
             <div class="center">
                 <h1>客户订货资料</h1>
             </div>
@@ -189,9 +189,14 @@ include_once "common.php";
                        id="orderButton"
                        type="button"
                        name="order"
-                       style="outline: none; font-size: 16pt"
+                       style="outline: none; font-size: 16pt; background-color: #993366"
                        onclick="submit_basic(this)"
                        value="订货">
+            </div>
+            <!--==========================
+                  Table
+                ============================-->
+            <div id="table_root" class="table-area center" style="margin-bottom: 10%">
             </div>
         </div>
     </form>
@@ -202,7 +207,7 @@ include_once "common.php";
         <div class="modal-dialog">
             <div class="intro-text modal-content" style="background: none; width: 270px; height: auto; border-width: 0px; margin-left: auto; margin-right: auto" >
                 <div class="modal-header" style="text-align: center; justify-content: center; color: black">
-                    <h1>订货</h1>
+                    <h1 style="background-color: #993366">订货</h1>
                 </div>
                 <div id="order_body" class="modal-body">
                     <!--==========================

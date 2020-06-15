@@ -2,23 +2,23 @@
 if(!isset($_SESSION['user_id'])) {
     echo "<script>alert('请重新登录'); window.location = './login.php'; </script>";
 }
-
 $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-$fmt_table = '<table id=\'obc_table\' class=\'responsive-table\' style=\'min-font-size: 9pt\'>
-              <caption style=\'text-align: center\'>%s</caption>%s</table>';
+$fmt_table = '<table id=\'obc_table\' style=\'min-font-size: 9pt\'>
+              <caption style=\'text-align: left\'>%s</caption>%s</table>';
 $fmt_row = '<%1$s style=\'border: 3px solid %2$s\'>%3$s</%1$s>';
 $fmt_tr = '<tr style=\'border-bottom: 1px dotted silver\'>%s</tr>';
 
 $fmt_td = array(
+    'attr'  => '<%1$s %2s>%3$s</%1$s>',
     'show'  => '<%1$s name=\'%2$s\'>%3$s</%1$s>',
     'none'  => '<%1$s name=\'%2$s\' style=\'display: none\'>%3$s</%1$s>',
-    'red'   => '<%1$s name=\'%2$s\' style=\'background-color: red; color: black\'>%3$s</%1$s>'
+    'alert' => '<%1$s name=\'%2$s\' style=\'background-color: #993366; color: #ffffff\'>%3$s</%1$s>'
 );
 
 $btn = array(
     'edit'  => '<button name=\'edit\' class=\'btn-success\' onclick=\'displayRow(this); return false;\'>E</button></td>',
     'del'   => '<button name=\'del\' class=\'btn-danger\' onclick=\'submit_basic(this); return false;\'>D</button></td>',
-    'order' => '<button name=\'order\' class=\'btn-dark\' onclick=\'submit_order(this); return false;\' data-toggle="modal" data-target="#order_form">O</button></td>'
+    'order' => '<button name=\'order\' class=\'btn-dark\' onclick=\'submit_basic(this); return false;\' data-toggle="modal" data-target="#order_form" style="background-color: #993366">O</button></td>'
 );
 
 $translate = array(
@@ -58,10 +58,12 @@ $relation = array(
 $sql_search_all     = 'SELECT * FROM %s ORDER BY no DESC';
 $sql_search_con     = 'SELECT * FROM %s WHERE %s ORDER BY no DESC';
 $sql_search_one     = 'SELECT %s FROM %s WHERE %s';
+$sql_select_all     = 'SELECT * FROM %s WHERE %s';
 $sql_insert         = 'INSERT INTO %s (%s) VALUES (%s)';
 $sql_update         = 'UPDATE %s SET %s WHERE %s';
 $sql_delete         = 'DELETE FROM %s WHERE no = %s';
 $sql_distinct       = 'SELECT DISTINCT %s FROM %s';
+$sql_distinct_one   = 'SELECT DISTINCT %s FROM %s WHERE %s';
 
 if (array_key_exists('msg', $_POST)) {
     if ($_POST['msg'] == 'search' || $_POST['msg'] == 'payment') {
@@ -69,6 +71,23 @@ if (array_key_exists('msg', $_POST)) {
     }
     if ($_POST['msg'] == 'save' || $_POST['msg'] == 'ordering') {
         save();
+    }
+    if ($_POST['msg'] == 'stock') {
+        if ($_POST['title'] == '白瓷') {
+            calcBaici();
+        }
+        if ($_POST['title'] == '花纸') {
+            calcStockA('huazhi');
+        }
+        if ($_POST['title'] == '完成品') {
+            calcStockA('chengpin');
+        }
+        if ($_POST['title'] == '包装期') {
+            calcBaici();
+        }
+        if ($_POST['title'] == '彩瓷') {
+            calcBaici();
+        }
     }
     if ($_POST['msg'] == 'order') {
         order();
@@ -147,36 +166,226 @@ function calcByItemDesign($clsA, $clsB, $item, $design) : string {
     return (intval($stk) + intval($mat) - intval($sub));
 }
 
-//function getStock($item, $design) : array {
-//    return array(
-//        'baici'     => calcByItem('白瓷', '贴花', $item),
-//        'huazhi'    => calcByItemDesign('花纸', '贴花', $item, $design),
-//        'chengpin'  => calcByItemDesign('完成品', '出库', $item, $design)
-//    );
-//}
+function calcTotalStock($class) {
+    global $translate;
+    global $relation;
 
-//function makeTotalStock() {
-//    global $conn;
-//    global $sql_search_one;
-//    global $translate;
+    $t1 = calcBaici();
+//    $t2 = calcStock($translate['huazhi'], $relation['huazhi'], $translate['huazhi']);
+//    $t3 = calcStock($translate['chengpin'], $relation['chengpin'], $translate['chengpin']);
 //
-//    $sql = sprintf($sql_search_one, 'item', 'stock', $translate['baici']);
-//    $items = mysqli_query($conn, $sql);
-//
-//    while ($row = mysqli_fetch_array($items)) {
-//        $class = '花纸';
-//        $sub_name = "贴花";
-//        $t2 = calcStock($class, $sub_name, 'red');
-//
-//        $class = '完成品';
-//        $sub_name = "出库";
-//        $t3 = calcStock($class, $sub_name, 'yellow');
-//
-//        global $fmt_table;
-//        $new_table = sprintf($fmt_table, '전체재고', $t1 . $t2 . $t3);
-//        echo "<script type='text/html' id='temp_page'>$new_table</script>";
-//    }
-//}
+//    global $fmt_table;
+//    $new_table = sprintf($fmt_table, '全部库存', $t1 . $t2 . $t3);
+//    echo "<script type='text/html' id='temp_page'>$new_table</script>";
+    echo "<script type='text/html' id='temp_page'>$t1</script>";
+}
+
+function calcBaici() {
+    global $conn;
+    global $fmt_table;
+    global $fmt_row;
+    global $fmt_tr;
+    global $fmt_td;
+    global $translate;
+    global $relation;
+    global $sql_select_all;
+    global $sql_search_one;
+
+    $baici = $translate['baici'];
+    $tiehua = $relation['baici'];
+
+    $cond = makeCondition(array(
+        'class' => $baici
+    ));
+    $sql = sprintf($sql_select_all, 'stock', $cond);
+    $items = mysqli_query($conn, $sql);
+
+    $tr = "";
+    while ($row = mysqli_fetch_array($items)) {
+        $cells = "";
+
+        $cell = sprintf($fmt_td['show'], 'td', "", $row['item']);
+        $cells = $cells . $cell;
+
+        $cond = makeCondition(array(
+            'class' => $baici,
+            'item'  => "{$row['item']}"
+        ));
+        $sql = sprintf($sql_search_one, 'qty', 'stock', $cond);
+        $bas = mysqli_fetch_array(mysqli_query($conn, $sql))[0];
+        $cell = sprintf($fmt_td['show'], 'td', "", $bas);
+        $cells = $cells . $cell;
+
+        $sql = sprintf($sql_search_one, 'sum(qty)', 'material', $cond);
+        $mat = mysqli_fetch_array(mysqli_query($conn, $sql))[0];
+        $cell = sprintf($fmt_td['show'], 'td', "", $mat);
+        $cells = $cells . $cell;
+
+        $cond = makeCondition(array(
+            'class' => $tiehua,
+            'item'  => "{$row['item']}"
+        ));
+        $sql = sprintf($sql_search_one, 'sum(qty)', 'material', $cond);
+        $sub = mysqli_fetch_array(mysqli_query($conn, $sql))[0];
+        $cell = sprintf($fmt_td['show'], 'td', "", $sub);
+        $cells = $cells . $cell;
+
+        $sum = (intval($bas) + intval($mat) - intval($sub));
+        $cell = sprintf($fmt_td['show'], 'td', "", $sum);
+        $cells = $cells . $cell;
+
+        $tr = $tr . sprintf($fmt_tr, $cells);
+    }
+
+    $tbody = sprintf($fmt_row, 'tbody', 'none', $tr);
+
+    $cells = "";
+
+    $cell = sprintf($fmt_td['show'], 'th', "", '品名');
+    $cells = $cells . $cell;
+
+    $cell = sprintf($fmt_td['show'], 'th', "", '期初');
+    $cells = $cells . $cell;
+
+    $cell = sprintf($fmt_td['show'], 'th', "", '入库');
+    $cells = $cells . $cell;
+
+    $cell = sprintf($fmt_td['show'], 'th', "", '出库');
+    $cells = $cells . $cell;
+
+    $cell = sprintf($fmt_td['show'], 'th', "", '现在库存');
+    $cells = $cells . $cell;
+
+    $tr = sprintf($fmt_tr, $cells);
+    $thead = sprintf($fmt_row, 'thead', 'none', $tr);
+
+    $new_table = sprintf($fmt_table, '白瓷库存', $thead . $tbody);
+    echo "<script type='text/html' id='temp_page'>$new_table</script>";
+}
+
+function calcStockB($title) {
+
+}
+
+function calcStockA($title) {
+    global $conn;
+    global $fmt_table;
+    global $fmt_row;
+    global $fmt_tr;
+    global $fmt_td;
+    global $sql_distinct_one;
+    global $sql_search_one;
+    global $translate;
+    global $relation;
+
+    $clsA = $translate[$title];
+    $clsB = $relation[$title];
+
+    $cond = makeCondition(array(
+        'class' => $clsA
+    ));
+
+    $sql = sprintf($sql_distinct_one, 'item', 'stock', $cond);
+    $res = mysqli_query($conn, $sql);
+    $items = mysqli_fetch_all($res);
+
+    $sql = sprintf($sql_distinct_one, 'design', 'stock', $cond);
+    $res = mysqli_query($conn, $sql);
+    $designs = mysqli_fetch_all($res);
+
+    $total = "";
+    foreach ($designs as $j => $design) {
+
+        $tr = "";
+        $thead = "";
+        $count = 0;
+
+        foreach ($items as $i => $item) {
+            if ($count == 0) {
+                $count++;
+                $cell = sprintf($fmt_td['show'], 'th', "", $design[0]);
+                $cells_head = $cell;
+
+                $cell = sprintf($fmt_td['show'], 'th', "", '期初');
+                $cells_head = $cells_head . $cell;
+
+                $cell = sprintf($fmt_td['show'], 'th', "", '入库');
+                $cells_head = $cells_head . $cell;
+
+                $cell = sprintf($fmt_td['show'], 'th', "", '出库');
+                $cells_head = $cells_head . $cell;
+
+                $cell = sprintf($fmt_td['show'], 'th', "", '现在库存');
+                $cells_head = $cells_head . $cell;
+
+                $temp = sprintf($fmt_tr, $cells_head);
+                $thead = sprintf($fmt_row, 'thead', 'none', $temp);
+            }
+
+            $cell = sprintf($fmt_td['show'], 'td', "", $item[0]);
+            $cells_body = $cell;
+
+            $cond = makeCondition(array(
+                'class'     => $clsA,
+                'item'      => $item[0],
+                'design'    => $design[0]
+            ));
+            $sql = sprintf($sql_search_one, 'qty', 'stock', $cond);
+
+            $res = mysqli_query($conn, $sql);
+            if ($res) {
+                $bas = mysqli_fetch_array($res)[0];
+
+            } else {
+                $bas = 0;
+            }
+            $cell = sprintf($fmt_td['show'], 'td','', $bas);
+            $cells_body = $cells_body . $cell;
+
+            $sql = sprintf($sql_search_one, 'sum(qty)', 'material', $cond);
+
+            $res = mysqli_query($conn, $sql);
+            if ($res) {
+                $mat = mysqli_fetch_array($res)[0];
+            } else {
+                $mat = 0;
+            }
+            $cell = sprintf($fmt_td['show'], 'td','', $mat);
+            $cells_body = $cells_body . $cell;
+
+            $cond = makeCondition(array(
+                'class'     => $clsB,
+                'item'      => $item[0],
+                'design'    => $design[0]
+            ));
+            $sql = sprintf($sql_search_one, 'sum(qty)', 'material', $cond);
+
+            $res = mysqli_query($conn, $sql);
+            if ($res) {
+                $sub = mysqli_fetch_array($res)[0];
+            } else {
+                $sub = 0;
+            }
+            $cell = sprintf($fmt_td['show'], 'td','', $sub);
+            $cells_body = $cells_body . $cell;
+
+            $sum = (intval($bas) + intval($mat) - intval($sub));
+            if ($sum == 0) {
+                $sum = null;
+            }
+            $cell = sprintf($fmt_td['show'], 'td', "", $sum);
+            $cells_body = $cells_body . $cell;
+
+            $tr = $tr . sprintf($fmt_tr, $cells_body);
+        }
+
+        $tbody = sprintf($fmt_row, 'tbody', 'none', $tr);
+        $total = $total . $thead . $tbody;
+    }
+
+    $new_table = sprintf($fmt_table, $translate[$title].'库存', $total);
+    echo "<script type='text/html' id='temp_page'>$new_table</script>";
+}
 
 function order() {
     global $conn;
@@ -243,7 +452,7 @@ function order() {
             if ($rate) {
                 $cell = sprintf($fmt_td[$val], 'td', $key, intval($sum) * intval($rate));
             } else {
-                $cell = sprintf($fmt_td['red'], 'td', $key, $sum);
+                $cell = sprintf($fmt_td['alert'], 'td', $key, $sum);
             }
             $cells = $cells . $cell;
 
@@ -255,7 +464,7 @@ function order() {
             if ($qty > 0) {
                 $cell = sprintf($fmt_td[$val], 'td', $key, $qty);
             } else {
-                $cell = sprintf($fmt_td['red'], 'td', $key, $qty);
+                $cell = sprintf($fmt_td['alert'], 'td', $key, $qty);
             }
             $cells = $cells . $cell;
 
@@ -266,7 +475,7 @@ function order() {
             if ($qty > 0) {
                 $cell = sprintf($fmt_td[$val], 'td', $key, $qty);
             } else {
-                $cell = sprintf($fmt_td['red'], 'td', $key, $qty);
+                $cell = sprintf($fmt_td['alert'], 'td', $key, $qty);
             }
             $cells = $cells . $cell;
 
@@ -277,7 +486,7 @@ function order() {
             if ($qty > 0) {
                 $cell = sprintf($fmt_td[$val], 'td', $key, $qty);
             } else {
-                $cell = sprintf($fmt_td['red'], 'td', $key, $qty);
+                $cell = sprintf($fmt_td['alert'], 'td', $key, $qty);
             }
             $cells = $cells . $cell;
 
@@ -340,7 +549,6 @@ function search() {
                 $cell = sprintf($fmt_td[$val], 'td', $key, $btn[$key]);
             }
 
-            #region custom 페이지 carton 계산 (수량정보 없으면 붉은 표시)
             else if ($tname == 'custom' && $key == 'qty') {
 
                 $cond = makeCondition(array(
@@ -356,7 +564,7 @@ function search() {
                 if ($rate) {
                     $cell = sprintf($fmt_td[$val], 'td', $key, intval($row[$key]) * intval($rate['rate']));
                 } else {
-                    $cell = sprintf($fmt_td['red'], 'td', $key, intval($row[$key]));
+                    $cell = sprintf($fmt_td['alert'], 'td', $key, intval($row[$key]));
                 }
             }
 
@@ -377,14 +585,14 @@ function search() {
                         $sum += $result;
                         $cell = sprintf($fmt_td[$val], 'td', $key, $result);
                     } else {
-                        $cell = sprintf($fmt_td['red'], 'td', $key, '-');
+                        $cell = sprintf($fmt_td['alert'], 'td', $key, '-');
                     }
                 }
                 if ($key == 'price') {
                     if ($price) {
                         $cell = sprintf($fmt_td[$val], 'td', $key, $price[0]);
                     } else {
-                        $cell = sprintf($fmt_td['red'], 'td', $key, '-');
+                        $cell = sprintf($fmt_td['alert'], 'td', $key, '-');
                     }
                 }
             }

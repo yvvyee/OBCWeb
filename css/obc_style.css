@@ -1,10 +1,11 @@
 .footer {
     position: fixed;
     left: 50%;
-    bottom: 20px;
-    width: 25%;
-    height: 20%;
+    bottom: 10px;
+    width: 120px;
+    height: 150px;
     color: white;
+    /*background-color: #0b0b0b;*/
     text-align: center;
     transform: translate(-50%);
     border-radius: 50%;
@@ -79,6 +80,27 @@
     align-items: center;
     /*height: 200px;*/
     /*border: 3px solid green;*/
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+    text-align: center;
+}
+
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+td, th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
 }
 
 .table-area {

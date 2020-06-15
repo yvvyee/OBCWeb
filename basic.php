@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(!isset($_SESSION['user_id'])) {
-    echo "<script>alert('세션이 만료되었습니다.'); window.location = './login.php'; </script>";
+if($_SESSION['user_id'] != 'admin' && $_SESSION['user_id'] != 'korea') {
+    echo "<script>alert('是没有访问权限的账户'); window.location = './main.php'; </script>";
 }
 include_once "common.php";
 ?>
@@ -64,20 +64,26 @@ include_once "common.php";
                     입력 영역
 
         ================================================================================-->
-        <div class="center">
-            <h1>基础资料输入</h1>
-        </div>
-        <!--==========================
-              Button
-            ============================-->
-        <div class="center">
+    <div class="center">
+        <h1>基础资料输入</h1>
+    </div>
+    <!--==========================
+          Button
+        ============================-->
+    <div style="height: 70vh">
+        <div class="center" style="white-space: nowrap">
             <a href="stock.php"><button class="btn-get-started btn-info scrollto"
                                         style="outline: none; font-size: 16pt">库存资料</button></a>
-            <a href="price.php"><button class="btn-get-started btn-info scrollto"
+        </div>
+        <div class="center" style="white-space: nowrap">
+            <a href="price.php"><button class="btn-get-started btn-danger scrollto"
                                           style="outline: none; font-size: 16pt">单价资料</button></a>
-            <a href="shipping.php"><button class="btn-get-started btn-info scrollto"
+        </div>
+        <div class="center" style="white-space: nowrap">
+            <a href="shipping.php"><button class="btn-get-started btn-dark scrollto"
                                           style="outline: none; font-size: 16pt">出货资料</button></a>
         </div>
+    </div>
     <!--==============================================================================
              home, table, modal
         ================================================================================-->

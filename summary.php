@@ -54,10 +54,59 @@ include_once "common.php";
     <!--==============================================================================
                     타이틀 영역
         ================================================================================-->
-    <div id="obc_title" style="display: none"></div>
+    <div id="obc_title"></div>
 </header>
+<!--==========================
+      Button
+    ============================-->
+<div id="input_form" style="height: 40vh">
+    <div class="center" style="white-space: nowrap">
+        <input class="btn-get-started btn-info scrollto"
+               id="updateButton"
+               type="button"
+               name="stock"
+               style="outline: none; font-size: 16pt"
+               onclick="submit_basic(this)"
+               value="白瓷">
+        <input class="btn-get-started btn-info scrollto"
+               id="updateButton"
+               type="button"
+               name="stock"
+               style="outline: none; font-size: 16pt"
+               onclick="submit_basic(this)"
+               value="花纸">
+        <input class="btn-get-started btn-info scrollto"
+               id="updateButton"
+               type="button"
+               name="stock"
+               style="outline: none; font-size: 16pt"
+               onclick="submit_basic(this)"
+               value="彩瓷">
+    </div>
+    <div class="center" style="white-space: nowrap">
+        <input class="btn-get-started btn-info scrollto"
+               id="updateButton"
+               type="button"
+               name="stock"
+               style="outline: none; font-size: 16pt"
+               onclick="submit_basic(this)"
+               value="完成品">
+        <input class="btn-get-started btn-info scrollto"
+               id="updateButton"
+               type="button"
+               name="stock"
+               style="outline: none; font-size: 16pt"
+               onclick="submit_basic(this)"
+               value="包装期">
+    </div>
+</div>
+<!--==========================
+      Table
+    ============================-->
+<div id="table_root" class="table-area center" style="margin-bottom: 10%">
+</div>
 <!--==============================================================================
-         home, table, modal
+         home, modal
     ================================================================================-->
 <div id="common_part"></div>
 <div class="footer" id="home_button"></div>

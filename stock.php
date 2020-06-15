@@ -62,7 +62,7 @@ include_once "common.php";
 
         ================================================================================-->
     <form id="submit-form" method="POST">
-        <div id="input_form" style="position: relative">
+        <div id="input_form" style="position: relative; height: 90vh">
             <div class="center">
                 <h1>库存资料</h1>
             </div>
@@ -161,6 +161,11 @@ include_once "common.php";
                        style="outline: none; font-size: 16pt"
                        onclick="submit_basic(this)"
                        value="检索">
+            </div>
+            <!--==========================
+                  Table
+                ============================-->
+            <div id="table_root" class="table-area center" style="margin-bottom: 10%">
             </div>
         </div>
     </form>

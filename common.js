@@ -288,6 +288,10 @@ function getData(ctl) {
             }
         }
     }
+
+    if (ctl.name === 'stock') {
+        data['title'] = ctl.value;
+    }
     return data;
 }
 
@@ -298,9 +302,10 @@ function submit_to_server(data, ctl) {
         data: data,
 
         success: function (response) {
-            if (ctl.name === 'search' ||
-                ctl.name === 'order' ||
-                ctl.name === 'payment') {
+            if (ctl.name === 'search'   ||
+                ctl.name === 'order'    ||
+                ctl.name === 'payment'  ||
+                ctl.name === 'stock') {
 
                 changeTable(response);
             }
@@ -430,4 +435,7 @@ function changeTable(src) {
     $("#table_root").append(new_page);
 
     formClear();
+
+    var pos = $("#table_root").position();
+    window.scrollTo(pos);
 }

@@ -60,7 +60,7 @@ include_once "common.php";
         <!--==============================================================================
                         입력 영역
             ================================================================================-->
-        <div id="input_form">
+        <div id="input_form" style="height: 130vh">
             <div class="center">
                 <h1>出货资料</h1>
             </div>
@@ -207,6 +207,11 @@ include_once "common.php";
                        style="outline: none; font-size: 16pt"
                        onclick="submit_basic(this)"
                        value="检索">
+            </div>
+            <!--==========================
+                  Table
+                ============================-->
+            <div id="table_root" class="table-area center" style="margin-bottom: 10%">
             </div>
         </div>
     </form>
