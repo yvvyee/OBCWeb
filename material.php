@@ -74,6 +74,8 @@ include_once "common.php";
                            name="ibox"
                            id="no"
                            placeholder="No"
+                           autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; display: none">
                 </label>
             </div>
@@ -87,6 +89,8 @@ include_once "common.php";
                            name="ibox"
                            id="date"
                            placeholder="日期"
+                           autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
             </div>
@@ -102,6 +106,7 @@ include_once "common.php";
                            list="supplier_list"
                            placeholder="企业"
                            autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="supplier_list">
@@ -119,6 +124,7 @@ include_once "common.php";
                            list="item_list"
                            placeholder="品名"
                            autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="item_list">
@@ -136,6 +142,7 @@ include_once "common.php";
                            list="design_list"
                            placeholder="花面"
                            autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="design_list">
@@ -151,6 +158,8 @@ include_once "common.php";
                            name="ibox"
                            id="qty"
                            placeholder="数量"
+                           autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
             </div>
@@ -165,6 +174,8 @@ include_once "common.php";
                            id="month"
                            list="month_list"
                            placeholder="月份"
+                           autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="month_list">
@@ -182,6 +193,7 @@ include_once "common.php";
                            list="class_list"
                            placeholder="分类"
                            autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="class_list">
@@ -199,6 +211,7 @@ include_once "common.php";
                            list="worker_list"
                            placeholder="贴花人"
                            autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="worker_list">

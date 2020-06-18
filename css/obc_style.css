@@ -1,3 +1,19 @@
+/*.input_box{*/
+/*    background:url(http://i.imgur.com/z7ZSYjt.png) no-repeat left -10px center;*/
+/*    !*border:1px solid #999;*!*/
+/*    padding:3px 4px 3px 18px; !* USE the same right padding in jQ! *!*/
+/*    !*border-radius:3px;*!*/
+/*    transition: background 0.4s;*/
+/*}*/
+/*.input_boxbox.x{*/
+/*    background-color: red;*/
+/*    color: #000;*/
+/*    background-position: left 5px center;*/
+/*}*/
+/*.input_box.onX{*/
+/*    cursor:pointer;*/
+/*}*/
+
 .footer {
     position: fixed;
     left: 50%;

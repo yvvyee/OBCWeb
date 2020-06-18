@@ -74,6 +74,8 @@ include_once "common.php";
                            name="ibox"
                            id="no"
                            placeholder="No"
+                           autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; display: none">
                 </label>
             </div>
@@ -89,6 +91,7 @@ include_once "common.php";
                            list="supplier_list"
                            placeholder="企业"
                            autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="supplier_list">
@@ -106,6 +109,7 @@ include_once "common.php";
                            list="item_list"
                            placeholder="品名"
                            autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="item_list">
@@ -123,6 +127,7 @@ include_once "common.php";
                            list="design_list"
                            placeholder="花面"
                            autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="design_list">
@@ -139,6 +144,8 @@ include_once "common.php";
                            name="ibox"
                            id="price"
                            placeholder="单价"
+                           autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
             </div>
@@ -154,6 +161,7 @@ include_once "common.php";
                            list="class_list"
                            placeholder="分类"
                            autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="class_list">

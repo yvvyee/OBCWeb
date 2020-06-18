@@ -75,6 +75,8 @@ include_once "common.php";
                            id="month"
                            list="month_list"
                            placeholder="月份"
+                           autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="month_list">
@@ -92,6 +94,7 @@ include_once "common.php";
                            list="supplier_list"
                            placeholder="企业"
                            autocomplete="off"
+                           ondblclick="$(this).val('');"
                            style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
                 </label>
                 <datalist id="supplier_list">
