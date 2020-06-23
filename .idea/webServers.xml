@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="c6c0a9c9-651b-4e8e-ad01-d0da1a2f727c" name="rpi-ubuntu" url="http://ivpl.iptime.org">
-        <fileTransfer accessType="SFTP" host="ivpl.iptime.org" port="22" sshConfigId="bd8b5375-1549-4466-bc8e-391a7097ab69" sshConfig="ubuntu@ivpl.iptime.org:22 password">
+      <webServer id="e7e863c9-021f-4ca9-8745-11c37c33c6fc" name="ivpl.iptime.org" url="http://ivpl.iptime.org:7298">
+        <fileTransfer accessType="SFTP" host="ivpl.iptime.org" port="7295" sshConfigId="04a54bd2-d856-4cab-b535-ca32c6b22796" sshConfig="ywlee@ivpl.iptime.org:7295 password">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

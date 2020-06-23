@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="rpi-ubuntu">
+  <component name="PublishConfigData" autoUpload="Always" serverName="ivpl.iptime.org">
     <serverData>
-      <paths name="rpi-ubuntu">
+      <paths name="ivpl.iptime.org">
         <serverdata>
           <mappings>
-            <mapping deploy="/var/www/html/obc" local="$PROJECT_DIR$" web="/obc" />
+            <mapping deploy="/var/www/html/obc" local="$PROJECT_DIR$" web="/obc/" />
           </mappings>
         </serverdata>
       </paths>

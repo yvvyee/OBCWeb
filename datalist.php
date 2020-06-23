@@ -50,47 +50,54 @@ include_once "common.php";
     <script src="./js/main.js"></script>
 </head>
 <body>
-    <header>
-        <!--==============================================================================
-                        타이틀 영역
-            ================================================================================-->
-        <div id="obc_title"></div>
-    </header>
+<header>
     <!--==============================================================================
-                    입력 영역
+                    타이틀 영역
         ================================================================================-->
-    <div style="height: 70vh">
-        <!--==========================
-              Text
-            ============================-->
-        <div class="center">
-            <h1>企业结算</h1>
-        </div>
-        <!--==========================
-              Input
-            ============================-->
-        <div id="input_form_payment">
-        </div>
-        <!--==========================
-              Button
-            ============================-->
-        <div class="center">
-            <input class="btn-get-started btn-success"
-                   id="searchButton"
-                   type="button"
-                   name="payment"
-                   style="outline: none; font-size: 16pt"
-                   onclick="submit_basic(this)"
-                   value="检索">
-        </div>
-        <!--==========================
-              Table
-            ============================-->
-        <div id="table_root" class="table-area center" style="margin-bottom: 10%">
-        </div>
+    <div id="obc_title"></div>
+</header>
+<!--==============================================================================
+                입력 영역
+    ================================================================================-->
+<div style="height: 70vh">
+    <!--==========================
+          Text
+        ============================-->
+    <div class="center">
+        <h1>输入窗管理</h1>
     </div>
-    <div id="common_part"></div>
-    <div class="footer" id="home_button"></div>
+    <!--==========================
+          Input
+        ============================-->
+    <div id="input_form_datalist">
+    </div>
+    <!--==========================
+          Button
+        ============================-->
+    <div class="center">
+        <input class="btn-get-started btn-info scrollto"
+               id="updateButton"
+               type="button"
+               name="save"
+               style="outline: none; font-size: 16pt"
+               onclick="submit_basic(this)"
+               value="保存">
+        <input class="btn-get-started btn-success"
+               id="searchButton"
+               type="button"
+               name="search"
+               style="outline: none; font-size: 16pt"
+               onclick="submit_basic(this)"
+               value="检索">
+    </div>
+    <!--==========================
+          Table
+        ============================-->
+    <div id="table_root" class="table-area center" style="margin-bottom: 10%">
+    </div>
+</div>
+<div id="common_part"></div>
+<div class="footer" id="home_button"></div>
 </body>
 </html>
 <script src="common.js"></script>

@@ -15,10 +15,58 @@ $fmt_td = array(
     'alert' => '<%1$s name=\'%2$s\' style=\'background-color: #993366; color: #ffffff\'>%3$s</%1$s>'
 );
 
-$btn = array(
+$fmt_btn = array(
     'edit'  => '<button name=\'edit\' class=\'btn-success\' onclick=\'displayRow(this); return false;\'>E</button></td>',
     'del'   => '<button name=\'del\' class=\'btn-danger\' onclick=\'submit_basic(this); return false;\'>D</button></td>',
     'order' => '<button name=\'order\' class=\'btn-dark\' onclick=\'submit_basic(this); return false;\' data-toggle="modal" data-target="#order_form" style="background-color: #993366">O</button></td>'
+);
+
+$fmt_input = '<div class="center" id="div_%1$s">
+                <label for="ibox_%1$s">
+                    <input class="input_box"
+                           type="%3$s"
+                           name="%2$s"
+                           id="%1$s"
+                           list="%1$s_list"
+                           placeholder="%4$s"
+                           autocomplete="off"
+                           ondblclick="$(this).val(\'\');"
+                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px; %5$s">
+                </label>
+                <datalist id="%1$s_list">
+                    %6$s
+                </datalist>
+            </div>';
+
+$input_list = array(
+    'custom'    => ['no', 'date', 'customer', 'item', 'design', 'qty', 'orderno'],
+    'ordering'  => ['no', 'date', 'supplier', 'item', 'design', 'qty', 'orderno', 'class'],
+    'material'  => ['no', 'date', 'supplier', 'item', 'design', 'qty', 'month', 'class', 'worker'],
+    'payment'   => ['month', 'supplier'],
+    'price'     => ['no', 'supplier', 'item', 'design', 'price', 'class'],
+    'shipping'  => ['no', 'customer', 'item', 'design', 'class', 'rate', 'price', 'worker'],
+    'stock'     => ['no', 'item', 'design', 'qty', 'class'],
+    'datalist'  => ['no', 'name', 'kind', 'seq', 'sep']
+);
+
+$input_type = array(
+    'no'        => 'text',
+    'date'      => 'date',
+    'customer'  => 'text',
+    'item'      => 'text',
+    'design'    => 'text',
+    'qty'       => 'number',
+    'orderno'   => 'text',
+    'supplier'  => 'text',
+    'month'     => 'text',
+    'class'     => 'text',
+    'worker'    => 'text',
+    'price'     => 'number',
+    'rate'      => 'number',
+    'name'      => 'text',
+    'kind'      => 'text',
+    'seq'       => 'number',
+    'sep'       => 'text'
 );
 
 $translate = array(
@@ -44,7 +92,11 @@ $translate = array(
     'huazhi'    => '花纸',
     'chengpin'  => '完成品',
     'baozhuang' => '包装物',
-    'caici'     => '彩瓷'
+    'caici'     => '彩瓷',
+    'name'      => '名称',
+    'kind'      => '种类',
+    'seq'       => '顺序',
+    'sep'       => '页面'
 );
 
 $relation = array(
@@ -120,6 +172,9 @@ $sql_distinct       = 'SELECT DISTINCT %s FROM %s';
 $sql_distinct_one   = 'SELECT DISTINCT %s FROM %s WHERE %s';
 
 if (array_key_exists('msg', $_POST)) {
+    if ($_POST['msg'] == 'setInput') {
+        set_input_form();
+    }
     if ($_POST['msg'] == 'search' || $_POST['msg'] == 'payment') {
         search();
     }
@@ -166,6 +221,58 @@ function random_color_part() {
 
 function random_color() {
     return random_color_part() . random_color_part() . random_color_part();
+}
+
+function set_input_form() {
+    global $fmt_input;
+    global $input_list;
+    global $input_type;
+    global $translate;
+    global $conn;
+
+    $sql = "SELECT * FROM datalist ORDER BY seq";
+    $res = mysqli_query( $conn, $sql );
+    $datalist = mysqli_fetch_all($res);
+
+    $page = $_POST['page'];
+
+    $input_form = '';
+    foreach ($input_list[$page] as $i => $name) {
+        $id = $page . '_' . $name;
+
+        if ($name == 'no') {
+            $temp = sprintf($fmt_input, $id, $name, $input_type[$name], $translate[$name], 'display: none', '');
+        } else {
+            $options = '';
+            if ($name == 'orderno') {
+                $sql = "SELECT DISTINCT orderno FROM $page";
+                $res = mysqli_query( $conn, $sql );
+                $orderno = mysqli_fetch_all($res);
+                foreach ($orderno as $str) {
+                    $var = htmlentities($str[0]);
+                    $options =  $options. "<option value='$var'>";
+                }
+            } else {
+                foreach ($datalist as $row) {
+                    if ($row[2] == $name) {
+                        if ($row[4] == '') {
+                            $var = htmlentities($row[1]);
+                            $options =  $options. "<option value='$var'>";
+                        } else {
+                            if ($row[4] == $page) {
+                                $var = htmlentities($row[1]);
+                                $options =  $options. "<option value='$var'>";
+                            }
+                        }
+                    }
+                }
+            }
+            $temp = sprintf($fmt_input, $id, $name, $input_type[$name], $translate[$name], '', $options);
+        }
+        $input_form = $input_form . $temp;
+    }
+
+    echo "<script type='text/html' id='temp_page'>$input_form</script>";
 }
 
 function makeCondition($arr) : string {
@@ -702,7 +809,7 @@ function order() {
     global $fmt_table;
     global $translate;
     global $relation;
-    global $btn;
+    global $fmt_btn;
 
     $color = random_color();
 
@@ -787,7 +894,7 @@ function order() {
             // 발주버튼
             $key = 'order';
             $val = $showing[$key];
-            $cell = sprintf($fmt_td[$val], 'td', $key, $btn[$key]);
+            $cell = sprintf($fmt_td[$val], 'td', $key, $fmt_btn[$key]);
             $cells = $cells . $cell;
 
             $tr = $tr . sprintf($fmt_tr, $cells);
@@ -818,7 +925,7 @@ function search() {
     global $fmt_row;
     global $fmt_table;
     global $translate;
-    global $btn;
+    global $fmt_btn;
 
     $color = random_color();
 
@@ -841,7 +948,7 @@ function search() {
         $cells = "";
         foreach ($showing as $key => $val) {
             if ($key == 'edit' || $key == 'del' || $key == 'order') {
-                $cell = sprintf($fmt_td[$val], 'td', $key, $btn[$key]);
+                $cell = sprintf($fmt_td[$val], 'td', $key, $fmt_btn[$key]);
             }
 
             else if ($tname == 'custom' && $key == 'qty') {
@@ -937,7 +1044,7 @@ function save() {
 
     global $fmt_td;
     global $fmt_tr;
-    global $btn;
+    global $fmt_btn;
 
     $tname = $_POST['page'];
     $showing = $_POST['showing'];
@@ -964,7 +1071,7 @@ function save() {
 
         foreach ($showing as $key => $val) {
             if ($key == 'edit' || $key == 'del' || $key == 'order') {
-                $cell = sprintf($fmt_td[$val], 'td', $key, $btn[$key]);
+                $cell = sprintf($fmt_td[$val], 'td', $key, $fmt_btn[$key]);
             } else if ($tname == 'custom' && $key == 'qty') {
 
                 $cond = makeCondition(array(

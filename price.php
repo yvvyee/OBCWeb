@@ -56,143 +56,46 @@ include_once "common.php";
             ================================================================================-->
         <div id="obc_title"></div>
     </header>
-    <form id="submit-form" method="POST">
-        <!--==============================================================================
-                        입력 영역
-            ================================================================================-->
-        <div id="input_form" style="height: 100vh">
-            <div class="center">
-                <h1>单价资料</h1>
-            </div>
-            <!--==========================
-                  No
-                ============================-->
-            <div class="center">
-                <label for="ibox_no">
-                    <input class="input_box"
-                           type="text"
-                           name="ibox"
-                           id="no"
-                           placeholder="No"
-                           autocomplete="off"
-                           ondblclick="$(this).val('');"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; display: none">
-                </label>
-            </div>
-            <!--==========================
-                  Supplier
-                ============================-->
-            <div class="center">
-                <label for="ibox_supplier">
-                    <input class="input_box"
-                           type="text"
-                           name="ibox"
-                           id="supplier"
-                           list="supplier_list"
-                           placeholder="企业"
-                           autocomplete="off"
-                           ondblclick="$(this).val('');"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-                <datalist id="supplier_list">
-                </datalist>
-            </div>
-            <!--==========================
-                  Item
-                ============================-->
-            <div class="center">
-                <label for="ibox_item">
-                    <input class="input_box"
-                           type="text"
-                           name="ibox"
-                           id="item"
-                           list="item_list"
-                           placeholder="品名"
-                           autocomplete="off"
-                           ondblclick="$(this).val('');"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-                <datalist id="item_list">
-                </datalist>
-            </div>
-            <!--==========================
-                  Design
-                ============================-->
-            <div class="center">
-                <label for="ibox_design">
-                    <input class="input_box"
-                           type="text"
-                           name="ibox"
-                           id="design"
-                           list="design_list"
-                           placeholder="花面"
-                           autocomplete="off"
-                           ondblclick="$(this).val('');"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-                <datalist id="design_list">
-                </datalist>
-            </div>
-            <!--==========================
-                  Price
-                ============================-->
-            <div class="center">
-                <label for="ibox_price">
-                    <input class="input_box"
-                           type="number"
-                           step="any"
-                           name="ibox"
-                           id="price"
-                           placeholder="单价"
-                           autocomplete="off"
-                           ondblclick="$(this).val('');"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-            </div>
-            <!--==========================
-                  Class
-                ============================-->
-            <div class="center">
-                <label for="ibox_class">
-                    <input class="input_box"
-                           type="text"
-                           name="ibox"
-                           id="class"
-                           list="class_list"
-                           placeholder="分类"
-                           autocomplete="off"
-                           ondblclick="$(this).val('');"
-                           style="font-size: 16pt; text-align: center; font-family: 微软雅黑; min-width: 247px; height: 41px">
-                </label>
-                <datalist id="class_list">
-                </datalist>
-            </div>
-            <!--==========================
-                  Button
-                ============================-->
-            <div class="center">
-                <input class="btn-get-started btn-info scrollto"
-                       id="updateButton"
-                       type="button"
-                       name="save"
-                       style="outline: none; font-size: 16pt"
-                       onclick="submit_basic(this)"
-                       value="保存">
-                <input class="btn-get-started btn-success"
-                       id="searchButton"
-                       type="button"
-                       name="search"
-                       style="outline: none; font-size: 16pt"
-                       onclick="submit_basic(this)"
-                       value="检索">
-            </div>
-            <!--==========================
-                  Table
-                ============================-->
-            <div id="table_root" class="table-area center" style="margin-bottom: 10%">
-            </div>
+    <!--==============================================================================
+                    입력 영역
+        ================================================================================-->
+    <div style="height: 100vh">
+        <!--==========================
+              Text
+            ============================-->
+        <div class="center">
+            <h1>单价资料</h1>
         </div>
-    </form>
+        <!--==========================
+              Input
+            ============================-->
+        <div id="input_form_price">
+        </div>
+        <!--==========================
+              Button
+            ============================-->
+        <div class="center">
+            <input class="btn-get-started btn-info scrollto"
+                   id="updateButton"
+                   type="button"
+                   name="save"
+                   style="outline: none; font-size: 16pt"
+                   onclick="submit_basic(this)"
+                   value="保存">
+            <input class="btn-get-started btn-success"
+                   id="searchButton"
+                   type="button"
+                   name="search"
+                   style="outline: none; font-size: 16pt"
+                   onclick="submit_basic(this)"
+                   value="检索">
+        </div>
+        <!--==========================
+              Table
+            ============================-->
+        <div id="table_root" class="table-area center" style="margin-bottom: 10%">
+        </div>
+    </div>
     <div id="common_part"></div>
     <div class="footer" id="home_button"></div>
 </body>

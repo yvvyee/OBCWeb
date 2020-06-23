@@ -2,16 +2,16 @@
 <project version="4">
   <component name="PhpInterpreters">
     <interpreters>
-      <interpreter id="959add48-660c-4e3d-b076-bb84dc102d3d" name="ubuntu@ivpl.iptime.org:22 password" home="sshConfig://DATA" debugger_id="php.debugger.XDebug">
-        <remote_data INTERPRETER_PATH="/usr/bin/php" HELPERS_PATH="/home/ubuntu/.phpstorm_helpers" INITIALIZED="false" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" SSH_CONFIG_ID="bd8b5375-1549-4466-bc8e-391a7097ab69" SSH_CONFIG_NAME="ubuntu@ivpl.iptime.org:22 password" SSH_CREDENTIALS_ID="sshConfig://ubuntu@ivpl.iptime.org:22 password" />
+      <interpreter id="a4d362d7-5ac0-4fd4-95fb-bce0eb85d679" name="ywlee@ivpl.iptime.org:7295 password" home="sshConfig://DATA" debugger_id="php.debugger.XDebug">
+        <remote_data INTERPRETER_PATH="/usr/bin/php" HELPERS_PATH="/home/ywlee/.phpstorm_helpers" INITIALIZED="false" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" SSH_CONFIG_ID="04a54bd2-d856-4cab-b535-ca32c6b22796" SSH_CONFIG_NAME="ywlee@ivpl.iptime.org:7295 password" SSH_CREDENTIALS_ID="sshConfig://ywlee@ivpl.iptime.org:7295 password" />
       </interpreter>
     </interpreters>
   </component>
   <component name="PhpInterpretersPhpInfoCache">
     <phpInfoCache>
-      <interpreter name="ubuntu@ivpl.iptime.org:22 password">
-        <phpinfo binary_type="PHP" php_cli="/usr/bin/php7.4" path_separator=":" remote_host="210.119.103.200" version="7.4.3">
-          <additional_php_ini>/etc/php/7.4/cli/conf.d/10-opcache.ini, /etc/php/7.4/cli/conf.d/10-pdo.ini, /etc/php/7.4/cli/conf.d/20-calendar.ini, /etc/php/7.4/cli/conf.d/20-ctype.ini, /etc/php/7.4/cli/conf.d/20-curl.ini, /etc/php/7.4/cli/conf.d/20-exif.ini, /etc/php/7.4/cli/conf.d/20-ffi.ini, /etc/php/7.4/cli/conf.d/20-fileinfo.ini, /etc/php/7.4/cli/conf.d/20-ftp.ini, /etc/php/7.4/cli/conf.d/20-gettext.ini, /etc/php/7.4/cli/conf.d/20-iconv.ini, /etc/php/7.4/cli/conf.d/20-json.ini, /etc/php/7.4/cli/conf.d/20-phar.ini, /etc/php/7.4/cli/conf.d/20-posix.ini, /etc/php/7.4/cli/conf.d/20-readline.ini, /etc/php/7.4/cli/conf.d/20-shmop.ini, /etc/php/7.4/cli/conf.d/20-soap.ini, /etc/php/7.4/cli/conf.d/20-sockets.ini, /etc/php/7.4/cli/conf.d/20-sysvmsg.ini, /etc/php/7.4/cli/conf.d/20-sysvsem.ini, /etc/php/7.4/cli/conf.d/20-sysvshm.ini, /etc/php/7.4/cli/conf.d/20-tokenizer.ini, /etc/php/7.4/cli/conf.d/20-xdebug.ini</additional_php_ini>
+      <interpreter name="ywlee@ivpl.iptime.org:7295 password">
+        <phpinfo binary_type="PHP" php_cgi="/usr/bin/php-cgi" php_cli="/usr/bin/php7.4" path_separator=":" remote_host="210.119.103.200" version="7.4.3">
+          <additional_php_ini>/etc/php/7.4/cli/conf.d/10-mysqlnd.ini, /etc/php/7.4/cli/conf.d/10-opcache.ini, /etc/php/7.4/cli/conf.d/10-pdo.ini, /etc/php/7.4/cli/conf.d/15-xml.ini, /etc/php/7.4/cli/conf.d/20-calendar.ini, /etc/php/7.4/cli/conf.d/20-ctype.ini, /etc/php/7.4/cli/conf.d/20-curl.ini, /etc/php/7.4/cli/conf.d/20-dom.ini, /etc/php/7.4/cli/conf.d/20-exif.ini, /etc/php/7.4/cli/conf.d/20-ffi.ini, /etc/php/7.4/cli/conf.d/20-fileinfo.ini, /etc/php/7.4/cli/conf.d/20-ftp.ini, /etc/php/7.4/cli/conf.d/20-gd.ini, /etc/php/7.4/cli/conf.d/20-gettext.ini, /etc/php/7.4/cli/conf.d/20-iconv.ini, /etc/php/7.4/cli/conf.d/20-json.ini, /etc/php/7.4/cli/conf.d/20-mbstring.ini, /etc/php/7.4/cli/conf.d/20-mysqli.ini, /etc/php/7.4/cli/conf.d/20-pdo_mysql.ini, /etc/php/7.4/cli/conf.d/20-phar.ini, /etc/php/7.4/cli/conf.d/20-posix.ini, /etc/php/7.4/cli/conf.d/20-readline.ini, /etc/php/7.4/cli/conf.d/20-shmop.ini, /etc/php/7.4/cli/conf.d/20-simplexml.ini, /etc/php/7.4/cli/conf.d/20-sockets.ini, /etc/php/7.4/cli/conf.d/20-sysvmsg.ini, /etc/php/7.4/cli/conf.d/20-sysvsem.ini, /etc/php/7.4/cli/conf.d/20-sysvshm.ini, /etc/php/7.4/cli/conf.d/20-tokenizer.ini, /etc/php/7.4/cli/conf.d/20-xdebug.ini, /etc/php/7.4/cli/conf.d/20-xmlreader.ini, /etc/php/7.4/cli/conf.d/20-xmlwriter.ini, /etc/php/7.4/cli/conf.d/20-xsl.ini</additional_php_ini>
           <configuration_file>/etc/php/7.4/cli/php.ini</configuration_file>
           <configuration_options>
             <configuration_option name="include_path" value=".:/usr/share/php" />
@@ -28,28 +28,34 @@
             <extension name="Phar" />
             <extension name="Reflection" />
             <extension name="SPL" />
+            <extension name="SimpleXML" />
             <extension name="Zend OPcache" />
             <extension name="calendar" />
             <extension name="ctype" />
             <extension name="curl" />
             <extension name="date" />
+            <extension name="dom" />
             <extension name="exif" />
             <extension name="fileinfo" />
             <extension name="filter" />
             <extension name="ftp" />
+            <extension name="gd" />
             <extension name="gettext" />
             <extension name="hash" />
             <extension name="iconv" />
             <extension name="json" />
             <extension name="libxml" />
+            <extension name="mbstring" />
+            <extension name="mysqli" />
+            <extension name="mysqlnd" />
             <extension name="openssl" />
             <extension name="pcntl" />
             <extension name="pcre" />
+            <extension name="pdo_mysql" />
             <extension name="posix" />
             <extension name="readline" />
             <extension name="session" />
             <extension name="shmop" />
-            <extension name="soap" />
             <extension name="sockets" />
             <extension name="sodium" />
             <extension name="standard" />
@@ -58,6 +64,10 @@
             <extension name="sysvshm" />
             <extension name="tokenizer" />
             <extension name="xdebug" />
+            <extension name="xml" />
+            <extension name="xmlreader" />
+            <extension name="xmlwriter" />
+            <extension name="xsl" />
             <extension name="zlib" />
           </loaded_extensions>
         </phpinfo>

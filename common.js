@@ -1,134 +1,27 @@
 import("lib/jquery/jquery.min.js");
 import("lib/jquery/jquery-migrate.min.js");
 
+// automation - ESC 키 처리
 $(document).keydown(function(e) {
     // ESCAPE key pressed
     if (e.keyCode == 27) {
         formClear();
     }
 });
-
+// input_form 생성
 $(function () {
     $('#obc_title').load('common/title.php');
     $('#home_button').load('common/home.html');
     $('#common_part').load('common/modal.html');
-});
 
+    var page = location.href.split("/").slice(-1)[0].split(".")[0];
+    submit_input(page);
+});
+// 페이지 리프레시 비활성
 if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
 }
-
-jQuery(function ($) {
-
-    $('#bookmark-this').click(function (e) {
-        var bookmarkTitle = document.title;
-        var bookmarkUrl = window.location.href;
-
-        if ('addToHomescreen' in window && addToHomescreen.isCompatible) {
-            // Mobile browsers
-            addToHomescreen({ autostart: false, startDelay: 0 }).show(true);
-        } else if (/CriOS\//.test(navigator.userAgent)) {
-            // Chrome for iOS
-            alert('To add to Home Screen, launch this website in Safari, then tap the Share button and select "Add to Home Screen".');
-        } else if (window.sidebar && window.sidebar.addPanel) {
-            // Firefox <=22
-            window.sidebar.addPanel(bookmarkTitle, bookmarkUrl, '');
-        } else if ((window.sidebar && /Firefox/i.test(navigator.userAgent) && !Object.fromEntries) || (window.opera && window.print)) {
-            // Firefox 23-62 and Opera <=14
-            $(this).attr({
-                href: bookmarkUrl,
-                title: bookmarkTitle,
-                rel: 'sidebar'
-            }).off(e);
-            return true;
-        } else if (window.external && ('AddFavorite' in window.external)) {
-            // IE Favorites
-            window.external.AddFavorite(bookmarkUrl, bookmarkTitle);
-        } else {
-            // Other browsers (Chrome, Safari, Firefox 63+, Opera 15+)
-            alert('Press ' + (/Mac/i.test(navigator.platform) ? 'Cmd' : 'Ctrl') + '+D to bookmark this page.');
-        }
-
-        return false;
-    });
-
-});
-
-var datalist = {
-    month_list:
-        '<option value="1月份"></option>' +
-        '<option value="2月份"></option>' +
-        '<option value="3月份"></option>' +
-        '<option value="4月份"></option>' +
-        '<option value="5月份"></option>' +
-        '<option value="6月份"></option>' +
-        '<option value="7月份"></option>' +
-        '<option value="8月份"></option>' +
-        '<option value="9月份"></option>' +
-        '<option value="10月份"></option>' +
-        '<option value="11月份"></option>' +
-        '<option value="12月份"></option>',
-    item_list:
-        '<option value="4绿碗"></option>' +
-        '<option value="5绿碗"></option>' +
-        '<option value="7绿碗"></option>' +
-        '<option value="3.5汤"></option>' +
-        '<option value="5圆汤"></option>' +
-        '<option value="6圆汤"></option>' +
-        '<option value="7圆汤"></option>' +
-        '<option value="8圆平"></option>' +
-        '<option value="9圆平"></option>' +
-        '<option value="11圆平"></option>' +
-        '<option value="7正平"></option>' +
-        '<option value="9正平"></option>' +
-        '<option value="11正平"></option>' +
-        '<option value="方鱼盘"></option>' +
-        '<option value="4天龙碗"></option>' +
-        '<option value="5天龙碗"></option>' +
-        '<option value="7天龙碗"></option>' +
-        '<option value="2P杯碟"></option>' +
-        '<option value="5P杯碟"></option>' +
-        '<option value="2P皇室杯"></option>' +
-        '<option value="5P皇室杯"></option>' +
-        '<option value="22p"></option>' +
-        '<option value="6格碟"></option>' +
-        '<option value="4绿碗外箱"></option>' +
-        '<option value="5绿碗外箱"></option>' +
-        '<option value="7绿碗外箱"></option>' +
-        '<option value="3.5汤外箱"></option>' +
-        '<option value="5圆汤外箱"></option>' +
-        '<option value="6圆汤外箱"></option>' +
-        '<option value="7圆汤外箱"></option>' +
-        '<option value="8圆平外箱"></option>' +
-        '<option value="9圆平外箱"></option>' +
-        '<option value="11圆平外箱"></option>' +
-        '<option value="7正平外箱"></option>' +
-        '<option value="9正平外箱"></option>' +
-        '<option value="11正平外箱"></option>' +
-        '<option value="方鱼盘外箱"></option>' +
-        '<option value="4天龙碗外箱"></option>' +
-        '<option value="5天龙碗外箱"></option>' +
-        '<option value="7天龙碗外箱"></option>' +
-        '<option value="2P杯碟外箱"></option>' +
-        '<option value="5P杯碟外箱"></option>' +
-        '<option value="2P皇室杯外箱"></option>' +
-        '<option value="5P皇室杯外箱"></option>' +
-        '<option value="22p外箱"></option>' +
-        '<option value="6格碟外箱"></option>',
-    worker_list:
-        '<option value="付秀丽">' +
-        '<option value="何删">',
-    // class_list:
-    //     '<option value="白瓷"></option>' +
-    //     '<option value="花纸"></option>' +
-    //     '<option value="完成品"></option>' +
-    //     '<option value="包装物"></option>' +
-    //     '<option value="彩瓷"></option>' +
-    //     '<option value="出库"></option>' +
-    //     '<option value="贴花"></option>' +
-    //     '<option value="彩盒"></option>'
-};
-
+// 테이블 디스플레이 설정
 var showing = {
     material: {
         no:         'none',
@@ -215,47 +108,19 @@ var showing = {
         huazhi:     'show',
         chengpin:   'show',
         order:      'show'
+    },
+    datalist: {
+        no:         'none',
+        name:       'show',
+        kind:       'show',
+        seq:        'show',
+        sep:        'show',
+        edit:       'show',
+        del:        'show'
     }
 };
-
-for (var key in datalist) {
-    var elem = document.getElementById(key);
-    if (elem != null) {
-        elem.innerHTML = datalist[key];
-    }
-}
-
-var elem = document.getElementById("customer_list");
-if (elem != null) {
-    var ctl = elem.parentElement.children.item(0).children.namedItem('customer');
-    submit_basic(ctl);
-}
-
-var elem = document.getElementById("supplier_list");
-if (elem != null) {
-    var ctl = elem.parentElement.children.item(0).children.namedItem('supplier');
-    submit_basic(ctl);
-}
-
-var elem = document.getElementById("design_list");
-if (elem != null) {
-    var ctl = elem.parentElement.children.item(0).children.namedItem('design');
-    submit_basic(ctl);
-}
-
-var elem = document.getElementById("orderno_list");
-if (elem != null) {
-    var ctl = elem.parentElement.children.item(0).children.namedItem('orderno');
-    submit_basic(ctl);
-}
-
-var elem = document.getElementById("class_list");
-if (elem != null) {
-    var ctl = elem.parentElement.children.item(0).children.namedItem('class');
-    submit_basic(ctl);
-}
-
-function getData(ctl) {
+// submit 메시지 & 데이터 생성
+function craeteSubmitMsg(ctl) {
     var data = {};
     var page = location.href.split("/").slice(-1)[0].split(".")[0];
 
@@ -265,46 +130,12 @@ function getData(ctl) {
 
         var ibox = document.getElementsByClassName('input_box')
         for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].id] = ibox[i].value;
+            if (ibox[i].id.split('_')[0] === page) {
+                data[ibox[i].name] = ibox[i].value;
+            }
         }
         data['showing'] = showing[page];
         data['page'] = page;
-    }
-
-    if (ctl.name === 'payment') {
-        var ibox = document.getElementsByClassName('input_box')
-        for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].id] = ibox[i].value;
-        }
-        data['showing'] = showing[page];
-        data['page'] = 'material';
-    }
-
-    if (ctl.name === 'ordering') {
-        var ibox = document.getElementsByClassName('minput_box')
-        for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].id] = ibox[i].value;
-        }
-        data['showing'] = showing['ordering'];
-        data['page'] = 'ordering';
-    }
-
-    if (ctl.name === 'order') {
-        var ibox = document.getElementsByClassName('minput_box')
-        for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].id] = ibox[i].value;
-        }
-        data['showing'] = showing['order'];
-        data['page'] = page;
-    }
-
-    if (ctl.name === 'payment') {
-        var ibox = document.getElementsByClassName('input_box')
-        for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].id] = ibox[i].value;
-        }
-        data['showing'] = showing['payment'];
-        data['page'] = 'material';
     }
 
     if (ctl.name === 'del') {
@@ -318,6 +149,46 @@ function getData(ctl) {
                 break;
             }
         }
+    }
+
+    if (ctl.name === 'payment') {
+        var ibox = document.getElementsByClassName('input_box')
+        for (var i = 0; i < ibox.length; i++) {
+            data[ibox[i].name] = ibox[i].value;
+        }
+        data['showing'] = showing[page];
+        data['page'] = 'material';
+    }
+    // custom 페이지 모달 발주내용 저장
+    if (ctl.name === 'ordering') {
+        var ibox = document.getElementsByClassName('input_box')
+        for (var i = 0; i < ibox.length; i++) {
+            if (ibox[i].id.split('_')[0] === 'ordering') {
+                data[ibox[i].name] = ibox[i].value;
+            }
+        }
+        data['showing'] = showing['ordering'];
+        data['page'] = 'ordering';
+    }
+    // custom 페이지 발주테이블 생성
+    if (ctl.name === 'order') {
+        var ibox = document.getElementsByClassName('input_box')
+        for (var i = 0; i < ibox.length; i++) {
+            if (ibox[i].id.split('_')[0] === page) {
+                data[ibox[i].name] = ibox[i].value;
+            }
+        }
+        data['showing'] = showing['order'];
+        data['page'] = page;
+    }
+
+    if (ctl.name === 'payment') {
+        var ibox = document.getElementsByClassName('input_box')
+        for (var i = 0; i < ibox.length; i++) {
+            data[ibox[i].name] = ibox[i].value;
+        }
+        data['showing'] = showing['payment'];
+        data['page'] = 'material';
     }
 
     if (ctl.name === 'stock') {
@@ -335,7 +206,42 @@ function getData(ctl) {
 
     return data;
 }
+// submit: input_form 생성
+function submit_input(page) {
+    $.ajax({
+        type: 'post',
+        url: location.href.split("/").slice(-1)[0],
+        data: {
+            'msg': 'setInput',
+            'page': page
+        },
+        success: function (response) {
+            var parser = new DOMParser();
+            var htmlDoc = parser.parseFromString(response, 'text/html');
 
+            var new_page = $(htmlDoc).find('#temp_page').html();
+            $("#input_form_" + page).append(new_page);
+
+            if (page == 'custom') {
+                submit_input('ordering');
+            }
+        }
+    });
+}
+// submit 진입점
+function submit_basic(ctl) {
+    if (ctl.name === 'del') {
+        if (!confirm('确定要删除吗?')) {
+            return;
+        }
+    }
+    var data = craeteSubmitMsg(ctl);
+    data['msg'] = ctl.name;
+
+    submit_to_server(data, ctl);
+    return false;
+}
+// submit: 메시지 전송
 function submit_to_server(data, ctl) {
     $.ajax({
         type: 'post',
@@ -348,20 +254,16 @@ function submit_to_server(data, ctl) {
                 ctl.name === 'order'    ||
                 ctl.name === 'payment'  ||
                 ctl.name === 'stock') {
-
                 changeTable(response);
             }
             if (ctl.name === 'save') {
-                updateRow(response);
-                alert("储存完毕!");
+                updateTable(response);
             }
             if (ctl.name === 'update') {
-                updateRow(response);
-                alert("修改完毕!");
+                updateTable(response);
             }
             if (ctl.name === 'del') {
                 deleteRow(ctl);
-                alert("删除完毕!");
             }
             if (ctl.name === 'ibox') {
                 updateDatalist(response, ctl);
@@ -376,28 +278,16 @@ function submit_to_server(data, ctl) {
     });
 }
 
-function updateDatalist(src, ctl) {
-    var parser = new DOMParser();
-    var htmlDoc = parser.parseFromString(src, 'text/html');
-    var new_page = $(htmlDoc).find('#temp_option').html();
-    $("#" + ctl.id +"_list").append(new_page);
-}
+// function updateDatalist(src, ctl) {
+//     var parser = new DOMParser();
+//     var htmlDoc = parser.parseFromString(src, 'text/html');
+//     var new_page = $(htmlDoc).find('#temp_option').html();
+//     $("#" + ctl.id +"_list").append(new_page);
+// }
 
-function submit_basic(ctl) {
-    if (ctl.name === 'del') {
-        if (!confirm('确定要删除吗?')) {
-            return;
-        }
-    }
-    var data = getData(ctl);
-    data['msg'] = ctl.name;
-
-    submit_to_server(data, ctl);
-    return false;
-}
-
+// 입력창으로 로드
 var _row = null;
-function setIBox(ctl, page) {
+function loadToInputBox(ctl, page) {
     _row = $(ctl).parents("tr");
     var cols = _row.children("td");
     var ibox = document.getElementsByClassName('input_box')
@@ -408,33 +298,32 @@ function setIBox(ctl, page) {
         }
     }
 }
-
+// 테이블 수정 진입점
 function displayRow(ctl) {
     var name = location.href.split("/").slice(-1)[0].split(".")[0];
-    setIBox(ctl, name);
+    loadToInputBox(ctl, name);
 
     $("#updateButton").val("修整");
     $("#updateButton").attr("name", "update");
 
-    var pos = $("#input_form").position();
+    var pos = $("#input_form_" + name).position();
     window.scrollTo(pos);
-    // window.location.href = "#input_form";
 }
-
-function updateRow(src) {
+// 테이블 메인 함수
+function updateTable(src) {
     if ($("#updateButton").attr("name") == "update") {
-        updateRowInTable();
+        updateRow();
     } else {
-        addToTable(src);
+        addRow(src);
     }
     $("#ibox_date").focus();
 }
-
+// 테이블에서 삭제
 function deleteRow(ctl) {
     $(ctl).parents("tr").remove();
     formClear();
 }
-
+// 입력창 초기화
 function formClear() {
     if ($("#updateButton").attr("name") == "update") {
         $("#updateButton").val("保存");
@@ -446,8 +335,8 @@ function formClear() {
         ibox[i].value = "";
     }
 }
-
-function addToTable(src) {
+// 테이블에 추가
+function addRow(src) {
     if ($("#obc_table").length == 0) {
         return;
     }
@@ -457,8 +346,8 @@ function addToTable(src) {
 
     $("#obc_table tbody").prepend(new_row);
 }
-
-function updateRowInTable() {
+// 수정내용 반영
+function updateRow() {
     var cols = _row.children("td");
     var ibox = document.getElementsByClassName('input_box')
 
@@ -469,11 +358,10 @@ function updateRowInTable() {
         }
 
     }
-
     $("#updateButton").val("保存");
     $("#updateButton").attr("name", "save");
 }
-
+// 새 테이블로 교체
 function changeTable(src) {
     var parser = new DOMParser();
     var htmlDoc = parser.parseFromString(src, 'text/html');

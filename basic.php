@@ -78,10 +78,12 @@ include_once "common.php";
         <div class="center" style="white-space: nowrap">
             <a href="price.php"><button class="btn-get-started btn-danger scrollto"
                                           style="outline: none; font-size: 16pt">单价资料</button></a>
+            <a href="shipping.php"><button class="btn-get-started btn-dark scrollto"
+                                           style="outline: none; font-size: 16pt">出货资料</button></a>
         </div>
         <div class="center" style="white-space: nowrap">
-            <a href="shipping.php"><button class="btn-get-started btn-dark scrollto"
-                                          style="outline: none; font-size: 16pt">出货资料</button></a>
+            <a href="datalist.php"><button class="btn-get-started btn-success scrollto"
+                                           style="outline: none; font-size: 16pt">输入窗管理</button></a>
         </div>
     </div>
     <!--==============================================================================
