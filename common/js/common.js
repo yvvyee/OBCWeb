@@ -51,7 +51,7 @@ var showing = {
         customer:   'show',
         item:       'show',
         design:     'show',
-        qty:        'show',
+        carton:     'show',
         orderno:    'show',
         edit:       'show',
         del:        'show',
