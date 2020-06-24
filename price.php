@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "common.php";
+include_once "common/php/common.php";
 ?>
 <!DOCTYPE html>
 <html lang="ca">
@@ -100,4 +100,4 @@ include_once "common.php";
     <div class="footer" id="home_button"></div>
 </body>
 </html>
-<script src="common.js"></script>
+<script src="common/js/common.js"></script>

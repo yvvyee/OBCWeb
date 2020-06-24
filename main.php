@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "common.php";
+include_once "common/php/common.php";
 ?>
 <!DOCTYPE html>
 <html lang="ca">
@@ -67,4 +67,4 @@ include_once "common.php";
 
 <!-- Template Main Javascript File -->
 <script src="./js/main.js"></script>
-<script src="common.js"></script>
+<script src="common/js/common.js"></script>

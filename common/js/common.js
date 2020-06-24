@@ -4,15 +4,15 @@ import("lib/jquery/jquery-migrate.min.js");
 // automation - ESC 키 처리
 $(document).keydown(function(e) {
     // ESCAPE key pressed
-    if (e.keyCode == 27) {
+    if (e.keyCode === 27) {
         formClear();
     }
 });
 // input_form 생성
 $(function () {
-    $('#obc_title').load('common/title.php');
-    $('#home_button').load('common/home.html');
-    $('#common_part').load('common/modal.html');
+    $('#obc_title').load('common/html/title.html');
+    $('#home_button').load('common/html/home.html');
+    $('#common_part').load('common/html/modal.html');
 
     var page = location.href.split("/").slice(-1)[0].split(".")[0];
     submit_input(page);
@@ -306,7 +306,7 @@ function displayRow(ctl) {
     $("#updateButton").val("修整");
     $("#updateButton").attr("name", "update");
 
-    var pos = $("#input_form_" + name).position();
+    var pos = $("#obc_title").position();
     window.scrollTo(pos);
 }
 // 테이블 메인 함수
