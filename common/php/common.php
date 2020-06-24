@@ -616,27 +616,31 @@ function calcStockA($title) {
 }
 
 function order() {
+    # mysql
     global $conn;
     global $sql_search_one;
     global $sql_distinct;
-
+    # 테이블 포맷
+    global $fmt_btn;
     global $fmt_td;
     global $fmt_tr;
     global $fmt_row;
     global $fmt_table;
+    # 문자열 치환
     global $translate;
     global $relation;
-    global $fmt_btn;
 
     $color = random_color();
-
-    $tname = $_POST['page'];
-    $showing = $_POST['showing'];
-
+    
+    $tname = $_POST['page'];        # 페이지명 = 테이블명
+    $showing = $_POST['showing'];   # 컬럼 visualization 태그
+    
+    // custom 테이블의 모든 item
     $sql = sprintf($sql_distinct, 'item', $tname);
     $res = mysqli_query($conn, $sql);
     $items = mysqli_fetch_all($res);
-
+    
+    // custom 테이블의 모든 deisgn
     $sql = sprintf($sql_distinct, 'design', $tname);
     $res = mysqli_query($conn, $sql);
     $designs = mysqli_fetch_all($res);
@@ -665,7 +669,7 @@ function order() {
                 $sum = 0;
             }
             
-            // 인박스 수량 계산
+            // 인박스 수량 계산 carton x packing rate
             $cond = makeCondition(array(
                 'item' => $item[0],
                 'design' => $design[0],
