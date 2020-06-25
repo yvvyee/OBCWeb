@@ -129,13 +129,19 @@ function craeteSubmitMsg(ctl) {
         ctl.name === 'save') {
 
         var ibox = document.getElementsByClassName('input_box')
+        var cbox = document.getElementsByClassName('check_box')
+        var cols = {};
+        var show = {};
         for (var i = 0; i < ibox.length; i++) {
-            if (ibox[i].id.split('_')[0] === page) {
-                data[ibox[i].name] = ibox[i].value;
+            if (ibox[i].id.split('_')[1] === page) {
+                cols[ibox[i].name] = ibox[i].value;
+                show[ibox[i].name] = cbox[i].checked;
             }
         }
-        data['showing'] = showing[page];
+        // data['showing'] = showing[page];
         data['page'] = page;
+        data['cols'] = cols;
+        data['show'] = show;
     }
 
     if (ctl.name === 'del') {
@@ -153,43 +159,53 @@ function craeteSubmitMsg(ctl) {
 
     if (ctl.name === 'payment') {
         var ibox = document.getElementsByClassName('input_box')
+        var cols = {};
         for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].name] = ibox[i].value;
+            cols[ibox[i].name] = ibox[i].value;
         }
-        data['showing'] = showing[page];
+        // data['showing'] = showing[page];
         data['page'] = 'material';
+        data['cols'] = cols;
     }
     // custom 페이지 모달 발주내용 저장
     if (ctl.name === 'ordering') {
         var ibox = document.getElementsByClassName('input_box')
+        var cols = {};
         for (var i = 0; i < ibox.length; i++) {
             if (ibox[i].id.split('_')[0] === 'ordering') {
-                data[ibox[i].name] = ibox[i].value;
+                cols[ibox[i].name] = ibox[i].value;
             }
         }
-        data['showing'] = showing['ordering'];
+        // data['showing'] = showing['ordering'];
         data['page'] = 'ordering';
+        data['cols'] = cols;
     }
     // custom 페이지 발주테이블 생성
     if (ctl.name === 'order') {
         var ibox = document.getElementsByClassName('input_box')
+        var cbox = document.getElementsByClassName('check_box')
+        var cols = {};
+        var show = {};
         for (var i = 0; i < ibox.length; i++) {
             if (ibox[i].id.split('_')[0] === page) {
-                data[ibox[i].name] = ibox[i].value;
+                cols[ibox[i].name] = ibox[i].value;
+                show[ibox[i].name] = cbox[i].checked;
             }
         }
-        data['showing'] = showing['order'];
+        // data['showing'] = showing['order'];
         data['page'] = page;
+        data['cols'] = cols;
+        data['show'] = show;
     }
 
-    if (ctl.name === 'payment') {
-        var ibox = document.getElementsByClassName('input_box')
-        for (var i = 0; i < ibox.length; i++) {
-            data[ibox[i].name] = ibox[i].value;
-        }
-        data['showing'] = showing['payment'];
-        data['page'] = 'material';
-    }
+    // if (ctl.name === 'payment') {
+    //     var ibox = document.getElementsByClassName('input_box')
+    //     for (var i = 0; i < ibox.length; i++) {
+    //         data[ibox[i].name] = ibox[i].value;
+    //     }
+    //     data['showing'] = showing['payment'];
+    //     data['page'] = 'material';
+    // }
 
     if (ctl.name === 'stock') {
         data['title'] = ctl.value;

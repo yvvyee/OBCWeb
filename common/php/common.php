@@ -1,7 +1,6 @@
 <?php
 include_once 'globals.php';
 include_once 'table_basic.php';
-
 if(!isset($_SESSION['user_id'])) {
     echo "<script>alert('请重新登录'); window.location = 'login.php'; </script>";
 }
@@ -47,6 +46,25 @@ if (array_key_exists('msg', $_POST)) {
         updateDatalist($_POST['kind'], $_POST['where']);
     }
     if ($_POST['msg'] == 'logout') {
+        global $conn;
+
+        $sql = "SELECT TABLE_NAME 
+                FROM INFORMATION_SCHEMA.TABLES 
+                WHERE TABLE_TYPE = 'BASE TABLE' 
+                AND TABLE_SCHEMA='outlook_bone_china';";
+        $tables = mysqli_query($conn, $sql);
+
+        $sql = "";
+        while ($tname = mysqli_fetch_array($tables)) {
+            if ($tname[0] == 'user') {
+                continue;
+            } else {
+                $sql .= "SET @CNT = 0; UPDATE $tname[0] SET $tname[0].no = @CNT:=@CNT+1;";
+            }
+        }
+        // 모든 테이블의 no 컬럼 재정렬
+        $res = mysqli_multi_query($conn, $sql);
+        // 세션 초기화
         session_destroy();
     }
 }
@@ -57,58 +75,6 @@ function random_color_part() {
 
 function random_color() {
     return random_color_part() . random_color_part() . random_color_part();
-}
-
-function set_input_form() {
-    global $fmt_input;
-    global $input_list;
-    global $input_type;
-    global $translate;
-    global $conn;
-
-    $sql = "SELECT * FROM datalist ORDER BY seq";
-    $res = mysqli_query( $conn, $sql );
-    $datalist = mysqli_fetch_all($res);
-
-    $page = $_POST['page'];
-
-    $input_form = '';
-    foreach ($input_list[$page] as $i => $name) {
-        $id = $page . '_' . $name;
-
-        if ($name == 'no') {
-            $temp = sprintf($fmt_input, $id, $name, $input_type[$name], $translate[$name], 'display: none', '');
-        } else {
-            $options = '';
-            if ($name == 'orderno') {
-                $sql = "SELECT DISTINCT orderno FROM $page";
-                $res = mysqli_query( $conn, $sql );
-                $orderno = mysqli_fetch_all($res);
-                foreach ($orderno as $str) {
-                    $var = htmlentities($str[0]);
-                    $options =  $options. "<option value='$var'>";
-                }
-            } else {
-                foreach ($datalist as $row) {
-                    if ($row[2] == $name) {
-                        if ($row[4] == '') {
-                            $var = htmlentities($row[1]);
-                            $options =  $options. "<option value='$var'>";
-                        } else {
-                            if ($row[4] == $page) {
-                                $var = htmlentities($row[1]);
-                                $options =  $options. "<option value='$var'>";
-                            }
-                        }
-                    }
-                }
-            }
-            $temp = sprintf($fmt_input, $id, $name, $input_type[$name], $translate[$name], '', $options);
-        }
-        $input_form = $input_form . $temp;
-    }
-
-    echo "<script type='text/html' id='temp_page'>$input_form</script>";
 }
 
 function getAmount($select, $table, $condition) : string {
@@ -241,22 +207,26 @@ function calcStockB($title) {
     global $fmt_row;
     global $fmt_tr;
     global $fmt_td;
-    global $sql_distinct_one;
+    global $sql_distinct_where;
     global $sql_search_one;
     global $translate;
     global $relation;
 
     $clsA = $translate[$title];
     $clsB = $relation[$title];
-
-    $cond = makeCondition(array(
-        'class' => $clsA
-    ));
     
     // TODO: 삭제하고 DB에서 가져올 것
-    global $items; 
+//    global $items;
 
-    $sql = sprintf($sql_distinct_one, 'design', 'stock', $cond);
+    $sql = sprintf($sql_distinct_where, 'name', 'datalist', makeCondition(array(
+        'kind' => 'item'
+    )));
+    $res = mysqli_query($conn, $sql);
+    $items = mysqli_fetch_all($res);
+
+    $sql = sprintf($sql_distinct_where, 'design', 'stock', makeCondition(array(
+        'class' => $clsA
+    )));
     $res = mysqli_query($conn, $sql);
     $designs = mysqli_fetch_all($res);
 
@@ -483,7 +453,7 @@ function calcStockA($title) {
     global $fmt_row;
     global $fmt_tr;
     global $fmt_td;
-    global $sql_distinct_one;
+    global $sql_distinct_where;
     global $sql_search_one;
     global $translate;
     global $relation;
@@ -495,11 +465,11 @@ function calcStockA($title) {
         'class' => $clsA
     ));
 
-    $sql = sprintf($sql_distinct_one, 'item', 'stock', $cond);
+    $sql = sprintf($sql_distinct_where, 'item', 'stock', $cond);
     $res = mysqli_query($conn, $sql);
     $items = mysqli_fetch_all($res);
 
-    $sql = sprintf($sql_distinct_one, 'design', 'stock', $cond);
+    $sql = sprintf($sql_distinct_where, 'design', 'stock', $cond);
     $res = mysqli_query($conn, $sql);
     $designs = mysqli_fetch_all($res);
 
@@ -633,7 +603,7 @@ function order() {
     $color = random_color();
     
     $tname = $_POST['page'];        # 페이지명 = 테이블명
-    $showing = $_POST['showing'];   # 컬럼 visualization 태그
+    $show = $_POST['show'];   # 컬럼 visualization 태그
     
     // custom 테이블의 모든 item
     $sql = sprintf($sql_distinct, 'item', $tname);
@@ -652,7 +622,7 @@ function order() {
             $cells = "";
 
             $key = 'item';
-            $val = $showing[$key];
+            $val = $show[$key];
             $cell = sprintf($fmt_td[$val], 'td', $key, $item[0]);
             $cells = $cells . $cell;
 
@@ -690,7 +660,7 @@ function order() {
 
             // baici 재고
             $key = 'baici';
-            $val = $showing[$key];
+            $val = $show[$key];
             $qty = calcByItem($translate[$key], $relation[$key], $item[0]);
 
             $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qty);
@@ -698,7 +668,7 @@ function order() {
 
             // huazhi 재고
             $key = 'huazhi';
-            $val = $showing[$key];
+            $val = $show[$key];
             $qty = calcByItemDesign($translate[$key], $relation[$key], $item[0], $design[0]);
 
             $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qty);
@@ -706,7 +676,7 @@ function order() {
             
             // chengpin 재고
             $key = 'chengpin';
-            $val = $showing[$key];
+            $val = $show[$key];
             $qty = calcByItemDesign($translate[$key], $relation[$key], $item[0], $design[0]);
 
             $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qty);
@@ -714,7 +684,7 @@ function order() {
             
             // 발주버튼
             $key = 'order';
-            $val = $showing[$key];
+            $val = $show[$key];
             $cell = sprintf($fmt_td[$val], 'td', $key, $fmt_btn[$key]);
             $cells = $cells . $cell;
 
@@ -724,7 +694,7 @@ function order() {
     $tbody = sprintf($fmt_row, 'tbody', $color, $tr);
 
     $cells = "";
-    foreach ($showing as $key => $val) {
+    foreach ($show as $key => $val) {
         $cell = sprintf($fmt_td[$val], 'th', $key, $translate[$key]);
         $cells = $cells . $cell;
     }
