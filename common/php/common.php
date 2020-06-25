@@ -3,7 +3,7 @@ include_once 'globals.php';
 include_once 'table_basic.php';
 
 if(!isset($_SESSION['user_id'])) {
-    echo "<script>alert('请重新登录'); window.location = '../../login.php'; </script>";
+    echo "<script>alert('请重新登录'); window.location = 'login.php'; </script>";
 }
 
 
