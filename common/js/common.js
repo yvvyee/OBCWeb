@@ -183,23 +183,23 @@ function craeteSubmitMsg(ctl) {
         data['page'] = 'ordering';
         data['cols'] = cols;
     }
-    // custom 페이지 발주테이블 생성
-    if (ctl.name === 'order') {
-        var ibox = document.getElementsByClassName('input_box')
-        var cbox = document.getElementsByClassName('check_box')
-        // var cols = {};
-        var show = {};
-        for (var i = 0; i < ibox.length; i++) {
-            if (ibox[i].id.split('_')[0] === page) {
-                // cols[ibox[i].name] = ibox[i].value;
-                show[ibox[i].name] = cbox[i].checked;
-            }
-        }
+    // customer 발주테이블 생성
+    // if (ctl.name === 'customer') {
+        // var ibox = document.getElementsByClassName('input_box')
+        // // var cbox = document.getElementsByClassName('check_box')
+        // // var cols = {};
+        // var show = {};
+        // for (var i = 0; i < ibox.length; i++) {
+        //     if (ibox[i].id.split('_')[0] === page) {
+        //         // cols[ibox[i].name] = ibox[i].value;
+        //         show[ibox[i].name] = cbox[i].checked;
+        //     }
+        // }
         // data['showing'] = showing['order'];
-        data['page'] = page;
+        // data['page'] = page;
         // data['cols'] = cols;
-        data['show'] = show;
-    }
+        // data['show'] = show;
+    // }
 
     // if (ctl.name === 'payment') {
     //     var ibox = document.getElementsByClassName('input_box')
@@ -270,7 +270,7 @@ function submit_to_server(data, ctl) {
 
         success: function (response) {
             if (ctl.name === 'search'   ||
-                ctl.name === 'order'    ||
+                ctl.name === 'customer'    ||
                 ctl.name === 'payment'  ||
                 ctl.name === 'stock') {
                 changeTable(response);

@@ -87,9 +87,9 @@ include_once "common/php/common.php";
                        onclick="submit_basic(this)"
                        value="检索">
                 <input class="btn-get-started btn-dark"
-                       id="orderButton"
+                       id="customerButton"
                        type="button"
-                       name="order"
+                       name="customer"
                        style="outline: none; font-size: 16pt; background-color: #993366"
                        onclick="submit_basic(this)"
                        value="订货">

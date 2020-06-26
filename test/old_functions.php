@@ -246,11 +246,11 @@ function makeTotalStock() {
 
     $class = '花纸';
     $sub_name = "贴花";
-    $t2 = calcStockA($class, $sub_name, 'red');
+    $t2 = stockB($class, $sub_name, 'red');
 
     $class = '完成品';
     $sub_name = "出库";
-    $t3 = calcStockA($class, $sub_name, 'yellow');
+    $t3 = stockB($class, $sub_name, 'yellow');
 
     global $fmt_table;
     $new_table = sprintf($fmt_table, '전체재고', $t1 . $t2 . $t3);

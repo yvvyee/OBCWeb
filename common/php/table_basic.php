@@ -128,9 +128,9 @@ function search() {
             $cells = $cells . $cell;
         }
         // 수정 & 삭제 버튼
-        $cell = sprintf($fmt_td[true], 'td', $key, $fmt_btn['edit']);
+        $cell = sprintf($fmt_td[true], 'td', 'edit', $fmt_btn['edit']);
         $cells = $cells . $cell;
-        $cell = sprintf($fmt_td[true], 'td', $key, $fmt_btn['del']);
+        $cell = sprintf($fmt_td[true], 'td', 'del', $fmt_btn['del']);
         $cells = $cells . $cell;
         // Row
         $tr = $tr . sprintf($fmt_tr, $cells);
@@ -150,9 +150,9 @@ function search() {
         $cells = $cells . $cell;
     }
     // 수정 & 삭제 버튼
-    $cell = sprintf($fmt_td[true], 'th', $key, $translate['edit']);
+    $cell = sprintf($fmt_td[true], 'th', 'edit', $translate['edit']);
     $cells = $cells . $cell;
-    $cell = sprintf($fmt_td[true], 'th', $key, $translate['del']);
+    $cell = sprintf($fmt_td[true], 'th', 'del', $translate['del']);
     $cells = $cells . $cell;
     // Row
     $tr = sprintf($fmt_tr, $cells);
