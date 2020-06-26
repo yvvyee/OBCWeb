@@ -52,9 +52,14 @@ function stockC($title) {
                 }
                 else
                 {
-                    $cells_head_1 .= sprintf($fmt_td['attr'], 'th', "colspan='4' style='text-align: center'", $design[0]);
                     $cells_head_2 .= sprintf($fmt_td[true], 'th', "", '完成品');
                     $cells_head_2 .= sprintf($fmt_td[true], 'th', "", '出库');
+                    if ($title == 'caici') {
+                        $cells_head_1 .= sprintf($fmt_td['attr'], 'th', "colspan='5' style='text-align: center'", $design[0]);
+                        $cells_head_2 .= sprintf($fmt_td[true], 'th', "", '破损');
+                    } else {
+                        $cells_head_1 .= sprintf($fmt_td['attr'], 'th', "colspan='4' style='text-align: center'", $design[0]);
+                    }
                 }
                 $cells_head_1 .= sprintf($fmt_td['attr'], 'th', "rowspan='2'", '现在库存');
 
@@ -69,18 +74,16 @@ function stockC($title) {
             $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='$classStock';"; // stock
             $stock = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
-            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='$classStock';"; // material
+            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='$classSubtr';"; // material
             $material = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
             $cellArray = array();
-            if ($design[0] == 'green共用' || $design[0] == 'bon&heim共用') {    // 포장물 재고 계산
+            if ($design[0] == 'green共用' || $design[0] == 'bon&heim共用') {    // 공용처리
                 $matShare = array();
                 foreach ($share[$design[0]] as $key => $share_design) {
                     $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$share_design' AND class='完成品';"; // 완성품
                     $carton = mysqli_fetch_array(mysqli_query($conn, $query))[0];
                     array_push($cellArray, intval($carton));
-//                    $cell = sprintf($fmt_td['attr'], 'td','style=\'text-align: right\'', $carton);
-//                    $cells_body .= $cell;
 
                     $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$share_design' AND class='$classSubtr';"; // for subtraction
                     $rate = mysqli_fetch_array(mysqli_query($conn, $query))[0];
@@ -88,28 +91,32 @@ function stockC($title) {
                     $qty = intval($carton) * intval($rate);
                     array_push($matShare, $qty);
                     array_push($cellArray, $qty);
-
-//                    $cell = sprintf($fmt_td['attr'], 'td','style=\'text-align: right\'', $qty);
-//                    $cells_body .= $cell;
                 }
                 $subtract = array_sum($matShare);
             }
-            else {  // 비공용 포장물 or 차이허 재고 계산
-                $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$share_design' AND class='完成品';"; // 완성품
+            else {
+                $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';"; // 완성품
                 $carton = mysqli_fetch_array(mysqli_query($conn, $query))[0];
                 array_push($cellArray, intval($carton));
-//                $cell = sprintf($fmt_td['attr'], 'td','style=\'text-align: right\'', $carton);
-//                $cells_body .= $cell;
 
                 if ($title == 'baozhuang') {
-                    $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$share_design' AND class='$classSubtr';";
+                    $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$design[0]' AND class='彩盒';";
                 } else {
-                    $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$share_design' AND class='$classStock';";
+                    $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$design[0]' AND class='彩瓷';";
                 }
+
                 $rate = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
-                // 포장율 계산
-                $subtract = intval($carton) * intval($rate);
+                if ($title == 'caici') {
+                    $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$share_design' AND class='破损';";
+                    $posun = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+                    $subtract = intval($carton) * intval($rate) + intval($posun);
+                    array_push($cellArray, $subtract);
+                    array_push($cellArray, $posun);
+                } else {
+                    $subtract = intval($carton) * intval($rate);
+                    array_push($cellArray, $subtract);
+                }
             }
 
             $hasValue = false;
@@ -122,9 +129,6 @@ function stockC($title) {
             $cell = sprintf($fmt_td['attr'], 'td','style=\'text-align: right\'', $material);
             $cells_body .= $cell;
 
-//            $cell = sprintf($fmt_td['attr'], 'td','style=\'text-align: right\'', $subtract);
-//            $cells_body .= $cell;
-
             foreach ($cellArray as $k => $cell) {
                 $cell = sprintf($fmt_td['attr'], 'td','style=\'text-align: right\'', $cell);
                 $cells_body .= $cell;
@@ -132,7 +136,6 @@ function stockC($title) {
 
             $sum = (intval($stock) + intval($material) - intval($subtract));    // 현재 재고
             $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $sum);
-
             $cells_body .= $cell;
 
             $tr = $tr . sprintf($fmt_tr, $cells_body);

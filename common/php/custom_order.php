@@ -60,18 +60,29 @@ function customer() {
 
             $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$design[0]' AND class='白瓷';";           // 포장율
             $rate = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
             $query = "SELECT qty FROM stock WHERE item='$item[0]' AND class='白瓷';";                                    // baici stock
             $stkBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='花纸';";           // huazhi stock
             $stkHuazhi = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';";        // chengpin stock
             $stkChengpin = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='包装物';";        // baozhuang stock
+//            $stkBaozhuang = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='彩瓷';";        // caici stock
+//            $stkCaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='白瓷';";                            // baici material
             $matBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='花纸';";   // huazhi material
             $matHuazhi = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';"; // chengpin material
             $matChengpin = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='彩盒';";        // caihe material
+//            $caihe = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='破损';";        // posun material
+//            $posun = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='贴花';";                               // tiehua with item only
             $tiehuaA = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='贴花';"; // tiehua with item and design
