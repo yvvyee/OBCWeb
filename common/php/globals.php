@@ -1,6 +1,6 @@
 <?php
 $conn = mysqli_connect("localhost", "admin", "qwer1234", "outlook_bone_china");
-$fmt_table = '<table id=\'obc_table\' style=\'min-font-size: 9pt\'>
+$fmt_table = '<table id=\'obc_table\' class=\'table table-striped table-bordered table-sm\' style=\'min-font-size: 9pt\'>
               <caption style=\'text-align: left\'>%s</caption>%s</table>';
 $fmt_row = '<%1$s style=\'border: 3px solid %2$s\'>%3$s</%1$s>';
 $fmt_tr = '<tr style=\'border-bottom: 1px dotted silver\'>%s</tr>';

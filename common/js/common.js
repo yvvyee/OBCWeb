@@ -1,6 +1,8 @@
 import("lib/jquery/jquery.min.js");
 import("lib/jquery/jquery-migrate.min.js");
 
+// select DISTINCT custom.item, datalist.seq from custom, datalist WHERE datalist.kind = 'item' ORDER BY datalist.seq
+
 // automation - ESC 키 처리
 $(document).keydown(function(e) {
     // ESCAPE key pressed
@@ -21,6 +23,7 @@ $(function () {
 if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
 }
+
 // 테이블 디스플레이 설정
 var showing = {
     material: {
@@ -135,7 +138,7 @@ function craeteSubmitMsg(ctl) {
         for (var i = 0; i < ibox.length; i++) {
             if (ibox[i].id.split('_')[1] === page) {
                 cols[ibox[i].name] = ibox[i].value;
-                show[ibox[i].name] = cbox[i].checked;
+                show[cbox[i].name] = cbox[i].checked;
             }
         }
         // data['showing'] = showing[page];
@@ -184,17 +187,17 @@ function craeteSubmitMsg(ctl) {
     if (ctl.name === 'order') {
         var ibox = document.getElementsByClassName('input_box')
         var cbox = document.getElementsByClassName('check_box')
-        var cols = {};
+        // var cols = {};
         var show = {};
         for (var i = 0; i < ibox.length; i++) {
             if (ibox[i].id.split('_')[0] === page) {
-                cols[ibox[i].name] = ibox[i].value;
+                // cols[ibox[i].name] = ibox[i].value;
                 show[ibox[i].name] = cbox[i].checked;
             }
         }
         // data['showing'] = showing['order'];
         data['page'] = page;
-        data['cols'] = cols;
+        // data['cols'] = cols;
         data['show'] = show;
     }
 
@@ -294,6 +297,61 @@ function submit_to_server(data, ctl) {
     });
 }
 
+// function sortTable(ctl) {
+//     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+//     table = document.getElementById("obc_table");
+//     var colname = ctl.attributes['name'].value;
+//     switching = true;
+//     // Set the sorting direction to ascending:
+//     dir = "asc";
+//     /* Make a loop that will continue until
+//     no switching has been done: */
+//     while (switching) {
+//         // Start by saying: no switching is done:
+//         switching = false;
+//         rows = table.rows;
+//         /* Loop through all table rows (except the
+//         first, which contains table headers): */
+//         for (i = 1; i < (rows.length - 1); i++) {
+//             // Start by saying there should be no switching:
+//             shouldSwitch = false;
+//             /* Get the two elements you want to compare,
+//             one from current row and one from the next: */
+//             x = rows[i].getElementsByTagName("TD").namedItem(colname);
+//             y = rows[i + 1].getElementsByTagName("TD").namedItem(colname);
+//             /* Check if the two rows should switch place,
+//             based on the direction, asc or desc: */
+//             if (dir == "asc") {
+//                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+//                     // If so, mark as a switch and break the loop:
+//                     shouldSwitch = true;
+//                     break;
+//                 }
+//             } else if (dir == "desc") {
+//                 if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+//                     // If so, mark as a switch and break the loop:
+//                     shouldSwitch = true;
+//                     break;
+//                 }
+//             }
+//         }
+//         if (shouldSwitch) {
+//             /* If a switch has been marked, make the switch
+//             and mark that a switch has been done: */
+//             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+//             switching = true;
+//             // Each time a switch is done, increase this count by 1:
+//             switchcount ++;
+//         } else {
+//             /* If no switching has been done AND the direction is "asc",
+//             set the direction to "desc" and run the while loop again. */
+//             if (switchcount == 0 && dir == "asc") {
+//                 dir = "desc";
+//                 switching = true;
+//             }
+//         }
+//     }
+// }
 // function updateDatalist(src, ctl) {
 //     var parser = new DOMParser();
 //     var htmlDoc = parser.parseFromString(src, 'text/html');

@@ -586,34 +586,129 @@ function calcStockA($title) {
 }
 
 function order() {
-    # mysql
+    // mysql
     global $conn;
     global $sql_search_one;
     global $sql_distinct;
-    # 테이블 포맷
+    // 테이블 포맷
     global $fmt_btn;
     global $fmt_td;
     global $fmt_tr;
     global $fmt_row;
     global $fmt_table;
-    # 문자열 치환
+    // 문자열 치환
     global $translate;
     global $relation;
 
     $color = random_color();
     
-    $tname = $_POST['page'];        # 페이지명 = 테이블명
-    $show = $_POST['show'];   # 컬럼 visualization 태그
+    $tname = $_POST['page'];        // 페이지명 = 테이블명
+    $show = $_POST['show'];         // 컬럼 visualization 태그
     
     // custom 테이블의 모든 item
-    $sql = sprintf($sql_distinct, 'item', $tname);
-    $res = mysqli_query($conn, $sql);
+    $query = "SELECT DISTINCT custom.item, datalist.seq 
+            FROM custom, datalist 
+            WHERE datalist.kind = 'item' 
+            AND datalist.name = custom.item 
+            ORDER BY datalist.seq;";
+    $res = mysqli_query($conn, $query);
     $items = mysqli_fetch_all($res);
     
     // custom 테이블의 모든 deisgn
-    $sql = sprintf($sql_distinct, 'design', $tname);
-    $res = mysqli_query($conn, $sql);
+    $query = "SELECT DISTINCT custom.design, datalist.seq 
+            FROM custom, datalist 
+            WHERE datalist.kind = 'design' 
+            AND datalist.name = custom.design 
+            ORDER BY datalist.seq;";
+    $res = mysqli_query($conn, $query);
     $designs = mysqli_fetch_all($res);
+
+    $query_carton       = "";
+    $query_rate         = "";
+    $query_stk_baici    = "";
+    $query_stk_huazhi   = "";
+    $query_stk_chengpin = "";
+    $query_mat_baici    = "";
+    $query_mat_huazhi   = "";
+    $query_mat_chengpin = "";
+    $query_baozhuang    = "";
+    $query_caici        = "";
+    $query_tiehua_i     = "";
+    $query_tiehua_id    = "";
+    $query_chuku        = "";
+    $query_caihe        = "";
+
+    foreach ($designs as $j => $design)
+    {
+        foreach ($items as $i => $item)
+        {
+            // 주문량 합계
+            $query_carton .= "SELECT sum(carton) FROM custom WHERE item='$item[0]' AND design='$design[0]'";
+            $query_carton .= " UNION ALL ";
+            // 포장율
+            $query_rate .= "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$design[0]' AND class='白瓷'";
+            $query_rate .= " UNION ALL ";
+            // baici stock
+            $query_stk_baici .= "SELECT qty FROM stock WHERE item='$item[0]' AND class='白瓷'";
+            $query_stk_baici .= " UNION ALL ";
+            // huazhi stock
+            $query_stk_huazhi .= "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='花纸'";
+            $query_stk_huazhi .= " UNION ALL ";
+            // chengpin stock
+            $query_stk_chengpin .= "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='完成品'";
+            $query_stk_chengpin .= " UNION ALL ";
+            // baici material
+            $query_mat_baici .= "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='白瓷'";
+            $query_mat_baici .= " UNION ALL ";
+            // huazhi material
+            $query_mat_huazhi .= "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='花纸'";
+            $query_mat_huazhi .= " UNION ALL ";
+            // chengpin material
+            $query_mat_chengpin .= "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='完成品'";
+            $query_mat_chengpin .= " UNION ALL ";
+            // tiehua with item only
+            $query_tiehua_i .= "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='贴花'";
+            $query_mat_chengpin .= " UNION ALL ";
+            // tiehua with item and design
+            $query_tiehua_id .= "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='贴花'";
+            $query_mat_chengpin .= " UNION ALL ";
+            // chuku
+            $query_chuku .= "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='出库'";
+            $query_mat_chengpin .= " UNION ALL ";
+        }
+    }
+    $query_carton       = substr($query_carton, 0, -11);;
+    $query_rate         = substr($query_rate, 0, -11);;
+    $query_stk_baici    = substr($query_stk_baici, 0, -11);;
+    $query_stk_huazhi   = substr($query_stk_huazhi, 0, -11);;
+    $query_stk_chengpin = substr($query_stk_chengpin, 0, -11);;
+    $query_mat_baici    = substr($query_mat_baici, 0, -11);;
+    $query_mat_huazhi   = substr($query_mat_huazhi, 0, -11);;
+    $query_mat_chengpin = substr($query_mat_chengpin, 0, -11);;
+    $query_tiehua_i     = substr($query_tiehua_i, 0, -11);;
+    $query_tiehua_id    = substr($query_tiehua_id, 0, -11);;
+    $query_chuku        = substr($query_chuku, 0, -11);;
+
+    $res = mysqli_multi_query($query_carton);
+    $temp = mysqli_fetch_all($res);
+
+
+//    $cond = makeCondition(array('class'=>$clsA, 'item'=>$item));
+//    $stk = getAmount('qty', 'stock', $cond);
+//    $mat = getAmount('sum(qty)', 'material', $cond);
+//
+//    $cond = makeCondition(array('class'=>$clsB, 'item'=>$item));
+//    $sub = getAmount('sum(qty)', 'material', $cond);
+//
+//    return (intval($stk) + intval($mat) - intval($sub));
+
+//    $relation = array(
+//        'baici'     => '贴花',
+//        'huazhi'    => '贴花',
+//        'chengpin'  => '出库',
+//        'baozhuang' => '彩盒',
+//        'caici'     => '贴花'
+//    );
 
     $tr = "";
 
@@ -631,10 +726,10 @@ function order() {
             $cells = $cells . $cell;
 
             $key = 'qty';
-            $sql = sprintf($sql_search_one, 'sum(qty)', $tname,
+            $query = sprintf($sql_search_one, 'sum(qty)', $tname,
                 makeCondition(array('item'=>$item[0], 'design'=>$design[0])));
 
-            $sum = mysqli_fetch_array(mysqli_query($conn, $sql))[0];
+            $sum = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             if ($sum == null) {
                 $sum = 0;
             }
@@ -645,9 +740,9 @@ function order() {
                 'design' => $design[0],
                 'class' => '白瓷'
             ));
-            $sql = sprintf($sql_search_one, 'rate', 'shipping', $cond);
+            $query = sprintf($sql_search_one, 'rate', 'shipping', $cond);
 
-            $output = mysqli_query($conn, $sql);
+            $output = mysqli_query($conn, $query);
             $rate = mysqli_fetch_array($output)[0];
 
             $carton = intval($sum) * intval($rate[0]);

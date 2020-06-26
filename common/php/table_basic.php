@@ -16,55 +16,59 @@ function makeCondition($arr) : string {
     }
 }
 
-function getList($post_data) : array {
-    $save_list = array();
-    foreach ($post_data as $key => $val) {
-        if ($key != 'msg' &&
-            $key != 'page' &&
-            $key != 'showing') {
-            $save_list[$key] = $val;
-        }
-    }
-    return $save_list;
-}
-
 function set_input_form() {
     global $fmt_input;
     global $input_list;
     global $input_type;
     global $translate;
     global $conn;
-
+    
+    // datalist 불러오기
     $sql = "SELECT * FROM datalist ORDER BY seq";
     $res = mysqli_query( $conn, $sql );
     $datalist = mysqli_fetch_all($res);
 
-    $page = $_POST['page'];
+    $tname = $_POST['page'];    // 테이블명
 
     $input_form = '';
-    foreach ($input_list[$page] as $i => $name) {
-        $id = $page . '_' . $name;
-
-        if ($name == 'no') {
-            $temp = sprintf($fmt_input, $id, $name, $input_type[$name], $translate[$name], 'display: none', '');
-        } else {
+    foreach ($input_list[$tname] as $i => $cname) { // 컬럼명
+        $id = $tname . '_' . $cname;
+        
+        if ($cname == 'no')
+        {
+            // no 는 시각화하지 않음
+            $temp = sprintf($fmt_input, $id, $cname, $input_type[$cname], $translate[$cname], 'display: none', '');
+        }
+        else
+        {
             $options = '';
-            if ($name == 'orderno') {
-                $sql = "SELECT DISTINCT orderno FROM $page";
+            if ($cname == 'orderno') // orderno 는 datalist 테이블에서 따로 관리하지 않음
+            {
+                // 저장된 모든 orderno 를 가져옴
+                $sql = "SELECT DISTINCT orderno FROM $tname";
                 $res = mysqli_query( $conn, $sql );
                 $orderno = mysqli_fetch_all($res);
-                foreach ($orderno as $str) {
+                foreach ($orderno as $str)
+                {
                     $var = htmlentities($str[0]);
                     $options =  $options. "<option value='$var'>";
                 }
-            } else {
-                foreach ($datalist as $row) {
-                    if ($row[2] == $name) {
-                        if ($row[4] == '') {
+            }
+            else
+            {
+                foreach ($datalist as $row)
+                {
+                    if ($row[2] == $cname) // kind == column name
+                    {
+                        if ($row[4] == '') // sep == null, 페이지 구분없이 공통
+                        {
                             $var = htmlentities($row[1]);
                             $options =  $options. "<option value='$var'>";
-                        } else {
-                            if ($row[4] == $page) {
+                        }
+                        else
+                        {
+                            if ($row[4] == $tname) // sep == table name, 페이지마다 리스트 내용이 다름
+                            {
                                 $var = htmlentities($row[1]);
                                 $options =  $options. "<option value='$var'>";
                             }
@@ -72,11 +76,10 @@ function set_input_form() {
                     }
                 }
             }
-            $temp = sprintf($fmt_input, $id, $name, $input_type[$name], $translate[$name], '', $options);
+            $temp = sprintf($fmt_input, $id, $cname, $input_type[$cname], $translate[$cname], '', $options);
         }
         $input_form = $input_form . $temp;
     }
-
     echo "<script type='text/html' id='temp_page'>$input_form</script>";
 }
 
@@ -101,11 +104,11 @@ function search() {
     $condition = makeCondition($cols);
 
     if ($condition == '整体搜索') {
-        $sql = sprintf($sql_search_all, $tname);
+        $query = sprintf($sql_search_all, $tname);
     } else {
-        $sql = sprintf($sql_search_where, $tname, $condition);
+        $query = sprintf($sql_search_where, $tname, $condition);
     }
-    $res = mysqli_query($conn, $sql);
+    $res = mysqli_query($conn, $query);
 
     $sum = 0.;
 
@@ -166,7 +169,6 @@ function search() {
 function save() {
     global $conn;
     global $sql_insert;
-    global $sql_search_one;
 
     global $fmt_td;
     global $fmt_tr;
@@ -187,8 +189,8 @@ function save() {
     $vals = substr($vals, 0, -2);
     $into = substr($into, 0, -2);
 
-    $sql = sprintf($sql_insert, $tname, $into, $vals);
-    $res = mysqli_query($conn, $sql);
+    $query = sprintf($sql_insert, $tname, $into, $vals);
+    $res = mysqli_query($conn, $query);
 
     // custom - modal 에서 저장한 경우
     if ($tname == 'ordering' && $show == null) {
@@ -197,8 +199,8 @@ function save() {
     // 이외에는 테이블을 갱신
     else {
         // 마지막으로 저장된 데이터 ID
-        $sql = "SELECT LAST_INSERT_ID()";
-        $no = mysqli_fetch_array(mysqli_query($conn, $sql))[0];
+        $query = "SELECT LAST_INSERT_ID()";
+        $no = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 //        $cells = sprintf($fmt_td[false], 'no', $no);
         $cells = '';
         foreach ($show as $key => $val) {
@@ -243,10 +245,11 @@ function update() {
     global $conn;
     global $sql_update;
 
-    $update_list = getList($_POST);
+    $tname = $_POST['page'];
+    $cols = $_POST['cols'];
     $set = "";
     $where = "no = ";
-    foreach ($update_list as $key => $val) {
+    foreach ($cols as $key => $val) {
         if ($key == 'no') {
             $where = $where . "$val";
         } else {
@@ -254,9 +257,9 @@ function update() {
         }
     }
     $set = substr($set, 0, -1);
-    $sql = sprintf($sql_update, $_POST['page'], $set, $where);
+    $query = sprintf($sql_update, $tname, $set, $where);
 
-    echo mysqli_query($conn, $sql);
+    echo mysqli_query($conn, $query);
 }
 
 function del() {
@@ -266,9 +269,9 @@ function del() {
     $table = $_POST['page'];
     $noCol = $_POST['no'];
 
-    $sql = sprintf($sql_delete, $table, $noCol);
+    $query = sprintf($sql_delete, $table, $noCol);
 
-    echo mysqli_query($conn, $sql);
+    echo mysqli_query($conn, $query);
 }
 
 
