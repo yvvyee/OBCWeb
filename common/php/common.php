@@ -4,6 +4,7 @@ include_once 'table_basic.php';
 include_once 'table_typeA.php';
 include_once 'table_typeB.php';
 include_once 'table_typeC.php';
+include_once 'table_payment.php';
 include_once 'custom_order.php';
 if(!isset($_SESSION['user_id'])) {
     echo "<script>alert('请重新登录'); window.location = 'login.php'; </script>";
@@ -12,7 +13,7 @@ if (array_key_exists('msg', $_POST)) {
     if ($_POST['msg'] == 'setInput') {
         set_input_form();
     }
-    if ($_POST['msg'] == 'search' || $_POST['msg'] == 'payment') {
+    if ($_POST['msg'] == 'search') {
         search();
     }
     if ($_POST['msg'] == 'save' || $_POST['msg'] == 'ordering') {
@@ -34,6 +35,9 @@ if (array_key_exists('msg', $_POST)) {
         if ($_POST['title'] == '彩瓷') {
             stockC('caici');
         }
+    }
+    if ($_POST['msg'] == 'payment') {
+        searchPayment();
     }
     if ($_POST['msg'] == 'customer') {
         customer();

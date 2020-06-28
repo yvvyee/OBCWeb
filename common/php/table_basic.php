@@ -76,7 +76,12 @@ function set_input_form() {
                     }
                 }
             }
-            $temp = sprintf($fmt_input, $id, $cname, $input_type[$cname], $translate[$cname], '', $options);
+            // payment 페이지는 별도로 처리
+            if ($tname == 'payment' && ($cname != 'month' && $cname != 'supplier')) {
+                $temp = sprintf($fmt_input, $id, $cname, $input_type[$cname], $translate[$cname], 'display: none', '');
+            } else {
+                $temp = sprintf($fmt_input, $id, $cname, $input_type[$cname], $translate[$cname], '', $options);
+            }
         }
         $input_form = $input_form . $temp;
     }
@@ -109,8 +114,6 @@ function search() {
         $query = sprintf($sql_search_where, $tname, $condition);
     }
     $res = mysqli_query($conn, $query);
-
-    $sum = 0.;
 
     $tr = "";
     while ($row = mysqli_fetch_array($res)) {
@@ -158,10 +161,6 @@ function search() {
     $tr = sprintf($fmt_tr, $cells);
     $thead = sprintf($fmt_row, 'thead', $color, $tr);
 
-    if ($_POST['msg'] == 'payment') {
-        $condition = "整体合计 = $sum";
-    }
-
     $new_table = sprintf($fmt_table, $condition, $thead . $tbody);
     echo "<script type='text/html' id='temp_page'>$new_table</script>";
 }
@@ -201,30 +200,12 @@ function save() {
         // 마지막으로 저장된 데이터 ID
         $query = "SELECT LAST_INSERT_ID()";
         $no = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-//        $cells = sprintf($fmt_td[false], 'no', $no);
+
         $cells = '';
         foreach ($show as $key => $val) {
             if ($key == 'no') {
                 $cell = sprintf($fmt_td[false], 'td', $key, $no);
             }
-//            else if ($tname == 'custom' && $key == 'qty') {
-//
-//                $cond = makeCondition(array(
-//                    'item' => $_POST['item'],
-//                    'design' => $_POST['design'],
-//                    'class' => '白瓷'
-//                ));
-//                $sql = sprintf($sql_search_one, 'rate', 'shipping', $cond);
-//
-//                $output = mysqli_query($conn, $sql);
-//                $rate = mysqli_fetch_array($output);
-//
-//                if ($rate) {
-//                    $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", intval($_POST[$key]) * intval($rate['rate']));
-//                } else {
-//                    $cell = sprintf($fmt_td['alert'], 'td', $key, intval($_POST[$key]));
-//                }
-//            }
             else {
                 $bval = filter_var($val, FILTER_VALIDATE_BOOLEAN);
                 $cell = sprintf($fmt_td[$bval], 'td', $key, $cols[$key]);

@@ -1,8 +1,6 @@
 import("lib/jquery/jquery.min.js");
 import("lib/jquery/jquery-migrate.min.js");
 
-// select DISTINCT custom.item, datalist.seq from custom, datalist WHERE datalist.kind = 'item' ORDER BY datalist.seq
-
 // automation - ESC 키 처리
 $(document).keydown(function(e) {
     // ESCAPE key pressed
@@ -23,105 +21,6 @@ $(function () {
 if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
 }
-
-// 테이블 디스플레이 설정
-var showing = {
-    material: {
-        no:         'none',
-        date:       'show',
-        supplier:   'none',
-        item:       'show',
-        design:     'show',
-        qty:        'show',
-        month:      'none',
-        class:      'show',
-        worker:     'none',
-        edit:       'show',
-        del:        'show'
-    },
-    stock: {
-        no:         'none',
-        item:       'show',
-        design:     'show',
-        qty:        'show',
-        class:      'show',
-        edit:       'show',
-        del:        'show'
-    },
-    custom: {
-        no:         'none',
-        date:       'none',
-        customer:   'show',
-        item:       'show',
-        design:     'show',
-        carton:     'show',
-        orderno:    'show',
-        edit:       'show',
-        del:        'show',
-    },
-    ordering: {
-        no:         'none',
-        date:       'show',
-        supplier:   'show',
-        item:       'show',
-        design:     'show',
-        qty:        'show',
-        orderno:    'show',
-        class:      'show',
-        edit:       'show',
-        del:        'show'
-    },
-    payment: {
-        no:         'none',
-        date:       'show',
-        item:       'show',
-        design:     'show',
-        class:      'show',
-        qty:        'show',
-        price:      'show',
-        total:      'show',
-    },
-    price: {
-        no:         'none',
-        supplier:   'show',
-        item:       'show',
-        design:     'show',
-        price:      'show',
-        class:      'show',
-        edit:       'show',
-        del:        'show'
-    },
-    shipping: {
-        no:         'none',
-        supplier:   'none',
-        item:       'show',
-        design:     'show',
-        class:      'show',
-        rate:       'show',
-        price:      'show',
-        worker:     'none',
-        edit:       'show',
-        del:        'show'
-    },
-    order: {
-        item:       'show',
-        design:     'show',
-        qty:        'show',
-        baici:      'show',
-        huazhi:     'show',
-        chengpin:   'show',
-        order:      'show'
-    },
-    datalist: {
-        no:         'none',
-        name:       'show',
-        kind:       'show',
-        seq:        'show',
-        sep:        'show',
-        edit:       'show',
-        del:        'show'
-    }
-};
 // submit 메시지 & 데이터 생성
 function craeteSubmitMsg(ctl) {
     var data = {};
@@ -129,7 +28,8 @@ function craeteSubmitMsg(ctl) {
 
     if (ctl.name === 'search'   ||
         ctl.name === 'update'   ||
-        ctl.name === 'save') {
+        ctl.name === 'save'     ||
+        ctl.name === 'payment') {
 
         var ibox = document.getElementsByClassName('input_box')
         var cbox = document.getElementsByClassName('check_box')
@@ -141,7 +41,6 @@ function craeteSubmitMsg(ctl) {
                 show[cbox[i].name] = cbox[i].checked;
             }
         }
-        // data['showing'] = showing[page];
         data['page'] = page;
         data['cols'] = cols;
         data['show'] = show;
@@ -159,17 +58,6 @@ function craeteSubmitMsg(ctl) {
             }
         }
     }
-
-    if (ctl.name === 'payment') {
-        var ibox = document.getElementsByClassName('input_box')
-        var cols = {};
-        for (var i = 0; i < ibox.length; i++) {
-            cols[ibox[i].name] = ibox[i].value;
-        }
-        // data['showing'] = showing[page];
-        data['page'] = 'material';
-        data['cols'] = cols;
-    }
     // custom 페이지 모달 발주내용 저장
     if (ctl.name === 'ordering') {
         var ibox = document.getElementsByClassName('input_box')
@@ -183,33 +71,6 @@ function craeteSubmitMsg(ctl) {
         data['page'] = 'ordering';
         data['cols'] = cols;
     }
-    // customer 발주테이블 생성
-    // if (ctl.name === 'customer') {
-        // var ibox = document.getElementsByClassName('input_box')
-        // // var cbox = document.getElementsByClassName('check_box')
-        // // var cols = {};
-        // var show = {};
-        // for (var i = 0; i < ibox.length; i++) {
-        //     if (ibox[i].id.split('_')[0] === page) {
-        //         // cols[ibox[i].name] = ibox[i].value;
-        //         show[ibox[i].name] = cbox[i].checked;
-        //     }
-        // }
-        // data['showing'] = showing['order'];
-        // data['page'] = page;
-        // data['cols'] = cols;
-        // data['show'] = show;
-    // }
-
-    // if (ctl.name === 'payment') {
-    //     var ibox = document.getElementsByClassName('input_box')
-    //     for (var i = 0; i < ibox.length; i++) {
-    //         data[ibox[i].name] = ibox[i].value;
-    //     }
-    //     data['showing'] = showing['payment'];
-    //     data['page'] = 'material';
-    // }
-
     if (ctl.name === 'stock') {
         data['title'] = ctl.value;
     }
@@ -296,69 +157,6 @@ function submit_to_server(data, ctl) {
         }
     });
 }
-
-// function sortTable(ctl) {
-//     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-//     table = document.getElementById("obc_table");
-//     var colname = ctl.attributes['name'].value;
-//     switching = true;
-//     // Set the sorting direction to ascending:
-//     dir = "asc";
-//     /* Make a loop that will continue until
-//     no switching has been done: */
-//     while (switching) {
-//         // Start by saying: no switching is done:
-//         switching = false;
-//         rows = table.rows;
-//         /* Loop through all table rows (except the
-//         first, which contains table headers): */
-//         for (i = 1; i < (rows.length - 1); i++) {
-//             // Start by saying there should be no switching:
-//             shouldSwitch = false;
-//             /* Get the two elements you want to compare,
-//             one from current row and one from the next: */
-//             x = rows[i].getElementsByTagName("TD").namedItem(colname);
-//             y = rows[i + 1].getElementsByTagName("TD").namedItem(colname);
-//             /* Check if the two rows should switch place,
-//             based on the direction, asc or desc: */
-//             if (dir == "asc") {
-//                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-//                     // If so, mark as a switch and break the loop:
-//                     shouldSwitch = true;
-//                     break;
-//                 }
-//             } else if (dir == "desc") {
-//                 if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-//                     // If so, mark as a switch and break the loop:
-//                     shouldSwitch = true;
-//                     break;
-//                 }
-//             }
-//         }
-//         if (shouldSwitch) {
-//             /* If a switch has been marked, make the switch
-//             and mark that a switch has been done: */
-//             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-//             switching = true;
-//             // Each time a switch is done, increase this count by 1:
-//             switchcount ++;
-//         } else {
-//             /* If no switching has been done AND the direction is "asc",
-//             set the direction to "desc" and run the while loop again. */
-//             if (switchcount == 0 && dir == "asc") {
-//                 dir = "desc";
-//                 switching = true;
-//             }
-//         }
-//     }
-// }
-// function updateDatalist(src, ctl) {
-//     var parser = new DOMParser();
-//     var htmlDoc = parser.parseFromString(src, 'text/html');
-//     var new_page = $(htmlDoc).find('#temp_option').html();
-//     $("#" + ctl.id +"_list").append(new_page);
-// }
-
 // 입력창으로 로드
 var _row = null;
 function loadToInputBox(ctl, page) {
