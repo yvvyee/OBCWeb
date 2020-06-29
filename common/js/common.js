@@ -21,6 +21,66 @@ $(function () {
 if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
 }
+class ToCSV {
+    constructor() {
+        // CSV 버튼에 이벤트 등록
+        document.querySelector('#csvDownloadButton').addEventListener('click', e => {
+            e.preventDefault()
+            var page = location.href.split("/").slice(-1)[0].split(".")[0];
+            this.getCSV(page + '.csv')
+        })
+    }
+
+    downloadCSV(csv, filename) {
+        let csvFile;
+        let downloadLink;
+
+        // CSV 파일 Blob 생성
+        csvFile = new Blob([csv], {type: "text/csv"})
+
+        // Download link를 위한 a 엘리먼트 생성
+        downloadLink = document.createElement("a")
+
+        // csv 파일명 지정
+        downloadLink.download = filename;
+
+        // 위에서 만든 blob과 링크를 연결
+        downloadLink.href = window.URL.createObjectURL(csvFile)
+
+        // 링크 숨김
+        downloadLink.style.display = "none"
+
+        // HTML 가장 아래 부분에 링크를 붙임
+        document.body.appendChild(downloadLink)
+
+        // 다운로드르 위한 클릭 이벤트
+        downloadLink.click()
+    }
+
+    getCSV(filename) {
+        // csv를 담기 위한 빈 Array
+        const csv = []
+        const rows = document.querySelectorAll("#obc_table table tr")
+        
+        if (rows === null) { return; }
+
+        for (let i = 0; i < rows.length; i++) {
+            const row = [], cols = rows[i].querySelectorAll("td, th")
+
+            for (let j = 0; j < cols.length; j++)
+                row.push(cols[j].innerText)
+
+            csv.push(row.join(","))
+        }
+
+        // Download CSV
+        this.downloadCSV(csv.join("\n"), filename)
+    }
+}
+
+document.addEventListener('DOMContentLoaded', e => {
+    new ToCSV()
+})
 // submit 메시지 & 데이터 생성
 function craeteSubmitMsg(ctl) {
     var data = {};
