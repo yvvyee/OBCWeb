@@ -35,6 +35,10 @@ class ToCSV {
         let csvFile;
         let downloadLink;
 
+        // 문자 처리를 위한 BOM 추가
+        const BOM = "\uFEFF";
+        csv = BOM + csv
+
         // CSV 파일 Blob 생성
         csvFile = new Blob([csv], {type: "text/csv"})
 
@@ -60,9 +64,9 @@ class ToCSV {
     getCSV(filename) {
         // csv를 담기 위한 빈 Array
         const csv = []
-        const rows = document.querySelectorAll("#obc_table table tr")
+        const rows = document.querySelectorAll("#obc_table tr")
         
-        if (rows === null) { return; }
+        if (rows.length === 0) { alert('没有可以下载的桌子'); return; }
 
         for (let i = 0; i < rows.length; i++) {
             const row = [], cols = rows[i].querySelectorAll("td, th")
@@ -123,7 +127,7 @@ function craeteSubmitMsg(ctl) {
         var ibox = document.getElementsByClassName('input_box')
         var cols = {};
         for (var i = 0; i < ibox.length; i++) {
-            if (ibox[i].id.split('_')[0] === 'ordering') {
+            if (ibox[i].id.split('_')[1] === 'ordering') {
                 cols[ibox[i].name] = ibox[i].value;
             }
         }

@@ -99,6 +99,13 @@ include_once "common/php/common.php";
                onclick="submit_basic(this)"
                value="包装物">
     </div>
+    <div class="center">
+        <input class="btn-get-started btn-danger"
+               id="csvDownloadButton"
+               type="button"
+               style="outline: none; font-size: 16pt"
+               value="下载">
+    </div>
 </div>
 <!--==========================
       Table
