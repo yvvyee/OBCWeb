@@ -69,7 +69,7 @@ function stockB($title) {
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='$classSubtr';"; // tiehua or chuku
             $subtract = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
-            if ($stock == null && $material == null && $subtract == null) { continue; }
+            if ($stock <= 0 && $material <= 0 && $subtract <= 0) { continue; }
 
             $cell = sprintf($fmt_td[true], 'td', "", $item[0]); // 아이템 이름
             $cells_body = $cell;
