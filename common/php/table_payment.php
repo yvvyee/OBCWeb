@@ -29,18 +29,31 @@ function searchPayment() {
 
     $tr = "";
     while ($row = mysqli_fetch_array($res)) {
+        $qty = $row['qty'];
+        $item = $row['item'];
+        $class = $row['class'];
+        $design = $row['design'];
+        $supplier = $row['supplier'];
+
+        $query = "SELECT price FROM price WHERE item='$item' AND class='$class' AND design='$design' AND supplier='$supplier';";
+        $price = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
         $cells = "";
         foreach ($show as $key => $val) {
-            // no 는 항상 숨김
-            if ($key == 'no') {
+            // payment 페이지에서 숨겨지는 항목
+            if ($key == 'no' || $key == 'month' || $key == 'supplier') {
                 $cell = sprintf($fmt_td[false], 'td', $key, $row[$key]);
             }
             // 체크박스 상태에 맞게 테이블 내용 시각화
             else {
                 $bval = filter_var($val, FILTER_VALIDATE_BOOLEAN);
-                $cell = sprintf($fmt_td[$bval], 'td', $key, $row[$key]);
+                $cellVal = $row[$key];
 
-                if ($key == 'qty') { $sum += floatval($row[$key]); }
+                if ($key == 'qty') { $sum += floatval($qty); }
+                if ($key == 'price') { $cellVal = $price; }
+                if ($key == 'total') { $cellVal = floatval($qty) * floatval($price); }
+
+                $cell = sprintf($fmt_td[$bval], 'td', $key, $cellVal);
             }
             $cells = $cells . $cell;
         }
@@ -53,7 +66,7 @@ function searchPayment() {
     // 테이블 헤더 부분
     $cells = "";
     foreach ($show as $key => $val) {
-        if ($key == 'no') {
+        if ($key == 'no' || $key == 'month' || $key == 'supplier') {
             $cell = sprintf($fmt_td[false], 'th', $key, $translate[$key]);
         } else {
             $bval = filter_var($val, FILTER_VALIDATE_BOOLEAN);
@@ -65,7 +78,7 @@ function searchPayment() {
     $tr = sprintf($fmt_tr, $cells);
     $thead = sprintf($fmt_row, 'thead', $color, $tr);
 
-    $condition = "整体合计 = $sum";
+    $condition .= " / 整体合计 = $sum";
 
     $new_table = sprintf($fmt_table, $condition, $thead . $tbody);
     echo "<script type='text/html' id='temp_page'>$new_table</script>";
