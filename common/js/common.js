@@ -264,7 +264,7 @@ function formClear() {
     if ($("#updateButton").attr("name") == "update") {
         $("#updateButton").val("保存");
         $("#updateButton").attr("name", "save");
-        window.location.href = "#input_form";
+        window.location.href = "#obc_title";
     }
     var ibox = document.getElementsByClassName('input_box')
     for (var i = 0; i < ibox.length; i++) {

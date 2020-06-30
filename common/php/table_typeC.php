@@ -36,8 +36,10 @@ function stockC($title) {
         $thead = "";
         foreach ($items as $i => $item) {
             if ($i == 0) {  // 테이블 헤더
-                $cells_head_1 = sprintf($fmt_td['attr'], 'th', "rowspan='2' style='text-align: center'", $translate['item']);
-                $cells_head_2 = sprintf($fmt_td[true], 'th', "", '期初');
+//                $cells_head_1 = sprintf($fmt_td['attr'], 'th', "rowspan='2' style='text-align: center'", $translate['item']);
+                $cells_head_1 = sprintf($fmt_td[true], 'th', "", $translate['design']);
+                $cells_head_2 = sprintf($fmt_td[true], 'th', "", $translate['item']);
+                $cells_head_2 .= sprintf($fmt_td[true], 'th', "", '期初');
                 $cells_head_2 .= sprintf($fmt_td[true], 'th', "", $classSubtr);
 
                 if ($design[0] == 'green共用' || $design[0] == 'bon&heim共用') // 포장물 공용
@@ -61,7 +63,9 @@ function stockC($title) {
                         $cells_head_1 .= sprintf($fmt_td['attr'], 'th', "colspan='4' style='text-align: center'", $design[0]);
                     }
                 }
-                $cells_head_1 .= sprintf($fmt_td['attr'], 'th', "rowspan='2'", '现在库存');
+//                $cells_head_1 .= sprintf($fmt_td['attr'], 'th', "rowspan='2'", '现在库存');
+                $cells_head_1 .= sprintf($fmt_td[true], 'th', "", '');
+                $cells_head_2 .= sprintf($fmt_td[true], 'th', "", '现在库存');
 
                 $tr1 = sprintf($fmt_tr, $cells_head_1);
                 $tr2 = sprintf($fmt_tr, $cells_head_2);
