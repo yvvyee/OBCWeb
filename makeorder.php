@@ -61,7 +61,7 @@ include_once "common/php/common.php";
           Text
         ============================-->
     <div class="center">
-        <h1>订货</h1>
+        <h1>客户订货</h1>
     </div>
     <!--==========================
           Input
@@ -78,21 +78,21 @@ include_once "common/php/common.php";
                name="orderBaici"
                style="outline: none; font-size: 16pt; background-color: #993366"
                onclick="submit_basic(this)"
-               value="白瓷订货">
+               value="白瓷">
         <input class="btn-get-started btn-dark"
                id="orderCaihe"
                type="button"
                name="orderCaihe"
                style="outline: none; font-size: 16pt; background-color: #993366"
                onclick="submit_basic(this)"
-               value="彩盒订货">
+               value="彩盒">
         <input class="btn-get-started btn-dark"
                id="orderHuazhi"
                type="button"
                name="orderHuazhi"
                style="outline: none; font-size: 16pt; background-color: #993366"
                onclick="submit_basic(this)"
-               value="花纸订货">
+               value="花纸">
     </div>
     <div class="center">
         <input class="btn-get-started btn-danger"
@@ -114,7 +114,7 @@ include_once "common/php/common.php";
     <div class="modal-dialog">
         <div class="intro-text modal-content" style="background: none; width: 270px; height: auto; border-width: 0px; margin-left: auto; margin-right: auto" >
             <div class="modal-header" style="text-align: center; justify-content: center; color: black">
-                <h1 style="background-color: white">订货</h1>
+                <h1 style="background-color: white">工厂订货</h1>
             </div>
             <div class="modal-body">
                 <!--==========================

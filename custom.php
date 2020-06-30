@@ -72,6 +72,11 @@ include_once "common/php/common.php";
                   Button
                 ============================-->
             <div class="center">
+                <input class="btn-get-started btn-danger"
+                       id="csvDownloadButton"
+                       type="button"
+                       style="outline: none; font-size: 16pt"
+                       value="下载">
                 <input class="btn-get-started btn-info scrollto"
                        id="updateButton"
                        type="button"
@@ -87,20 +92,15 @@ include_once "common/php/common.php";
                        onclick="submit_basic(this)"
                        value="检索">
             </div>
-            <div class="center">
-                <input class="btn-get-started btn-danger"
-                       id="csvDownloadButton"
-                       type="button"
-                       style="outline: none; font-size: 16pt"
-                       value="下载">
-                <input class="btn-get-started btn-dark"
-                       id="customerButton"
-                       type="button"
-                       name="customer"
-                       style="outline: none; font-size: 16pt; background-color: #993366"
-                       onclick="submit_basic(this)"
-                       value="订货">
-            </div>
+<!--            <div class="center">-->
+<!--                <input class="btn-get-started btn-dark"-->
+<!--                       id="customerButton"-->
+<!--                       type="button"-->
+<!--                       name="customer"-->
+<!--                       style="outline: none; font-size: 16pt; background-color: #993366"-->
+<!--                       onclick="submit_basic(this)"-->
+<!--                       value="订货">-->
+<!--            </div>-->
             <!--==========================
                   Table
                 ============================-->

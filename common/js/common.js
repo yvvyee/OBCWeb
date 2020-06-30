@@ -166,7 +166,7 @@ function submit_input(page) {
             var new_page = $(htmlDoc).find('#temp_page').html();
             $("#input_form_" + page).append(new_page);
 
-            if (page == 'custom') {
+            if (page == 'makeorder') {
                 submit_input('ordering');
             }
         }
@@ -194,10 +194,12 @@ function submit_to_server(data, ctl) {
 
 
         success: function (response) {
-            if (ctl.name === 'search'   ||
-                ctl.name === 'customer'    ||
-                ctl.name === 'payment'  ||
-                ctl.name === 'stock') {
+            if (ctl.name === 'search'       ||
+                ctl.name === 'payment'      ||
+                ctl.name === 'stock'        ||
+                ctl.name === 'orderBaici'   ||
+                ctl.name === 'orderCaihe'   ||
+                ctl.name === 'orderHuazhi') {
                 changeTable(response);
             }
             if (ctl.name === 'save') {

@@ -1,5 +1,5 @@
 <?php
-function customer() {
+function orderHuazhi() {
     // mysql
     global $conn;
     // 테이블 포맷

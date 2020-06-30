@@ -5,7 +5,9 @@ include_once 'table_typeA.php';
 include_once 'table_typeB.php';
 include_once 'table_typeC.php';
 include_once 'table_payment.php';
-include_once 'custom_order.php';
+include_once 'order_baici.php';
+include_once 'order_caihe.php';
+include_once 'order_huazhi.php';
 if(!isset($_SESSION['user_id'])) {
     echo "<script>alert('请重新登录'); window.location = 'login.php'; </script>";
 }
@@ -39,8 +41,14 @@ if (array_key_exists('msg', $_POST)) {
     if ($_POST['msg'] == 'payment') {
         searchPayment();
     }
-    if ($_POST['msg'] == 'customer') {
-        customer();
+    if ($_POST['msg'] == 'orderBaici') {
+        orderBaici();
+    }
+    if ($_POST['msg'] == 'orderCaihe') {
+        orderCaihe();
+    }
+    if ($_POST['msg'] == 'orderHuazhi') {
+        orderHuazhi();
     }
     if ($_POST['msg'] == 'update') {
         update();

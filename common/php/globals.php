@@ -61,7 +61,7 @@ $input_type = array(
     'item'      => 'text',
     'design'    => 'text',
     'qty'       => 'number',
-    'carton'       => 'number',
+    'carton'    => 'number',
     'orderno'   => 'text',
     'supplier'  => 'text',
     'month'     => 'text',
@@ -103,7 +103,9 @@ $translate = array(
     'name'      => '名称',
     'kind'      => '种类',
     'seq'       => '顺序',
-    'sep'       => '页面'
+    'sep'       => '页面',
+    'rushu'     => '入数',
+    'orderqty'  => '订货量'
 );
 
 $relation = array(
