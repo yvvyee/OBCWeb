@@ -76,8 +76,8 @@ function orderHuazhi() {
 //            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='彩瓷';";        // caici stock
 //            $stkCaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
-            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='白瓷';";                            // baici material
-            $matBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='白瓷';";                            // baici material
+//            $matBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='花纸';";   // huazhi material
             $matHuazhi = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';"; // chengpin material
