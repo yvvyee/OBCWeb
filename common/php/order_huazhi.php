@@ -34,21 +34,23 @@ function orderHuazhi() {
             if ($i == 0 && $j == 0) {
                 $cells = "";
 
-                $cell = sprintf($fmt_td[true], 'th', 'item', $translate['item']);
+                $cell = sprintf($fmt_td[true], 'th', '', $translate['item']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', 'design', $translate['design']);
+                $cell = sprintf($fmt_td[true], 'th', '', $translate['design']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', 'qty', $translate['qty']);
+                $cell = sprintf($fmt_td[true], 'th', '', 'Order');
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', 'baici', $translate['baici']);
+//                $cell = sprintf($fmt_td[true], 'th', '', $translate['baici']);
+//                $cells = $cells . $cell;
+                $cell = sprintf($fmt_td[true], 'th', '', $translate['huazhi']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', 'huazhi', $translate['huazhi']);
+                $cell = sprintf($fmt_td[true], 'th', '', $translate['chengpin']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', 'chengpin', $translate['chengpin']);
+                $cell = sprintf($fmt_td[true], 'th', '', $translate['caici']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', 'chengpin', $translate['bugoushu']);
+                $cell = sprintf($fmt_td[true], 'th', '', $translate['orderqty']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', 'order', $translate['order']);
+                $cell = sprintf($fmt_td[true], 'th', '', $translate['order']);
                 $cells = $cells . $cell;
                 $tr = sprintf($fmt_tr, $cells);
                 $thead = sprintf($fmt_row, 'thead', 'none', $tr);
@@ -63,8 +65,8 @@ function orderHuazhi() {
             $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$design[0]' AND class='白瓷';";           // 포장율
             $rate = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
-            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND class='白瓷';";                                    // baici stock
-            $stkBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND class='白瓷';";                                    // baici stock
+//            $stkBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='花纸';";           // huazhi stock
             $stkHuazhi = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';";        // chengpin stock
@@ -80,8 +82,8 @@ function orderHuazhi() {
             $matHuazhi = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';"; // chengpin material
             $matChengpin = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='彩盒';";        // caihe material
-            $caihe = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+            $query = "SELECT sum(qty) FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='彩瓷';";        // caihe material
+            $stkCaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 //            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='破损';";        // posun material
 //            $posun = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
@@ -94,10 +96,10 @@ function orderHuazhi() {
 
             $cells = "";
             $qtyOrder = intval($carton) * intval($rate);
-            $sumBaici = intval($stkBaici) + intval($matBaici) - intval($tiehuaA);
-            $sumHuazhi = intval($stkHuazhi) + intval($matHuazhi) - intval($tiehuaC);
-            $sumChengpin = intval($stkChengpin) + intval($matChengpin) - intval($chuku);
-            $sum = $qtyOrder - $sumHuazhi - $sumChengpin - intval($caihe);
+//            $sumBaici = intval($stkBaici) + intval($matBaici) - intval($tiehuaA);
+            $qtyHuazhi = intval($stkHuazhi) + intval($matHuazhi) - intval($tiehuaC);
+            $qtyChengpin = (intval($stkChengpin) + intval($matChengpin) - intval($chuku)) * intval($rate);
+            $qtySum = $qtyOrder - $qtyHuazhi - $qtyChengpin - intval($stkCaici);
 
             $cell = sprintf($fmt_td[true], 'td', 'item', $item[0]);
             $cells = $cells . $cell;
@@ -108,16 +110,19 @@ function orderHuazhi() {
             $cell = sprintf($fmt_td['attr'], 'td', "name='qty'; style='text-align: right'", $qtyOrder);
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['attr'], 'td', "name='baici'; style='text-align: right'", $sumBaici);
+//            $cell = sprintf($fmt_td['attr'], 'td', "name='baici'; style='text-align: right'", $sumBaici);
+//            $cells = $cells . $cell;
+
+            $cell = sprintf($fmt_td['attr'], 'td', "name='huazhi'; style='text-align: right'", $qtyHuazhi);
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['attr'], 'td', "name='huazhi'; style='text-align: right'", $sumHuazhi);
+            $cell = sprintf($fmt_td['attr'], 'td', "name='chengpin'; style='text-align: right'", $qtyChengpin);
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['attr'], 'td', "name='chengpin'; style='text-align: right'", $sumChengpin);
+            $cell = sprintf($fmt_td['attr'], 'td', "name='chengpin'; style='text-align: right'", $stkCaici);
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['attr'], 'td', "name='chengpin'; style='text-align: right'", $sum);
+            $cell = sprintf($fmt_td['attr'], 'td', "name='chengpin'; style='text-align: right'", $qtySum);
             $cells = $cells . $cell;
 
             $cell = sprintf($fmt_td[true], 'td', 'order', $fmt_btn['order']);
