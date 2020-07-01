@@ -100,12 +100,16 @@ $translate = array(
     'chengpin'  => '完成品',
     'baozhuang' => '包装物',
     'caici'     => '彩瓷',
+    'caihe'     => '彩盒',
     'name'      => '名称',
     'kind'      => '种类',
     'seq'       => '顺序',
     'sep'       => '页面',
     'rushu'     => '入数',
-    'orderqty'  => '订货量'
+    'orderqty'  => '订货量',
+    'neiheshu'  => '内盒数',
+    'bugoushu'  => '不够数',
+    'waixiang'  => '外箱'
 );
 
 $relation = array(

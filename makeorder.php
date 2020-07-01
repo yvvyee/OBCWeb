@@ -80,19 +80,19 @@ include_once "common/php/common.php";
                onclick="submit_basic(this)"
                value="白瓷">
         <input class="btn-get-started btn-dark"
-               id="orderCaihe"
-               type="button"
-               name="orderCaihe"
-               style="outline: none; font-size: 16pt; background-color: #993366"
-               onclick="submit_basic(this)"
-               value="彩盒">
-        <input class="btn-get-started btn-dark"
                id="orderHuazhi"
                type="button"
                name="orderHuazhi"
                style="outline: none; font-size: 16pt; background-color: #993366"
                onclick="submit_basic(this)"
                value="花纸">
+        <input class="btn-get-started btn-dark"
+               id="orderCaihe"
+               type="button"
+               name="orderCaihe"
+               style="outline: none; font-size: 16pt; background-color: #993366"
+               onclick="submit_basic(this)"
+               value="彩盒">
     </div>
     <div class="center">
         <input class="btn-get-started btn-danger"
