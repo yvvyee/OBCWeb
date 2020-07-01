@@ -31,13 +31,13 @@ function orderBaici() {
             $cells = $cells . $cell;
             $cell = sprintf($fmt_td[true], 'th', '', 'Order');
             $cells = $cells . $cell;
+            $cell = sprintf($fmt_td[true], 'th', '', $translate['baici']);
+            $cells = $cells . $cell;
             $cell = sprintf($fmt_td[true], 'th', '', $translate['chengpin']);
             $cells = $cells . $cell;
             $cell = sprintf($fmt_td[true], 'th', '', $translate['caici']);
             $cells = $cells . $cell;
             $cell = sprintf($fmt_td[true], 'th', '', $translate['orderqty']);
-            $cells = $cells . $cell;
-            $cell = sprintf($fmt_td[true], 'th', '', $translate['baici']);
             $cells = $cells . $cell;
             $cell = sprintf($fmt_td[true], 'th', '', $translate['order']);
             $cells = $cells . $cell;
@@ -91,6 +91,9 @@ function orderBaici() {
         $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qtyOrder);
         $cells = $cells . $cell;
 
+        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qtyBaici);
+        $cells = $cells . $cell;
+
         $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qtyChengpin);
         $cells = $cells . $cell;
 
@@ -98,9 +101,6 @@ function orderBaici() {
         $cells = $cells . $cell;
 
         $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qtySum);
-        $cells = $cells . $cell;
-
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qtyBaici);
         $cells = $cells . $cell;
 
         $cell = sprintf($fmt_td[true], 'td', 'order', $fmt_btn['order']);
