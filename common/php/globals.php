@@ -5,17 +5,25 @@ $fmt_table = '<table id=\'obc_table\' class=\'table table-striped table-bordered
 $fmt_row = '<%1$s style=\'border: 3px solid %2$s\'>%3$s</%1$s>';
 $fmt_tr = '<tr style=\'border-bottom: 1px dotted silver\'>%s</tr>';
 
+$fmt_th = array(
+    true    => '<th style=\'background-color: #993366; color: #ffffff\'>%1$s</th>',
+    false   => '<th style=\'display: none\'>%1$s</th>',
+    'attr'  => '<th style=\'background-color: #993366; color: #ffffff;\' %1$s>%2$s</th>',
+);
+
 $fmt_td = array(
-    true    => '<%1$s name=\'%2$s\'>%3$s</%1$s>',
-    false   => '<%1$s name=\'%2$s\' style=\'display: none\'>%3$s</%1$s>',
-    'attr'  => '<%1$s %2$s>%3$s</%1$s>',
-    'alert' => '<%1$s name=\'%2$s\' style=\'background-color: #993366; color: #ffffff\'>%3$s</%1$s>'
+    true    => '<td>%1$s</td>',
+    false   => '<td style=\'display: none\'>%1$s</td>',
+    'attr'  => '<td %1$s>%2$s</td>',
+    'alert' => '<td style=\'text-align: right; background-color: #993366; color: #ffffff\'>%1$s</td>',
+    'right' => '<td style=\'text-align: right\'>%1$s</td>',
+    'order' => '<td >%1$s</td>'
 );
 
 $fmt_btn = array(
     'edit'  => '<button name=\'edit\' class=\'btn-success\' onclick=\'displayRow(this); return false;\'>E</button></td>',
     'del'   => '<button name=\'del\' class=\'btn-danger\' onclick=\'submit_basic(this); return false;\'>D</button></td>',
-    'order' => '<button name=\'order\' class=\'btn-dark\' onclick=\'submit_basic(this); return false;\' data-toggle="modal" data-target="#order_form" style="background-color: #993366">O</button></td>'
+    'order' => '<button name=\'order\' class=\'btn-dark\' onclick=\'submit_basic(this); return false;\' data-toggle="modal" data-target="#order_form" style="background-color: gray">O</button></td>'
 );
 
 $fmt_input = '<div class="center" id="div_%1$s">

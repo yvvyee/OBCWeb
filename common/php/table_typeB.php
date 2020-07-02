@@ -5,6 +5,7 @@ function stockB($title) {
     global $fmt_row;
     global $fmt_tr;
     global $fmt_td;
+    global $fmt_th;
     global $translate;
     global $relation;
 
@@ -35,27 +36,27 @@ function stockB($title) {
         $thead = "";
         foreach ($items as $i => $item) {
             if ($i == 0) {  // 테이블 헤더
-                $cell = sprintf($fmt_td['attr'], 'th', "style='text-align: center'", $translate['design']);
+                $cell = sprintf($fmt_th[true], $translate['design']);
                 $cells_head = $cell;
 
-                $cell = sprintf($fmt_td['attr'], 'th', "colspan='4' style='text-align: center'", $design[0]);
+                $cell = sprintf($fmt_th['attr'], "colspan='4'", $design[0]);
                 $cells_head = $cells_head . $cell;
 
                 $row1 = sprintf($fmt_tr, $cells_head);
 
-                $cell = sprintf($fmt_td[true], 'th', "", $translate['item']);
+                $cell = sprintf($fmt_th[true], $translate['item']);
                 $cells_head = $cell;
 
-                $cell = sprintf($fmt_td[true], 'th', "", '期初');
+                $cell = sprintf($fmt_th[true],'期初');
                 $cells_head = $cells_head . $cell;
 
-                $cell = sprintf($fmt_td[true], 'th', "", '入库');
+                $cell = sprintf($fmt_th[true], '入库');
                 $cells_head = $cells_head . $cell;
 
-                $cell = sprintf($fmt_td[true], 'th', "", '出库');
+                $cell = sprintf($fmt_th[true], '出库');
                 $cells_head = $cells_head . $cell;
 
-                $cell = sprintf($fmt_td[true], 'th', "", '现在库存');
+                $cell = sprintf($fmt_th[true], '现在库存');
                 $cells_head = $cells_head . $cell;
 
                 $row2 = sprintf($fmt_tr, $cells_head);
@@ -71,22 +72,23 @@ function stockB($title) {
 
             if ($stock <= 0 && $material <= 0 && $subtract <= 0) { continue; }
 
-            $cell = sprintf($fmt_td[true], 'td', "", $item[0]); // 아이템 이름
+            $cell = sprintf($fmt_td[true], $item[0]); // 아이템 이름
             $cells_body = $cell;
-            $cell = sprintf($fmt_td['attr'], 'td', "name='$title'; style='text-align: right'", $stock);
+            $cell = sprintf($fmt_td['right'], $stock);
             $cells_body = $cells_body . $cell;
-            $cell = sprintf($fmt_td['attr'], 'td', "name='$title'; style='text-align: right'", $material);
+            $cell = sprintf($fmt_td['right'], $material);
             $cells_body = $cells_body . $cell;
-            $cell = sprintf($fmt_td['attr'], 'td', "name='$title'; style='text-align: right'", $subtract);
+            $cell = sprintf($fmt_td['right'], $subtract);
             $cells_body = $cells_body . $cell;
 
             $sum = intval($stock) + intval($material) - intval($subtract);
-            $cell = sprintf($fmt_td['attr'], 'td', "name='$title'; style='text-align: right'", $sum);
+            $cell = sprintf($fmt_td['right'], $sum);
             $cells_body = $cells_body . $cell;
 
             $tr = $tr . sprintf($fmt_tr, $cells_body);
         }
 
+        if (empty($tr)) { continue; }
         $tbody = sprintf($fmt_row, 'tbody', 'none', $tr);
         $total = $total . $thead . $tbody;
     }

@@ -92,7 +92,7 @@ function search() {
     global $conn;
     global $sql_search_all;
     global $sql_search_where;
-
+    global $fmt_th;
     global $fmt_td;
     global $fmt_tr;
     global $fmt_row;
@@ -121,19 +121,19 @@ function search() {
         foreach ($show as $key => $val) {
             // no 는 항상 숨김
             if ($key == 'no') {
-                $cell = sprintf($fmt_td[false], 'td', $key, $row[$key]);
+                $cell = sprintf($fmt_td[false], $row[$key]);
             }
             // 체크박스 상태에 맞게 테이블 내용 시각화
             else {
                 $bval = filter_var($val, FILTER_VALIDATE_BOOLEAN);
-                $cell = sprintf($fmt_td[$bval], 'td', $key, $row[$key]);
+                $cell = sprintf($fmt_td[$bval], $row[$key]);
             }
             $cells = $cells . $cell;
         }
         // 수정 & 삭제 버튼
-        $cell = sprintf($fmt_td[true], 'td', 'edit', $fmt_btn['edit']);
+        $cell = sprintf($fmt_td[true], $fmt_btn['edit']);
         $cells = $cells . $cell;
-        $cell = sprintf($fmt_td[true], 'td', 'del', $fmt_btn['del']);
+        $cell = sprintf($fmt_td[true], $fmt_btn['del']);
         $cells = $cells . $cell;
         // Row
         $tr = $tr . sprintf($fmt_tr, $cells);
@@ -145,17 +145,17 @@ function search() {
     $cells = "";
     foreach ($show as $key => $val) {
         if ($key == 'no') {
-            $cell = sprintf($fmt_td[false], 'th', $key, $translate[$key]);
+            $cell = sprintf($fmt_th[false], $translate[$key]);
         } else {
             $bval = filter_var($val, FILTER_VALIDATE_BOOLEAN);
-            $cell = sprintf($fmt_td[$bval], 'th', $key, $translate[$key]);
+            $cell = sprintf($fmt_th[$bval], $translate[$key]);
         }
         $cells = $cells . $cell;
     }
     // 수정 & 삭제 버튼
-    $cell = sprintf($fmt_td[true], 'th', 'edit', $translate['edit']);
+    $cell = sprintf($fmt_th[true], $translate['edit']);
     $cells = $cells . $cell;
-    $cell = sprintf($fmt_td[true], 'th', 'del', $translate['del']);
+    $cell = sprintf($fmt_th[true], $translate['del']);
     $cells = $cells . $cell;
     // Row
     $tr = sprintf($fmt_tr, $cells);
@@ -204,18 +204,18 @@ function save() {
         $cells = '';
         foreach ($show as $key => $val) {
             if ($key == 'no') {
-                $cell = sprintf($fmt_td[false], 'td', $key, $no);
+                $cell = sprintf($fmt_td[false], $no);
             }
             else {
                 $bval = filter_var($val, FILTER_VALIDATE_BOOLEAN);
-                $cell = sprintf($fmt_td[$bval], 'td', $key, $cols[$key]);
+                $cell = sprintf($fmt_td[$bval], $cols[$key]);
             }
             $cells = $cells . $cell;
         }
         // 수정 & 삭제 버튼
-        $cell = sprintf($fmt_td[true], 'td', $key, $fmt_btn['edit']);
+        $cell = sprintf($fmt_td[true], $fmt_btn['edit']);
         $cells = $cells . $cell;
-        $cell = sprintf($fmt_td[true], 'td', $key, $fmt_btn['del']);
+        $cell = sprintf($fmt_td[true], $fmt_btn['del']);
         $cells = $cells . $cell;
         $tr = sprintf($fmt_tr, $cells);
         echo "<script type='text/html' id='temp_row'>$tr</script>";

@@ -5,6 +5,7 @@ function stockA() {
     global $fmt_row;
     global $fmt_tr;
     global $fmt_td;
+    global $fmt_th;
     global $translate;
     global $relation;
 
@@ -22,26 +23,26 @@ function stockA() {
     foreach ($items as $i => $item) {
         $cells = "";
 
-        $cell = sprintf($fmt_td[true], 'td', "", $item[0]); // 아이템 이름
+        $cell = sprintf($fmt_td[true], $item[0]); // 아이템 이름
         $cells = $cells . $cell;
 
         $query = "SELECT qty FROM stock WHERE item='$item[0]' AND class='白瓷';"; // baici stock
         $stkBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $stkBaici);
+        $cell = sprintf($fmt_td['right'], $stkBaici);
         $cells = $cells . $cell;
 
         $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='白瓷';"; // baici material
         $matBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $matBaici);
+        $cell = sprintf($fmt_td['right'], $matBaici);
         $cells = $cells . $cell;
 
         $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='贴花';"; // tiehua with item only
         $tiehua = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $tiehua);
+        $cell = sprintf($fmt_td['right'], $tiehua);
         $cells = $cells . $cell;
 
         $sum = (intval($stkBaici) + intval($matBaici) - intval($tiehua));  // 합계수량
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $sum);
+        $cell = sprintf($fmt_td['right'], $sum);
         $cells = $cells . $cell;
 
         $tr = $tr . sprintf($fmt_tr, $cells);
@@ -50,19 +51,19 @@ function stockA() {
 
     // 테이블 헤더 부분
     $cells = "";
-    $cell = sprintf($fmt_td[true], 'th', "", '品名');
+    $cell = sprintf($fmt_th[true], '品名');
     $cells = $cells . $cell;
 
-    $cell = sprintf($fmt_td[true], 'th', "", '期初');
+    $cell = sprintf($fmt_th[true], '期初');
     $cells = $cells . $cell;
 
-    $cell = sprintf($fmt_td[true], 'th', "", '入库');
+    $cell = sprintf($fmt_th[true], '入库');
     $cells = $cells . $cell;
 
-    $cell = sprintf($fmt_td[true], 'th', "", '出库');
+    $cell = sprintf($fmt_th[true], '出库');
     $cells = $cells . $cell;
 
-    $cell = sprintf($fmt_td[true], 'th', "", '现在库存');
+    $cell = sprintf($fmt_th[true], '现在库存');
     $cells = $cells . $cell;
 
     $tr = sprintf($fmt_tr, $cells);

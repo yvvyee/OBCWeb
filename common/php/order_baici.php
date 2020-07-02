@@ -4,6 +4,7 @@ function orderBaici() {
     global $conn;
     // 테이블 포맷
     global $fmt_btn;
+    global $fmt_th;
     global $fmt_td;
     global $fmt_tr;
     global $fmt_row;
@@ -25,21 +26,21 @@ function orderBaici() {
         if ($i == 0) {  // 테이블 헤더
             $cells = "";
 
-            $cell = sprintf($fmt_td[true], 'th', '', $translate['item']);
+            $cell = sprintf($fmt_th[true], $translate['item']);
             $cells = $cells . $cell;
-            $cell = sprintf($fmt_td[true], 'th', '', $translate['carton']);
+            $cell = sprintf($fmt_th[true], $translate['carton']);
             $cells = $cells . $cell;
-            $cell = sprintf($fmt_td[true], 'th', '', 'Order');
+            $cell = sprintf($fmt_th[true], 'Order');
             $cells = $cells . $cell;
-            $cell = sprintf($fmt_td[true], 'th', '', $translate['baici']);
+            $cell = sprintf($fmt_th[true], $translate['baici']);
             $cells = $cells . $cell;
-            $cell = sprintf($fmt_td[true], 'th', '', $translate['chengpin']);
+            $cell = sprintf($fmt_th[true], $translate['chengpin']);
             $cells = $cells . $cell;
-            $cell = sprintf($fmt_td[true], 'th', '', $translate['caici']);
+            $cell = sprintf($fmt_th[true], $translate['caici']);
             $cells = $cells . $cell;
-            $cell = sprintf($fmt_td[true], 'th', '', $translate['orderqty']);
+            $cell = sprintf($fmt_th[true], $translate['orderqty']);
             $cells = $cells . $cell;
-            $cell = sprintf($fmt_td[true], 'th', '', $translate['order']);
+            $cell = sprintf($fmt_th[true], $translate['order']);
             $cells = $cells . $cell;
             $tr = sprintf($fmt_tr, $cells);
             $thead = sprintf($fmt_row, 'thead', 'none', $tr);
@@ -82,28 +83,32 @@ function orderBaici() {
         $qtyBaici = intval($stkBaici) + intval($matBaici) - intval($tiehuaA);
         $qtySum = $qtyBaici - $qtyOrder + $stkChengpin + $stkCaici;
 
-        $cell = sprintf($fmt_td[true], 'td', 'item', $item[0]);
+        $cell = sprintf($fmt_td[true], $item[0]);
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $carton);
+        $cell = sprintf($fmt_td['right'], $carton);
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qtyOrder);
+        $cell = sprintf($fmt_td['right'], $qtyOrder);
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qtyBaici);
+        $cell = sprintf($fmt_td['right'],$qtyBaici);
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qtyChengpin);
+        $cell = sprintf($fmt_td['right'], $qtyChengpin);
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $stkCaici);
+        $cell = sprintf($fmt_td['right'], $stkCaici);
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $qtySum);
+        if ($qtySum < 0) {
+            $cell = sprintf($fmt_td['alert'], $qtySum);
+        } else {
+            $cell = sprintf($fmt_td['right'], $qtySum);
+        }
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td[true], 'td', 'order', $fmt_btn['order']);
+        $cell = sprintf($fmt_td['order'], $fmt_btn['order']);
         $cells = $cells . $cell;
 
         $tr = $tr . sprintf($fmt_tr, $cells);

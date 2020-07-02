@@ -3,7 +3,7 @@ function searchPayment() {
     global $conn;
     global $sql_search_all;
     global $sql_search_where;
-
+    global $fmt_th;
     global $fmt_td;
     global $fmt_tr;
     global $fmt_row;
@@ -42,7 +42,7 @@ function searchPayment() {
         foreach ($show as $key => $val) {
             // payment 페이지에서 숨겨지는 항목
             if ($key == 'no' || $key == 'month' || $key == 'supplier') {
-                $cell = sprintf($fmt_td[false], 'td', $key, $row[$key]);
+                $cell = sprintf($fmt_td[false], $row[$key]);
             }
             // 체크박스 상태에 맞게 테이블 내용 시각화
             else {
@@ -53,7 +53,7 @@ function searchPayment() {
                 if ($key == 'price') { $cellVal = $price; }
                 if ($key == 'total') { $cellVal = floatval($qty) * floatval($price); }
 
-                $cell = sprintf($fmt_td[$bval], 'td', $key, $cellVal);
+                $cell = sprintf($fmt_td[$bval], $cellVal);
             }
             $cells = $cells . $cell;
         }
@@ -67,10 +67,10 @@ function searchPayment() {
     $cells = "";
     foreach ($show as $key => $val) {
         if ($key == 'no' || $key == 'month' || $key == 'supplier') {
-            $cell = sprintf($fmt_td[false], 'th', $key, $translate[$key]);
+            $cell = sprintf($fmt_th[false], $translate[$key]);
         } else {
             $bval = filter_var($val, FILTER_VALIDATE_BOOLEAN);
-            $cell = sprintf($fmt_td[$bval], 'th', $key, $translate[$key]);
+            $cell = sprintf($fmt_th[$bval], $translate[$key]);
         }
         $cells = $cells . $cell;
     }

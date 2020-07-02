@@ -4,6 +4,7 @@ function orderHuazhi() {
     global $conn;
     // 테이블 포맷
     global $fmt_btn;
+    global $fmt_th;
     global $fmt_td;
     global $fmt_tr;
     global $fmt_row;
@@ -34,23 +35,23 @@ function orderHuazhi() {
             if ($i == 0 && $j == 0) {
                 $cells = "";
 
-                $cell = sprintf($fmt_td[true], 'th', '', $translate['item']);
+                $cell = sprintf($fmt_th[true], $translate['item']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', '', $translate['design']);
+                $cell = sprintf($fmt_th[true], $translate['design']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', '', 'Order');
+                $cell = sprintf($fmt_th[true], 'Order');
                 $cells = $cells . $cell;
 //                $cell = sprintf($fmt_td[true], 'th', '', $translate['baici']);
 //                $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', '', $translate['huazhi']);
+                $cell = sprintf($fmt_th[true], $translate['huazhi']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', '', $translate['chengpin']);
+                $cell = sprintf($fmt_th[true], $translate['chengpin']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', '', $translate['caici']);
+                $cell = sprintf($fmt_th[true], $translate['caici']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', '', $translate['orderqty']);
+                $cell = sprintf($fmt_th[true], $translate['orderqty']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_td[true], 'th', '', $translate['order']);
+                $cell = sprintf($fmt_th[true], $translate['order']);
                 $cells = $cells . $cell;
                 $tr = sprintf($fmt_tr, $cells);
                 $thead = sprintf($fmt_row, 'thead', 'none', $tr);
@@ -101,31 +102,35 @@ function orderHuazhi() {
             $qtyChengpin = (intval($stkChengpin) + intval($matChengpin) - intval($chuku)) * intval($rate);
             $qtySum = $qtyOrder - $qtyHuazhi - $qtyChengpin - intval($stkCaici);
 
-            $cell = sprintf($fmt_td[true], 'td', 'item', $item[0]);
+            $cell = sprintf($fmt_td[true], $item[0]);
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td[true], 'td', 'design', $design[0]);
+            $cell = sprintf($fmt_td[true], $design[0]);
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['attr'], 'td', "name='qty'; style='text-align: right'", $qtyOrder);
+            $cell = sprintf($fmt_td['right'], $qtyOrder);
             $cells = $cells . $cell;
 
 //            $cell = sprintf($fmt_td['attr'], 'td', "name='baici'; style='text-align: right'", $sumBaici);
 //            $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['attr'], 'td', "name='huazhi'; style='text-align: right'", $qtyHuazhi);
+            $cell = sprintf($fmt_td['right'], $qtyHuazhi);
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['attr'], 'td', "name='chengpin'; style='text-align: right'", $qtyChengpin);
+            $cell = sprintf($fmt_td['right'], $qtyChengpin);
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['attr'], 'td', "name='chengpin'; style='text-align: right'", $stkCaici);
+            $cell = sprintf($fmt_td['right'], $stkCaici);
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['attr'], 'td', "name='chengpin'; style='text-align: right'", $qtySum);
+            if ($qtySum < 0) {
+                $cell = sprintf($fmt_td['alert'], $qtySum);
+            } else {
+                $cell = sprintf($fmt_td['right'], $qtySum);
+            }
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td[true], 'td', 'order', $fmt_btn['order']);
+            $cell = sprintf($fmt_td[true], $fmt_btn['order']);
             $cells = $cells . $cell;
 
             $tr = $tr . sprintf($fmt_tr, $cells);

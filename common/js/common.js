@@ -166,7 +166,9 @@ function submit_input(page) {
             var new_page = $(htmlDoc).find('#temp_page').html();
             $("#input_form_" + page).append(new_page);
 
-            if (page == 'makeorder') {
+            if (page == 'orderbaici' ||
+                page == 'ordercaici' ||
+                page == 'orderhuazhi') {
                 submit_input('ordering');
             }
         }
