@@ -21,6 +21,24 @@ $(function () {
 if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
 }
+function formatDate() {
+    var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+$('#order_form').on('shown.bs.modal', function () {
+    var today = formatDate();
+    var idate = document.getElementById("ibox_ordering_date");
+    idate.value = today;
+})
 class ToCSV {
     constructor() {
         // CSV 버튼에 이벤트 등록
