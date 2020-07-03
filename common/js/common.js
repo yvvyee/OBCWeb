@@ -185,7 +185,7 @@ function submit_input(page) {
             $("#input_form_" + page).append(new_page);
 
             if (page == 'orderbaici' ||
-                page == 'ordercaici' ||
+                page == 'ordercaihe' ||
                 page == 'orderhuazhi' ||
                 page == 'custom') {
                 submit_input('ordering');
