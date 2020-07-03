@@ -223,6 +223,7 @@ function submit_to_server(data, ctl) {
                 ctl.name === 'orderHuazhi'  ||
                 ctl.name === 'orderCustom') {
                 changeTable(response);
+                $("#obc_table").tablesorter();
             }
             if (ctl.name === 'save') {
                 updateTable(response);

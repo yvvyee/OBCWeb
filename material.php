@@ -42,6 +42,7 @@ include_once "common/php/common.php";
     <script src="./lib/superfish/hoverIntent.js"></script>
     <script src="./lib/superfish/superfish.min.js"></script>
     <script src="./lib/magnific-popup/magnific-popup.min.js"></script>
+    <script src="./lib/table/js/jquery.tablesorter.js"></script>
 
     <!-- Contact Form JavaScript File -->
     <script src="./contactform/contactform.js"></script>
