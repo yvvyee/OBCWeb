@@ -186,7 +186,8 @@ function submit_input(page) {
 
             if (page == 'orderbaici' ||
                 page == 'ordercaici' ||
-                page == 'orderhuazhi') {
+                page == 'orderhuazhi' ||
+                page == 'custom') {
                 submit_input('ordering');
             }
         }
@@ -219,7 +220,8 @@ function submit_to_server(data, ctl) {
                 ctl.name === 'stock'        ||
                 ctl.name === 'orderBaici'   ||
                 ctl.name === 'orderCaihe'   ||
-                ctl.name === 'orderHuazhi') {
+                ctl.name === 'orderHuazhi'  ||
+                ctl.name === 'orderCustom') {
                 changeTable(response);
             }
             if (ctl.name === 'save') {

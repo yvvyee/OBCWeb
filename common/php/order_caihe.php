@@ -71,6 +71,9 @@ function orderCaihe() {
             $query = "SELECT rate FROM shipping WHERE item='$item[0]'  AND design='$design[0]' AND class='白瓷';";           // 포장율
             $rateBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
+            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';";        // chengpin stock
+            $stkChengpin = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
             $query = "SELECT sum(qty) FROM stock WHERE item='$item[0]'  AND design='$design[0]' AND class='包装物';";
             $stkBaozhuang = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
@@ -93,6 +96,9 @@ function orderCaihe() {
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]'  AND design='$design[0]' AND class='完成品';";
             $matChengpin = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
+            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='出库';";       // chuku
+            $chuku = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
             $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$share_design' AND class='彩盒';";
             $rateCaihe = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
@@ -101,9 +107,9 @@ function orderCaihe() {
             $qtyOrder = intval($carton) * intval($rateBaici);
             $qtyCaihe = intval($stkBaozhuang) + intval($matCaihe);
             $qtyCaiheWaixiang = intval($stkBaozhuangWaixiang) + intval($matCaiheWaixiang);
-            $qtyChengpin = intval($matChengpin) * intval($rateCaihe);
-            $qtySum = $qtyOrder - $qtyCaihe - $qtyChengpin;
-            $qtySumWaixiang = $qtyOrder - $qtyCaiheWaixiang - $qtyChengpin;
+            $qtyChengpin = (intval($stkChengpin) + intval($matChengpin) - intval($chuku)) * intval($rateCaihe);
+            $qtySum = $qtyCaihe - $qtyOrder - $qtyChengpin;
+            $qtySumWaixiang =  $qtyCaiheWaixiang - $qtyOrder - $qtyChengpin;
 
             $cell = sprintf($fmt_td[true], $item[0]);
             $cells = $cells . $cell;

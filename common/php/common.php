@@ -8,6 +8,7 @@ include_once 'table_payment.php';
 include_once 'order_baici.php';
 include_once 'order_caihe.php';
 include_once 'order_huazhi.php';
+include_once 'order_custom.php';
 if(!isset($_SESSION['user_id'])) {
     echo "<script>alert('请重新登录'); window.location = 'login.php'; </script>";
 }
@@ -49,6 +50,9 @@ if (array_key_exists('msg', $_POST)) {
     }
     if ($_POST['msg'] == 'orderHuazhi') {
         orderHuazhi();
+    }
+    if ($_POST['msg'] == 'orderCustom') {
+        orderCustom();
     }
     if ($_POST['msg'] == 'update') {
         update();
