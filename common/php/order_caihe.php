@@ -99,7 +99,8 @@ function orderCaihe() {
 
             if (substr($item[0], -6) == $waixiang)
             {
-                $itemName = substr($item[0], 0, strlen(substr($item[0], -6)) + 1);
+//                $itemName = substr($item[0], 0, strlen(substr($item[0], -6)) + 1);
+                $itemName = str_replace($waixiang, '', $item[0]);
             }
             else
             {
