@@ -83,14 +83,20 @@ class ToCSV {
         // csv를 담기 위한 빈 Array
         const csv = []
         const rows = document.querySelectorAll("#obc_table tr")
-        
+        const page = location.href.split("/").slice(-1)[0].split(".")[0];
+
         if (rows.length === 0) { alert('没有可以下载的桌子'); return; }
 
         for (let i = 0; i < rows.length; i++) {
-            const row = [], cols = rows[i].querySelectorAll("td, th")
+            const row = [], cols = rows[i].querySelectorAll("td, th");
 
-            for (let j = 0; j < cols.length; j++)
-                row.push(cols[j].innerText)
+            for (let j = 0; j < cols.length; j++) {
+                if (cols[j].localName === 'th' && page !== 'summary') {
+                    row.push(cols[j].querySelectorAll('div')[0].innerText);
+                } else {
+                    row.push(cols[j].innerText)
+                }
+            }
 
             csv.push(row.join(","))
         }
