@@ -79,36 +79,35 @@ function orderBaici() {
 
         $qtyOrder = intval($carton) * intval($rate);
         $qtyChengpin = (intval($stkChengpin) + intval($matChengpin) - intval($chuku)) * intval($rate);
-//        $sumChengpin = intval($stkChengpin) + intval($matChengpin) - intval($chuku);
         $qtyBaici = intval($stkBaici) + intval($matBaici) - intval($tiehuaA);
         $qtySum = $qtyBaici - $qtyOrder + $stkChengpin + $stkCaici;
 
-        $cell = sprintf($fmt_td[true], $item[0]);
+        $cell = sprintf($fmt_td[true], $item[0], '');
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['right'], $carton);
+        $cell = sprintf($fmt_td['right'], $carton, '');
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['right'], $qtyOrder);
+        $cell = sprintf($fmt_td['right'], $qtyOrder, '');
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['right'],$qtyBaici);
+        $cell = sprintf($fmt_td['right'],$qtyBaici, '');
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['right'], $qtyChengpin);
+        $cell = sprintf($fmt_td['right'], $qtyChengpin, '');
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['right'], $stkCaici);
+        $cell = sprintf($fmt_td['right'], $stkCaici, '');
         $cells = $cells . $cell;
 
         if ($qtySum < 0) {
-            $cell = sprintf($fmt_td['alert'], $qtySum);
+            $cell = sprintf($fmt_td['alert'], $qtySum, '');
         } else {
-            $cell = sprintf($fmt_td['right'], $qtySum);
+            $cell = sprintf($fmt_td['right'], $qtySum, '');
         }
         $cells = $cells . $cell;
 
-        $cell = sprintf($fmt_td['order'], $fmt_btn['order']);
+        $cell = sprintf($fmt_td['order'], $fmt_btn['order'], '');
         $cells = $cells . $cell;
 
         $tr = $tr . sprintf($fmt_tr, $cells);

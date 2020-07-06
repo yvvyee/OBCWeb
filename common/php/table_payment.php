@@ -42,7 +42,7 @@ function searchPayment() {
         foreach ($show as $key => $val) {
             // payment 페이지에서 숨겨지는 항목
             if ($key == 'no' || $key == 'month' || $key == 'supplier') {
-                $cell = sprintf($fmt_td[false], $row[$key]);
+                $cell = sprintf($fmt_td[false], $row[$key], '');
             }
             // 체크박스 상태에 맞게 테이블 내용 시각화
             else {
@@ -53,7 +53,7 @@ function searchPayment() {
                 if ($key == 'price') { $cellVal = $price; }
                 if ($key == 'total') { $cellVal = floatval($qty) * floatval($price); }
 
-                $cell = sprintf($fmt_td[$bval], $cellVal);
+                $cell = sprintf($fmt_td[$bval], $cellVal, '');
             }
             $cells = $cells . $cell;
         }

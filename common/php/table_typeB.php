@@ -72,17 +72,17 @@ function stockB($title) {
 
             if ($stock <= 0 && $material <= 0 && $subtract <= 0) { continue; }
 
-            $cell = sprintf($fmt_td[true], $item[0]); // 아이템 이름
+            $cell = sprintf($fmt_td[true], $item[0], ''); // 아이템 이름
             $cells_body = $cell;
-            $cell = sprintf($fmt_td['right'], $stock);
+            $cell = sprintf($fmt_td['right'], $stock, '');
             $cells_body = $cells_body . $cell;
-            $cell = sprintf($fmt_td['right'], $material);
+            $cell = sprintf($fmt_td['right'], $material, '');
             $cells_body = $cells_body . $cell;
-            $cell = sprintf($fmt_td['right'], $subtract);
+            $cell = sprintf($fmt_td['right'], $subtract, '');
             $cells_body = $cells_body . $cell;
 
             $sum = intval($stock) + intval($material) - intval($subtract);
-            $cell = sprintf($fmt_td['right'], $sum);
+            $cell = sprintf($fmt_td['right'], $sum, '');
             $cells_body = $cells_body . $cell;
 
             $tr = $tr . sprintf($fmt_tr, $cells_body);

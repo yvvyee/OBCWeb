@@ -4,6 +4,7 @@ include_once 'table_basic.php';
 include_once 'table_typeA.php';
 include_once 'table_typeB.php';
 include_once 'table_typeC.php';
+include_once 'table_typeD.php';
 include_once 'table_payment.php';
 include_once 'order_baici.php';
 include_once 'order_caihe.php';
@@ -33,10 +34,10 @@ if (array_key_exists('msg', $_POST)) {
             stockB('chengpin');
         }
         if ($_POST['title'] == '包装物') {
-            stockC('baozhuang');
+            stockC();
         }
         if ($_POST['title'] == '彩瓷') {
-            stockC('caici');
+            stockD();
         }
     }
     if ($_POST['msg'] == 'payment') {

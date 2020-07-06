@@ -87,32 +87,32 @@ function orderHuazhi() {
             $qtyChengpin = (intval($stkChengpin) + intval($matChengpin) - intval($chuku)) * intval($rate);
             $qtySum = $qtyHuazhi - $qtyOrder - $qtyChengpin - intval($stkCaici);
 
-            $cell = sprintf($fmt_td[true], $item[0]);
+            $cell = sprintf($fmt_td[true], $item[0], '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td[true], $design[0]);
+            $cell = sprintf($fmt_td[true], $design[0], '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['right'], $qtyOrder);
+            $cell = sprintf($fmt_td['right'], $qtyOrder, '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['right'], $qtyHuazhi);
+            $cell = sprintf($fmt_td['right'], $qtyHuazhi, '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['right'], $qtyChengpin);
+            $cell = sprintf($fmt_td['right'], $qtyChengpin, '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['right'], $stkCaici);
+            $cell = sprintf($fmt_td['right'], $stkCaici, '');
             $cells = $cells . $cell;
 
             if ($qtySum < 0) {
-                $cell = sprintf($fmt_td['alert'], $qtySum);
+                $cell = sprintf($fmt_td['alert'], $qtySum, '');
             } else {
-                $cell = sprintf($fmt_td['right'], $qtySum);
+                $cell = sprintf($fmt_td['right'], $qtySum, '');
             }
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td[true], $fmt_btn['order']);
+            $cell = sprintf($fmt_td[true], $fmt_btn['order'], '');
             $cells = $cells . $cell;
 
             $tr = $tr . sprintf($fmt_tr, $cells);

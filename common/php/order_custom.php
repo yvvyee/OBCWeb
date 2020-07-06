@@ -92,25 +92,25 @@ function orderCustom() {
             // 셀 작업
             $cells = "";
 
-            $cell = sprintf($fmt_td[true], $item[0]);
+            $cell = sprintf($fmt_td[true], $item[0], '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td[true], $design[0]);
+            $cell = sprintf($fmt_td[true], $design[0], '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['right'], $qtyOrder);
+            $cell = sprintf($fmt_td['right'], $qtyOrder, '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['right'], $qtyBaici);
+            $cell = sprintf($fmt_td['right'], $qtyBaici, '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['right'], $qtyHuazhi);
+            $cell = sprintf($fmt_td['right'], $qtyHuazhi, '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['right'], $qtyChengpin);
+            $cell = sprintf($fmt_td['right'], $qtyChengpin, '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td[true], $fmt_btn['order']);
+            $cell = sprintf($fmt_td[true], $fmt_btn['order'], '');
             $cells = $cells . $cell;
 
             $tr = $tr . sprintf($fmt_tr, $cells);

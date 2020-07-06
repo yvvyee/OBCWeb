@@ -28,21 +28,21 @@ function stockA() {
 
         $query = "SELECT qty FROM stock WHERE item='$item[0]' AND class='白瓷';"; // baici stock
         $stkBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-        $cell = sprintf($fmt_td['right'], $stkBaici);
+        $cell = sprintf($fmt_td['right'], $stkBaici, '');
         $cells = $cells . $cell;
 
         $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='白瓷';"; // baici material
         $matBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-        $cell = sprintf($fmt_td['right'], $matBaici);
+        $cell = sprintf($fmt_td['right'], $matBaici, '');
         $cells = $cells . $cell;
 
         $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='贴花';"; // tiehua with item only
         $tiehua = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-        $cell = sprintf($fmt_td['right'], $tiehua);
+        $cell = sprintf($fmt_td['right'], $tiehua, '');
         $cells = $cells . $cell;
 
         $sum = (intval($stkBaici) + intval($matBaici) - intval($tiehua));  // 합계수량
-        $cell = sprintf($fmt_td['right'], $sum);
+        $cell = sprintf($fmt_td['right'], $sum, '');
         $cells = $cells . $cell;
 
         $tr = $tr . sprintf($fmt_tr, $cells);

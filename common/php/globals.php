@@ -12,12 +12,12 @@ $fmt_th = array(
 );
 
 $fmt_td = array(
-    true    => '<td>%1$s</td>',
-    false   => '<td style=\'display: none\'>%1$s</td>',
+    true    => '<td name=\'%2$s\'>%1$s</td>',
+    false   => '<td name=\'%2$s\' style=\'display: none\'>%1$s</td>',
     'attr'  => '<td %1$s>%2$s</td>',
-    'alert' => '<td style=\'text-align: right; background-color: #993366; color: #ffffff\'>%1$s</td>',
-    'right' => '<td style=\'text-align: right\'>%1$s</td>',
-    'order' => '<td >%1$s</td>'
+    'alert' => '<td name=\'%2$s\' style=\'text-align: right; background-color: #993366; color: #ffffff\'>%1$s</td>',
+    'right' => '<td name=\'%2$s\' style=\'text-align: right\'>%1$s</td>',
+    'order' => '<td name=\'%2$s\'>%1$s</td>'
 );
 
 $fmt_btn = array(
