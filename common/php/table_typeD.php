@@ -71,8 +71,8 @@ function stockD() {
                 ($matChengpin == null || $matChengpin == '0' || empty($matChengpin)) &&
                 ($posun == null || $posun == '0' || empty($posun))) { continue; }
 
-            $subtract = intval($matChengpin) * intval($rate) + intval($posun);
-            $sum = (intval($stkCaici) + intval($matTiehua) - intval($subtract));    // 현재 재고
+            $subtract = intval($matChengpin) * intval($rate);
+            $sum = (intval($stkCaici) + intval($matTiehua) - intval($subtract) - intval($posun));    // 현재 재고
 
             $cell = sprintf($fmt_td[true], $item[0], '');
             $cells_body = $cell;
