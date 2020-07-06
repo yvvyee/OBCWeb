@@ -23,7 +23,7 @@ function stockA() {
     foreach ($items as $i => $item) {
         $cells = "";
 
-        $cell = sprintf($fmt_td[true], $item[0]); // 아이템 이름
+        $cell = sprintf($fmt_td[true], $item[0], ''); // 아이템 이름
         $cells = $cells . $cell;
 
         $query = "SELECT qty FROM stock WHERE item='$item[0]' AND class='白瓷';"; // baici stock
