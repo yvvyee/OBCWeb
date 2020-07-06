@@ -45,12 +45,21 @@ function orderCaihe() {
             {
                 array_push($designsShare, 'green共用');
             }
-        } else
+        }
+        else
         if (in_array($design[0], $share['bon&heim共用']))
         {
             if (!in_array('bon&heim共用', $designsShare))
             {
                 array_push($designsShare, 'bon&heim共用');
+            }
+        }
+        else
+        if (in_array($design[0], $share['白盒']))
+        {
+            if (!in_array('白盒', $designsShare))
+            {
+                array_push($designsShare, '白盒');
             }
         }
         else

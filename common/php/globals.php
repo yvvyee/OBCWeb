@@ -129,8 +129,9 @@ $relation = array(
 );
 
 $share = array(
-    'green共用' => ['8694', '7230'],
-    'bon&heim共用' => ['aileen', 'lavie', 'flora', 'wildflower']
+    'green共用'       => ['8694', '7230'],
+    'bon&heim共用'    => ['aileen', 'lavie', 'flora', 'wildflower'],
+    '白盒' => ['14167']
 );
 
 $sql_search_all         = 'SELECT * FROM %s ORDER BY no DESC';
