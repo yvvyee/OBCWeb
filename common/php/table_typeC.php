@@ -95,7 +95,7 @@ function stockC() {
                     array_push($cellArray, intval($matChengpin));
                     array_push($cellArrayWaixiang, intval($matChengpin));
 
-                    $query = "SELECT rate FROM shipping WHERE item='$itemName' AND design='$share_design' AND class='$classSubtr';"; // for subtraction
+                    $query = "SELECT rate FROM shipping WHERE item='$itemName' AND design='$share_design' AND class='彩盒';"; // for subtraction
                     $rate = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
                     $qty = intval($matChengpin) * intval($rate);
