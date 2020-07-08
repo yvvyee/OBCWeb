@@ -43,7 +43,7 @@ function orderCustom() {
                 $cells_head_2 .= sprintf($fmt_th[true], 'Order');
                 $cells_head_2 .= sprintf($fmt_th[true], $translate['chengpin']);
                 $cells_head_2 .= sprintf($fmt_th[true], $translate['caici']);
-                $cells_head_2 .= sprintf($fmt_th[true], '未包彩瓷');
+                $cells_head_2 .= sprintf($fmt_th[true], '未包');
                 $cells_head_2 .= sprintf($fmt_th[true], $translate['order']);
 
                 $tr1 = sprintf($fmt_tr, $cells_head_1);
