@@ -11,7 +11,7 @@ include_once 'order_caihe.php';
 include_once 'order_huazhi.php';
 include_once 'order_custom.php';
 if(!isset($_SESSION['user_id'])) {
-    echo "<script>alert('请重新登录'); window.location = 'login.php'; </script>";
+    echo "<script> window.location = 'login.php'; </script>";
 }
 if (array_key_exists('msg', $_POST)) {
     if ($_POST['msg'] == 'setInput') {
