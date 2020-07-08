@@ -39,13 +39,15 @@ function orderCustom() {
                 $cells = $cells . $cell;
                 $cell = sprintf($fmt_th[true], $translate['design']);
                 $cells = $cells . $cell;
-                $cell = sprintf($fmt_th[true], $translate['orderqty']);
-                $cells = $cells . $cell;
-                $cell = sprintf($fmt_th[true], $translate['baici']);
-                $cells = $cells . $cell;
-                $cell = sprintf($fmt_th[true], $translate['huazhi']);
+                $cell = sprintf($fmt_th[true], 'Order');
                 $cells = $cells . $cell;
                 $cell = sprintf($fmt_th[true], $translate['chengpin']);
+                $cells = $cells . $cell;
+                $cell = sprintf($fmt_th[true], $translate['caici']);
+                $cells = $cells . $cell;
+                $cell = sprintf($fmt_th[true], $translate['rate']);
+                $cells = $cells . $cell;
+                $cell = sprintf($fmt_th[true], '未包彩瓷');
                 $cells = $cells . $cell;
                 $cell = sprintf($fmt_th[true], $translate['order']);
                 $cells = $cells . $cell;
@@ -59,36 +61,59 @@ function orderCustom() {
             $carton = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             if ($carton == null) { continue; } // 주문정보 없음
 
-            $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$design[0]' AND class='白瓷';";           // 포장율
-            $rate = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='彩瓷';"; // stock
+            $stkCaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
-            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND class='白瓷';";                                    // baici stock
-            $stkBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='花纸';";           // huazhi stock
-            $stkHuazhi = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='贴花';"; // material
+            $matTiehua = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
             $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';";        // chengpin stock
             $stkChengpin = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
-            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='白瓷';";                            // baici material
-            $matBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='花纸';";   // huazhi material
-            $matHuazhi = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';"; // chengpin material
+            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';"; // 완성품
             $matChengpin = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
-            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='贴花';";                               // tiehua with item only
-            $tiehuaA = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='贴花';"; // tiehua with item and design
-            $tiehuaC = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+            $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$design[0]' AND class='彩瓷';";
+            $rateCaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
+            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='破损';";
+            $posun = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
+            $query = "SELECT rate FROM shipping WHERE item='$item[0]' AND design='$design[0]' AND class='白瓷';";           // 포장율
+            $rateBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
+//            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND class='白瓷';";                                    // baici stock
+//            $stkBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='花纸';";           // huazhi stock
+//            $stkHuazhi = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT qty FROM stock WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';";        // chengpin stock
+//            $stkChengpin = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//
+//            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='白瓷';";                            // baici material
+//            $matBaici = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='花纸';";   // huazhi material
+//            $matHuazhi = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='完成品';"; // chengpin material
+//            $matChengpin = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//
+//            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND class='贴花';";                               // tiehua with item only
+//            $tiehuaA = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+//            $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='贴花';"; // tiehua with item and design
+//            $tiehuaC = mysqli_fetch_array(mysqli_query($conn, $query))[0];
+
             $query = "SELECT sum(qty) FROM material WHERE item='$item[0]' AND design='$design[0]' AND class='出库';";       // chuku
             $chuku = mysqli_fetch_array(mysqli_query($conn, $query))[0];
             
             // 계산
-            $qtyOrder = intval($carton) * intval($rate);
-            $qtyBaici = intval($stkBaici) + intval($matBaici) - intval($tiehuaA);
-            $qtyHuazhi = intval($stkHuazhi) + intval($matHuazhi) - intval($tiehuaC);
+//            $qtyOrder = intval($carton) * intval($rate);
+            $qtyOrder = intval($carton);
+//            $qtyBaici = intval($stkBaici) + intval($matBaici) - intval($tiehuaA);
+//            $qtyHuazhi = intval($stkHuazhi) + intval($matHuazhi) - intval($tiehuaC);
             $qtyChengpin = intval($stkChengpin) + intval($matChengpin) - intval($chuku);
-            
+            $subtract = intval($matChengpin) * intval($rateCaici);
+            $sumCaici = (intval($stkCaici) + intval($matTiehua) - intval($subtract) - intval($posun));
+            $qtyWeibao = $sumCaici / intval($rateBaici);
+
             // 셀 작업
             $cells = "";
 
@@ -98,16 +123,24 @@ function orderCustom() {
             $cell = sprintf($fmt_td[true], $design[0], '');
             $cells = $cells . $cell;
 
-            $cell = sprintf($fmt_td['right'], $qtyOrder, '');
-            $cells = $cells . $cell;
-
-            $cell = sprintf($fmt_td['right'], $qtyBaici, '');
-            $cells = $cells . $cell;
-
-            $cell = sprintf($fmt_td['right'], $qtyHuazhi, '');
+            if ($qtyChengpin < $qtyOrder) {
+                $cell = sprintf($fmt_td['alert'], $qtyOrder, '');
+            } else {
+                $cell = sprintf($fmt_td['right'], $qtyOrder, '');
+            }
+//            $cell = sprintf($fmt_td['right'], $qtyOrder, '');
             $cells = $cells . $cell;
 
             $cell = sprintf($fmt_td['right'], $qtyChengpin, '');
+            $cells = $cells . $cell;
+
+            $cell = sprintf($fmt_td['right'], $sumCaici, '');
+            $cells = $cells . $cell;
+
+            $cell = sprintf($fmt_td['right'], $rateBaici, '');
+            $cells = $cells . $cell;
+
+            $cell = sprintf($fmt_td['right'], $qtyWeibao, '');
             $cells = $cells . $cell;
 
             $cell = sprintf($fmt_td[true], $fmt_btn['order'], '');
