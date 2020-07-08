@@ -159,6 +159,16 @@ function craeteSubmitMsg(ctl) {
         data['page'] = 'ordering';
         data['cols'] = cols;
     }
+    if (ctl.name === 'orderCustom') {
+        var ibox = document.getElementsByClassName('input_box')
+        var cols = {};
+        for (var i = 0; i < ibox.length; i++) {
+            if (ibox[i].id.split('_')[1] === page && ibox[i].id === 'ibox_custom_orderno') {
+                cols[ibox[i].name] = ibox[i].value;
+            }
+        }
+        data['cols'] = cols;
+    }
     if (ctl.name === 'stock') {
         data['title'] = ctl.value;
     }
