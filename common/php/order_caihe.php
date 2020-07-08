@@ -88,10 +88,6 @@ function orderCaihe() {
                 $cells = $cells . $cell;
                 $cell = sprintf($fmt_th[true], $translate['orderqty']);
                 $cells = $cells . $cell;
-//                $cell = sprintf($fmt_th[true], $translate['waixiang']);
-//                $cells = $cells . $cell;
-//                $cell = sprintf($fmt_th[true], $translate['orderqty']);
-//                $cells = $cells . $cell;
                 $cell = sprintf($fmt_th[true], $translate['order']);
                 $cells = $cells . $cell;
                 $tr = sprintf($fmt_tr, $cells);
@@ -108,19 +104,12 @@ function orderCaihe() {
 
             if (substr($item[0], -6) == $waixiang)
             {
-//                $itemName = substr($item[0], 0, strlen(substr($item[0], -6)) + 1);
                 $itemName = str_replace($waixiang, '', $item[0]);
             }
             else
             {
                 $itemName = $item[0];
             }
-
-//            $query = "SELECT qty FROM stock WHERE item='$item[0].$waixiang' AND design='$design' AND class='包装物';"; // stock
-//            $stkBaozhuangWaixiang = mysqli_fetch_array(mysqli_query($conn, $query))[0];
-
-//            $query = "SELECT sum(qty) FROM material WHERE item='$item[0].$waixiang' AND design='$design' AND class='彩盒';"; // material
-//            $matCaiheWaixiang = mysqli_fetch_array(mysqli_query($conn, $query))[0];
 
             if (!array_key_exists($design, $share)) // 비공용
             {
@@ -204,7 +193,6 @@ function orderCaihe() {
 
             $qtyCaihe = intval($stkBaozhuang) + intval($matCaihe);
             $qtySum = $qtyCaihe - $qtyOrder - $qtyChengpin;
-//            $qtySumWaixiang = $qtyCaiheWaixiang - $qtyOrder - $qtyMatChengpin;
 
             $cell = sprintf($fmt_td[true], $item[0], '');
             $cells = $cells . $cell;
@@ -227,16 +215,6 @@ function orderCaihe() {
                 $cell = sprintf($fmt_td['right'], $qtySum, '');
             }
             $cells = $cells . $cell;
-
-//            $cell = sprintf($fmt_td[true], $item[0] . $waixiang, '');
-//            $cells = $cells . $cell;
-
-//            if ($qtySumWaixiang < 0) {
-//                $cell = sprintf($fmt_td['alert'], $qtySumWaixiang, '');
-//            } else {
-//                $cell = sprintf($fmt_td['right'], $qtySumWaixiang, '');
-//            }
-//            $cells = $cells . $cell;
 
             $cell = sprintf($fmt_td[true], $fmt_btn['order'], '');
             $cells = $cells . $cell;

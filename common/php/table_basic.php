@@ -100,8 +100,6 @@ function search() {
     global $translate;
     global $fmt_btn;
 
-    $color = random_color();
-
     $tname = $_POST['page'];
     $show = $_POST['show'];
     $cols = $_POST['cols'];
@@ -139,7 +137,7 @@ function search() {
         $tr = $tr . sprintf($fmt_tr, $cells);
     }
     // 테이블 바디
-    $tbody = sprintf($fmt_row, 'tbody', $color, $tr);
+    $tbody = sprintf($fmt_row, 'tbody', 'none', $tr);
 
     // 테이블 헤더 부분
     $cells = "";
@@ -159,7 +157,7 @@ function search() {
     $cells = $cells . $cell;
     // Row
     $tr = sprintf($fmt_tr, $cells);
-    $thead = sprintf($fmt_row, 'thead', $color, $tr);
+    $thead = sprintf($fmt_row, 'thead', 'none', $tr);
 
     $new_table = sprintf($fmt_table, $condition, $thead . $tbody);
     echo "<script type='text/html' id='temp_page'>$new_table</script>";

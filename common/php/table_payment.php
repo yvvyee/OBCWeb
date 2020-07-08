@@ -10,8 +10,6 @@ function searchPayment() {
     global $fmt_table;
     global $translate;
 
-    $color = random_color();
-
     $tname = 'material';
     $show = $_POST['show'];
     $cols = $_POST['cols'];
@@ -61,7 +59,7 @@ function searchPayment() {
         $tr = $tr . sprintf($fmt_tr, $cells);
     }
     // 테이블 바디
-    $tbody = sprintf($fmt_row, 'tbody', $color, $tr);
+    $tbody = sprintf($fmt_row, 'tbody', 'none', $tr);
 
     // 테이블 헤더 부분
     $cells = "";
@@ -76,7 +74,7 @@ function searchPayment() {
     }
     // Row
     $tr = sprintf($fmt_tr, $cells);
-    $thead = sprintf($fmt_row, 'thead', $color, $tr);
+    $thead = sprintf($fmt_row, 'thead', 'none', $tr);
 
     $condition .= " / 整体合计 = $sum";
 

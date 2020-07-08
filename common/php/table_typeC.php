@@ -44,7 +44,6 @@ function stockC() {
                 $cells_head_2 .= sprintf($fmt_th[true],'期初');
                 $cells_head_2 .= sprintf($fmt_th[true],'彩盒');
 
-//                if ($design[0] == 'green共用' || $design[0] == 'bon&heim共用') // 포장물 공용
                 if (array_key_exists($design[0], $share))
                 {
                     $cells_head_1 .= sprintf($fmt_th['attr'],"colspan='2'", $design[0]);
@@ -78,7 +77,6 @@ function stockC() {
 
             if (substr($item[0], -6) == $waixiang)
             {
-//                $itemName = substr($item[0], 0, strlen(substr($item[0], -6)) + 1);
                 $itemName = str_replace($waixiang, '', $item[0]);
             }
             else
@@ -88,7 +86,7 @@ function stockC() {
 
             $cellArray = array();
             $cellArrayWaixiang = array();
-//            if ($design[0] == 'green共用' || $design[0] == 'bon&heim共用') {
+
             if (array_key_exists($design[0], $share)) {
                 $matShare = array();
                 $matShareWaixiang = array();

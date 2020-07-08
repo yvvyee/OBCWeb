@@ -257,7 +257,6 @@ function submit_to_server(data, ctl) {
                 window.location.href = 'login.php';
             }
             if (ctl.name === 'ordering') {
-                // alert("订货储存完毕!");
             }
         }
     });

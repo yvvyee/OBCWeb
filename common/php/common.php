@@ -88,49 +88,6 @@ if (array_key_exists('msg', $_POST)) {
     }
 }
 
-function random_color_part() {
-    return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
-}
-
-function random_color() {
-    return random_color_part() . random_color_part() . random_color_part();
-}
-
-function getAmount($select, $table, $condition) : string {
-    global $conn;
-    global $sql_search_one;
-    $sql = sprintf($sql_search_one, $select, $table, $condition);
-    $res = mysqli_fetch_array(mysqli_query($conn, $sql))[0];
-
-    if ($res != null) {
-        return $res;
-    } else {
-        return 0;
-    }
-}
-
-function calcByItem($clsA, $clsB, $item) : string {
-    $cond = makeCondition(array('class'=>$clsA, 'item'=>$item));
-    $stk = getAmount('qty', 'stock', $cond);
-    $mat = getAmount('sum(qty)', 'material', $cond);
-
-    $cond = makeCondition(array('class'=>$clsB, 'item'=>$item));
-    $sub = getAmount('sum(qty)', 'material', $cond);
-
-    return (intval($stk) + intval($mat) - intval($sub));
-}
-
-function calcByItemDesign($clsA, $clsB, $item, $design) : string {
-    $cond = makeCondition(array('class'=>$clsA, 'item'=>$item, 'design'=>$design));
-    $stk = getAmount('qty', 'stock', $cond);
-    $mat = getAmount('sum(qty)', 'material', $cond);
-
-    $cond = makeCondition(array('class'=>$clsB, 'item'=>$item, 'design'=>$design));
-    $sub = getAmount('sum(qty)', 'material', $cond);
-
-    return (intval($stk) + intval($mat) - intval($sub));
-}
-
 function updateDatalist($kind, $where) {
     global $conn;
     $sql = "SELECT DISTINCT {$kind} FROM $where";
