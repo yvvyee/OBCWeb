@@ -104,6 +104,11 @@ function search() {
     $show = $_POST['show'];
     $cols = $_POST['cols'];
 
+    // 공백제거
+    foreach ($cols as $key => $val) {
+        $cols[$key] = str_replace(' ', '', $val);
+    }
+
     $condition = makeCondition($cols);
 
     if ($condition == '整体搜索') {
@@ -178,6 +183,10 @@ function save() {
     $vals = '';
     $into = '';
     foreach ($cols as $key => $val) {
+        // 공백제거
+        $cols[$key] = str_replace(' ', '', $val);
+        
+        // 조건 쿼리
         if ($key != 'no') {
             $vals = $vals . "'$val'". ', ';
             $into = $into . $key. ', ';
@@ -226,9 +235,14 @@ function update() {
 
     $tname = $_POST['page'];
     $cols = $_POST['cols'];
+    
     $set = "";
     $where = "no = ";
     foreach ($cols as $key => $val) {
+        // 공백제거
+        $cols[$key] = str_replace(' ', '', $val);
+        
+        // 조건 쿼리
         if ($key == 'no') {
             $where = $where . "$val";
         } else {
@@ -252,71 +266,3 @@ function del() {
 
     echo mysqli_query($conn, $query);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//            if ($key == 'edit' || $key == 'del' || $key == 'order') {
-//                $cell = sprintf($fmt_td[$val], 'td', $key, $fmt_btn[$key]);
-//            }
-//
-//            else if ($tname == 'custom' && $key == 'qty') {
-//
-//                $cond = makeCondition(array(
-//                    'item' => $row['item'],
-//                    'design' => $row['design'],
-//                    'class' => '白瓷'
-//                ));
-//                $sql = sprintf($sql_search_one, 'rate', 'shipping', $cond);
-//
-//                $output = mysqli_query($conn, $sql);
-//                $rate = mysqli_fetch_array($output);
-//
-//                if ($rate) {
-//                    $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", intval($row[$key]) * intval($rate['rate']));
-//                } else {
-//                    $cell = sprintf($fmt_td['alert'], 'td', $key, intval($row[$key]));
-//                }
-//            }
-//
-//            else if (($tname == 'material') && ($key == 'total' || $key == 'price')) {
-//                $cond = makeCondition(array(
-//                    'supplier'  => $row['supplier'],
-//                    'item'      => $row['item'],
-//                    'design'    => $row['design'],
-//                    'class'     => $row['class']
-//                ));
-//                $sql = sprintf($sql_search_one, 'price', 'price', $cond);
-//                $output = mysqli_query($conn, $sql);
-//                $price = mysqli_fetch_array($output);
-//
-//                if ($key == 'total') {
-//                    if ($price) {
-//                        $result = floatval($row['qty']) * floatval($price[0]);
-//                        $sum += $result;
-//                        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $result);
-//                    } else {
-//                        $cell = sprintf($fmt_td['alert'], 'td', $key, '');
-//                    }
-//                }
-//                if ($key == 'price') {
-//                    if ($price) {
-//                        $cell = sprintf($fmt_td['attr'], 'td', "style='text-align: right'", $price[0]);
-//                    } else {
-//                        $cell = sprintf($fmt_td['alert'], 'td', $key, '');
-//                    }
-//                }
-//            }
